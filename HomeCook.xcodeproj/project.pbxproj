@@ -21,7 +21,6 @@
 		43F926E22391729500F18E47 /* CookCurrentConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F926E12391729500F18E47 /* CookCurrentConfigurator.swift */; };
 		43F926E4239172DC00F18E47 /* CookHistoryConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F926E3239172DC00F18E47 /* CookHistoryConfigurator.swift */; };
 		43F926E62391754B00F18E47 /* CookCurrentProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F926E52391754B00F18E47 /* CookCurrentProtocols.swift */; };
-		43F926E8239178F200F18E47 /* CookTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F926E7239178F200F18E47 /* CookTabBarController.swift */; };
 		43F926EA23917F4A00F18E47 /* CookHistoryProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F926E923917F4A00F18E47 /* CookHistoryProtocols.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,7 +41,6 @@
 		43F926E12391729500F18E47 /* CookCurrentConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookCurrentConfigurator.swift; sourceTree = "<group>"; };
 		43F926E3239172DC00F18E47 /* CookHistoryConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookHistoryConfigurator.swift; sourceTree = "<group>"; };
 		43F926E52391754B00F18E47 /* CookCurrentProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookCurrentProtocols.swift; sourceTree = "<group>"; };
-		43F926E7239178F200F18E47 /* CookTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookTabBarController.swift; sourceTree = "<group>"; };
 		43F926E923917F4A00F18E47 /* CookHistoryProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookHistoryProtocols.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -161,7 +159,6 @@
 		43F926DB2391714D00F18E47 /* CookModule */ = {
 			isa = PBXGroup;
 			children = (
-				43F926E7239178F200F18E47 /* CookTabBarController.swift */,
 				43F926C923915CFB00F18E47 /* CookCurrentSubmodule */,
 				43F926CE2391605500F18E47 /* CookHistorySubmodule */,
 			);
@@ -247,7 +244,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				43F926C7239157D100F18E47 /* SearchView.swift in Sources */,
-				43F926E8239178F200F18E47 /* CookTabBarController.swift in Sources */,
 				43F926E62391754B00F18E47 /* CookCurrentProtocols.swift in Sources */,
 				43F926D52391627B00F18E47 /* BuySavedView.swift in Sources */,
 				43F926D8239168DD00F18E47 /* MainConfigurator.swift in Sources */,

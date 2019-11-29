@@ -38,14 +38,16 @@ class MainViewController: UIViewController {
         return button
     }()
     
+    var clickedOnSearchButton: (() -> Void)?
+    var clickedOnBuyButton: (() -> Void)?
+    var clickedOnCookButton: (() -> Void)?
+    
     @objc func tappedSearchButton() {
-        let searchViewController = SearchViewController()
-        Router.shared.push(viewController: searchViewController, animated: true)
+        clickedOnSearchButton?()
     }
     
     @objc func tappedCookButton() {
-        let cookTabBarController = CookTabBarController()
-        Router.shared.push(viewController: cookTabBarController, animated: true)
+        clickedOnCookButton?()
     }
     
     override func viewDidLoad() {
