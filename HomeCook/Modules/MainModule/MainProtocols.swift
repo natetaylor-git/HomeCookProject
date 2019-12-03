@@ -11,3 +11,4 @@ import UIKit
 protocol MainConfiguratorProtocol: class {
     func configure(with viewController: MainViewController)
 }
+

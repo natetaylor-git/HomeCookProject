@@ -13,9 +13,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var router: Router?
+//    var localRecipes: LocalRecipesCollection?
+//    var localRecipesImages: LocalImagesCollection?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+//        self.localRecipes = LocalRecipesCollection()
+//        self.localRecipesImages = LocalImagesCollection()
+        
         self.window = UIWindow()
         self.window?.backgroundColor = .white
         self.window?.rootViewController = Router.shared.navigationController

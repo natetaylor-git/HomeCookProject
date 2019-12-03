@@ -10,6 +10,7 @@ import UIKit
 
 class Router {
     var navigationController: UINavigationController?
+//    private var detailedRecipe: DetailedRecipeEntity?
     
     static let shared: Router = {
         let mainViewController = MainViewController()
@@ -38,22 +39,40 @@ class Router {
     
     private func showSearchScreen() {
         let searchViewController = SearchViewController()
+        let configurator = SearchConfigurator()
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        configurator.configure(with: searchViewController)
+        searchViewController.clickedOnCell = { [weak self] recipeEntity in
+            self?.showRecipeDetailsScreen(recipeInfo: recipeEntity)
+        }
+        
+        searchViewController.navigationItem.backBarButtonItem = backButton
         self.navigationController?.pushViewController(searchViewController, animated: true)
+    }
+    
+    private func showRecipeDetailsScreen(recipeInfo: DetailedRecipeEntity) {
+        let recipeDetailsController = RecipeDetailsViewController()
+        let configurator = RecipeDetailsConfigurator()
+        configurator.configure(with: recipeDetailsController, recipeEntity: recipeInfo)
+        recipeDetailsController.navigationItem.title = recipeInfo.recipe.name
+        self.navigationController?.pushViewController(recipeDetailsController, animated: true)
     }
     
     private func showCookScreen() {
         let currentController = CookCurrentViewController()
         let historyController = CookHistoryViewController()
-        
+
         let item1 = UITabBarItem(title: "Current", image: nil, tag: 1)
         let item2 = UITabBarItem(title: "History", image: nil, tag: 2)
-        
+
         currentController.tabBarItem = item1
         historyController.tabBarItem = item2
-        
+
         let cookTabBarController = UITabBarController()
         cookTabBarController.viewControllers = [currentController, historyController]
         self.navigationController?.pushViewController(cookTabBarController, animated: true)
+//        let historyController = CookHistoryViewController()
+//        self.navigationController?.pushViewController(historyController, animated: true)
     }
     
     func push(viewController: UIViewController, animated: Bool) {

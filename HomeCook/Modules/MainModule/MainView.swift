@@ -14,7 +14,7 @@ class MainViewController: UIViewController {
 
     let searchButton: UIButton = {
         let button = UIButton()
-        button.imageView?.image = UIImage(named: "SearchIcon")
+//        button.setImage(UIImage(named: "SearchIcon"), for: .normal)
         button.backgroundColor = .lightGray
         button.setTitle("Search", for: .normal)
         button.addTarget(self, action: #selector(tappedSearchButton), for: .touchUpInside)
@@ -23,7 +23,6 @@ class MainViewController: UIViewController {
     
     let buyButton: UIButton = {
         let button = UIButton()
-        button.imageView?.image = UIImage(named: "BuyIcon")
         button.backgroundColor = .lightGray
         button.setTitle("Buy", for: .normal)
         return button
@@ -31,7 +30,8 @@ class MainViewController: UIViewController {
     
     let cookButton: UIButton = {
         let button = UIButton()
-        button.imageView?.image = UIImage(named: "CookIcon")
+        button.setImage(UIImage(named: "CookIcon"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
         button.backgroundColor = .lightGray
         button.setTitle("Cook", for: .normal)
         button.addTarget(self, action: #selector(tappedCookButton), for: .touchUpInside)

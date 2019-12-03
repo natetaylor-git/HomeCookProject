@@ -7,6 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4348DFF22395D60A009D69CA /* ImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348DFF12395D60A009D69CA /* ImageButton.swift */; };
+		4348DFF52395DBD4009D69CA /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348DFF42395DBD4009D69CA /* FiltersView.swift */; };
+		4348DFF72395E978009D69CA /* DropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348DFF62395E978009D69CA /* DropDownView.swift */; };
+		4348DFF92396CB4E009D69CA /* DropFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348DFF82396CB4E009D69CA /* DropFilter.swift */; };
+		4348DFFB2396CB84009D69CA /* SimpleFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348DFFA2396CB84009D69CA /* SimpleFilter.swift */; };
+		4348DFFD2396CC39009D69CA /* DropDownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348DFFC2396CC39009D69CA /* DropDownMenu.swift */; };
+		43EF9DFE2393356500B0AAEE /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF9DFD2393356500B0AAEE /* NetworkService.swift */; };
+		43EF9E00239336C400B0AAEE /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF9DFF239336C400B0AAEE /* MainPresenter.swift */; };
+		43EF9E02239336D700B0AAEE /* MainInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF9E01239336D700B0AAEE /* MainInteractor.swift */; };
+		43EF9E042393381F00B0AAEE /* RecipeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF9E032393381F00B0AAEE /* RecipeModels.swift */; };
+		43EF9E062393502000B0AAEE /* LocalRecipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF9E052393502000B0AAEE /* LocalRecipes.swift */; };
+		43EF9E0823935A8000B0AAEE /* LocalImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF9E0723935A8000B0AAEE /* LocalImages.swift */; };
+		43EF9E0A23935CC200B0AAEE /* SearchProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF9E0923935CC200B0AAEE /* SearchProtocols.swift */; };
+		43EF9E0C23935CE500B0AAEE /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF9E0B23935CE500B0AAEE /* SearchPresenter.swift */; };
+		43EF9E0E23935D1F00B0AAEE /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF9E0D23935D1F00B0AAEE /* SearchInteractor.swift */; };
+		43EF9E1023935E6200B0AAEE /* SearchConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF9E0F23935E6200B0AAEE /* SearchConfigurator.swift */; };
+		43EF9E1223936AEA00B0AAEE /* SessionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF9E1123936AEA00B0AAEE /* SessionFactory.swift */; };
+		43EF9E152394129B00B0AAEE /* RecipeDetailsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF9E142394129B00B0AAEE /* RecipeDetailsProtocols.swift */; };
+		43EF9E17239412A500B0AAEE /* RecipeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF9E16239412A500B0AAEE /* RecipeDetailsView.swift */; };
+		43EF9E19239412C000B0AAEE /* RecipeDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF9E18239412C000B0AAEE /* RecipeDetailsPresenter.swift */; };
+		43EF9E1B239412C900B0AAEE /* RecipeDetailsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF9E1A239412C900B0AAEE /* RecipeDetailsInteractor.swift */; };
+		43EF9E1D239412DB00B0AAEE /* RecipeDetailsConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF9E1C239412DB00B0AAEE /* RecipeDetailsConfigurator.swift */; };
+		43EF9E1F23941D2C00B0AAEE /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF9E1E23941D2C00B0AAEE /* Entities.swift */; };
+		43EF9E2123959D6100B0AAEE /* RecipeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF9E2023959D6100B0AAEE /* RecipeDetailView.swift */; };
 		43F926B22391527300F18E47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F926B12391527300F18E47 /* AppDelegate.swift */; };
 		43F926B42391527300F18E47 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F926B32391527300F18E47 /* MainView.swift */; };
 		43F926B92391527400F18E47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43F926B82391527400F18E47 /* Assets.xcassets */; };
@@ -22,9 +46,34 @@
 		43F926E4239172DC00F18E47 /* CookHistoryConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F926E3239172DC00F18E47 /* CookHistoryConfigurator.swift */; };
 		43F926E62391754B00F18E47 /* CookCurrentProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F926E52391754B00F18E47 /* CookCurrentProtocols.swift */; };
 		43F926EA23917F4A00F18E47 /* CookHistoryProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F926E923917F4A00F18E47 /* CookHistoryProtocols.swift */; };
+		43F926EF2393018700F18E47 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F926EE2393018700F18E47 /* API.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4348DFF12395D60A009D69CA /* ImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButton.swift; sourceTree = "<group>"; };
+		4348DFF42395DBD4009D69CA /* FiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
+		4348DFF62395E978009D69CA /* DropDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownView.swift; sourceTree = "<group>"; };
+		4348DFF82396CB4E009D69CA /* DropFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropFilter.swift; sourceTree = "<group>"; };
+		4348DFFA2396CB84009D69CA /* SimpleFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleFilter.swift; sourceTree = "<group>"; };
+		4348DFFC2396CC39009D69CA /* DropDownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownMenu.swift; sourceTree = "<group>"; };
+		43EF9DFD2393356500B0AAEE /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		43EF9DFF239336C400B0AAEE /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
+		43EF9E01239336D700B0AAEE /* MainInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInteractor.swift; sourceTree = "<group>"; };
+		43EF9E032393381F00B0AAEE /* RecipeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeModels.swift; sourceTree = "<group>"; };
+		43EF9E052393502000B0AAEE /* LocalRecipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRecipes.swift; sourceTree = "<group>"; };
+		43EF9E0723935A8000B0AAEE /* LocalImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalImages.swift; sourceTree = "<group>"; };
+		43EF9E0923935CC200B0AAEE /* SearchProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProtocols.swift; sourceTree = "<group>"; };
+		43EF9E0B23935CE500B0AAEE /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
+		43EF9E0D23935D1F00B0AAEE /* SearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInteractor.swift; sourceTree = "<group>"; };
+		43EF9E0F23935E6200B0AAEE /* SearchConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchConfigurator.swift; sourceTree = "<group>"; };
+		43EF9E1123936AEA00B0AAEE /* SessionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionFactory.swift; sourceTree = "<group>"; };
+		43EF9E142394129B00B0AAEE /* RecipeDetailsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailsProtocols.swift; sourceTree = "<group>"; };
+		43EF9E16239412A500B0AAEE /* RecipeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailsView.swift; sourceTree = "<group>"; };
+		43EF9E18239412C000B0AAEE /* RecipeDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailsPresenter.swift; sourceTree = "<group>"; };
+		43EF9E1A239412C900B0AAEE /* RecipeDetailsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailsInteractor.swift; sourceTree = "<group>"; };
+		43EF9E1C239412DB00B0AAEE /* RecipeDetailsConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailsConfigurator.swift; sourceTree = "<group>"; };
+		43EF9E1E23941D2C00B0AAEE /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
+		43EF9E2023959D6100B0AAEE /* RecipeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
 		43F926AE2391527300F18E47 /* HomeCook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeCook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43F926B12391527300F18E47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43F926B32391527300F18E47 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -42,6 +91,7 @@
 		43F926E3239172DC00F18E47 /* CookHistoryConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookHistoryConfigurator.swift; sourceTree = "<group>"; };
 		43F926E52391754B00F18E47 /* CookCurrentProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookCurrentProtocols.swift; sourceTree = "<group>"; };
 		43F926E923917F4A00F18E47 /* CookHistoryProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookHistoryProtocols.swift; sourceTree = "<group>"; };
+		43F926EE2393018700F18E47 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +105,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4348DFF32395D62B009D69CA /* CustomClasses */ = {
+			isa = PBXGroup;
+			children = (
+				4348DFFF2396CD14009D69CA /* DropDownPicker */,
+				4348DFFE2396CCFB009D69CA /* Filters */,
+				43EF9E2023959D6100B0AAEE /* RecipeDetailView.swift */,
+				4348DFF12395D60A009D69CA /* ImageButton.swift */,
+			);
+			path = CustomClasses;
+			sourceTree = "<group>";
+		};
+		4348DFFE2396CCFB009D69CA /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				4348DFF42395DBD4009D69CA /* FiltersView.swift */,
+				4348DFF82396CB4E009D69CA /* DropFilter.swift */,
+				4348DFFA2396CB84009D69CA /* SimpleFilter.swift */,
+			);
+			path = Filters;
+			sourceTree = "<group>";
+		};
+		4348DFFF2396CD14009D69CA /* DropDownPicker */ = {
+			isa = PBXGroup;
+			children = (
+				4348DFF62395E978009D69CA /* DropDownView.swift */,
+				4348DFFC2396CC39009D69CA /* DropDownMenu.swift */,
+			);
+			path = DropDownPicker;
+			sourceTree = "<group>";
+		};
+		43EF9E132394127600B0AAEE /* RecipeDetailsModule */ = {
+			isa = PBXGroup;
+			children = (
+				43EF9E142394129B00B0AAEE /* RecipeDetailsProtocols.swift */,
+				43EF9E1C239412DB00B0AAEE /* RecipeDetailsConfigurator.swift */,
+				43EF9E1A239412C900B0AAEE /* RecipeDetailsInteractor.swift */,
+				43EF9E18239412C000B0AAEE /* RecipeDetailsPresenter.swift */,
+				43EF9E16239412A500B0AAEE /* RecipeDetailsView.swift */,
+			);
+			path = RecipeDetailsModule;
+			sourceTree = "<group>";
+		};
 		43F926A52391527300F18E47 = {
 			isa = PBXGroup;
 			children = (
@@ -74,8 +166,11 @@
 		43F926B02391527300F18E47 /* HomeCook */ = {
 			isa = PBXGroup;
 			children = (
+				43F926EC2393016C00F18E47 /* Services */,
+				43F926EB2393002700F18E47 /* Entity */,
 				43F926D12391611800F18E47 /* Router */,
 				43F926C32391528A00F18E47 /* Modules */,
+				4348DFF32395D62B009D69CA /* CustomClasses */,
 				43F926B12391527300F18E47 /* AppDelegate.swift */,
 				43F926B82391527400F18E47 /* Assets.xcassets */,
 				43F926BD2391527400F18E47 /* Info.plist */,
@@ -88,6 +183,7 @@
 			children = (
 				43F926C42391529200F18E47 /* MainModule */,
 				43F926C5239157B500F18E47 /* SearchModule */,
+				43EF9E132394127600B0AAEE /* RecipeDetailsModule */,
 				43F926DC2391716400F18E47 /* BuySubModules */,
 				43F926DB2391714D00F18E47 /* CookModule */,
 			);
@@ -99,6 +195,8 @@
 			children = (
 				43F926D923916C3F00F18E47 /* MainProtocols.swift */,
 				43F926D7239168DD00F18E47 /* MainConfigurator.swift */,
+				43EF9E01239336D700B0AAEE /* MainInteractor.swift */,
+				43EF9DFF239336C400B0AAEE /* MainPresenter.swift */,
 				43F926B32391527300F18E47 /* MainView.swift */,
 			);
 			path = MainModule;
@@ -107,6 +205,10 @@
 		43F926C5239157B500F18E47 /* SearchModule */ = {
 			isa = PBXGroup;
 			children = (
+				43EF9E0923935CC200B0AAEE /* SearchProtocols.swift */,
+				43EF9E0F23935E6200B0AAEE /* SearchConfigurator.swift */,
+				43EF9E0D23935D1F00B0AAEE /* SearchInteractor.swift */,
+				43EF9E0B23935CE500B0AAEE /* SearchPresenter.swift */,
 				43F926C6239157D100F18E47 /* SearchView.swift */,
 			);
 			path = SearchModule;
@@ -172,6 +274,35 @@
 				43F926D62391628100F18E47 /* BuySavedModule */,
 			);
 			path = BuySubModules;
+			sourceTree = "<group>";
+		};
+		43F926EB2393002700F18E47 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				43EF9E032393381F00B0AAEE /* RecipeModels.swift */,
+				43EF9E052393502000B0AAEE /* LocalRecipes.swift */,
+				43EF9E0723935A8000B0AAEE /* LocalImages.swift */,
+				43EF9E1E23941D2C00B0AAEE /* Entities.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		43F926EC2393016C00F18E47 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				43F926ED2393017600F18E47 /* NetworkService */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		43F926ED2393017600F18E47 /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				43EF9DFD2393356500B0AAEE /* NetworkService.swift */,
+				43F926EE2393018700F18E47 /* API.swift */,
+				43EF9E1123936AEA00B0AAEE /* SessionFactory.swift */,
+			);
+			path = NetworkService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,20 +374,45 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4348DFF22395D60A009D69CA /* ImageButton.swift in Sources */,
+				43EF9E1B239412C900B0AAEE /* RecipeDetailsInteractor.swift in Sources */,
+				4348DFFD2396CC39009D69CA /* DropDownMenu.swift in Sources */,
 				43F926C7239157D100F18E47 /* SearchView.swift in Sources */,
 				43F926E62391754B00F18E47 /* CookCurrentProtocols.swift in Sources */,
+				43EF9E0C23935CE500B0AAEE /* SearchPresenter.swift in Sources */,
+				43EF9E00239336C400B0AAEE /* MainPresenter.swift in Sources */,
+				43EF9E0A23935CC200B0AAEE /* SearchProtocols.swift in Sources */,
 				43F926D52391627B00F18E47 /* BuySavedView.swift in Sources */,
+				43EF9E2123959D6100B0AAEE /* RecipeDetailView.swift in Sources */,
 				43F926D8239168DD00F18E47 /* MainConfigurator.swift in Sources */,
+				43EF9E02239336D700B0AAEE /* MainInteractor.swift in Sources */,
+				43EF9E19239412C000B0AAEE /* RecipeDetailsPresenter.swift in Sources */,
+				43F926EF2393018700F18E47 /* API.swift in Sources */,
+				4348DFF92396CB4E009D69CA /* DropFilter.swift in Sources */,
 				43F926CD23915E4E00F18E47 /* BuyCurrentView.swift in Sources */,
+				43EF9E17239412A500B0AAEE /* RecipeDetailsView.swift in Sources */,
+				43EF9E1D239412DB00B0AAEE /* RecipeDetailsConfigurator.swift in Sources */,
+				43EF9E1F23941D2C00B0AAEE /* Entities.swift in Sources */,
+				43EF9E1023935E6200B0AAEE /* SearchConfigurator.swift in Sources */,
+				43EF9E0823935A8000B0AAEE /* LocalImages.swift in Sources */,
 				43F926E4239172DC00F18E47 /* CookHistoryConfigurator.swift in Sources */,
+				43EF9E1223936AEA00B0AAEE /* SessionFactory.swift in Sources */,
 				43F926EA23917F4A00F18E47 /* CookHistoryProtocols.swift in Sources */,
 				43F926B42391527300F18E47 /* MainView.swift in Sources */,
+				43EF9E042393381F00B0AAEE /* RecipeModels.swift in Sources */,
 				43F926D32391612900F18E47 /* Router.swift in Sources */,
+				43EF9DFE2393356500B0AAEE /* NetworkService.swift in Sources */,
+				4348DFFB2396CB84009D69CA /* SimpleFilter.swift in Sources */,
 				43F926E22391729500F18E47 /* CookCurrentConfigurator.swift in Sources */,
+				43EF9E0E23935D1F00B0AAEE /* SearchInteractor.swift in Sources */,
+				4348DFF52395DBD4009D69CA /* FiltersView.swift in Sources */,
 				43F926CB23915E3800F18E47 /* CookCurrentView.swift in Sources */,
+				43EF9E152394129B00B0AAEE /* RecipeDetailsProtocols.swift in Sources */,
+				4348DFF72395E978009D69CA /* DropDownView.swift in Sources */,
 				43F926B22391527300F18E47 /* AppDelegate.swift in Sources */,
 				43F926DA23916C3F00F18E47 /* MainProtocols.swift in Sources */,
 				43F926D02391606B00F18E47 /* CookHistoryView.swift in Sources */,
+				43EF9E062393502000B0AAEE /* LocalRecipes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

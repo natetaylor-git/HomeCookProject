@@ -16,5 +16,10 @@ class CookHistoryViewController: UIViewController {
         self.configurator = CookHistoryConfigurator()
         configurator?.configure(with: self)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+    }
 
 }
