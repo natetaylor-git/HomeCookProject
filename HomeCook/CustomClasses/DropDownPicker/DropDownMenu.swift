@@ -12,6 +12,7 @@ class DropDownMenu: UIView, UITableViewDataSource, UITableViewDelegate {
     var dropDownValues = [String]()
     var tableView = UITableView()
     var delegate: DropDownViewProtocol?
+    var cellHeight: CGFloat = 50
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,5 +50,9 @@ class DropDownMenu: UIView, UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.delegate?.didSelectValue(named: dropDownValues[indexPath.row])
         self.tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return cellHeight
     }
 }

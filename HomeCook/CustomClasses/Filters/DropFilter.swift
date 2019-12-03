@@ -22,6 +22,8 @@ class FilterViewOfDropType: UIView, DropDownViewHolderProtocol {
     var needChangeScrollOffset = false
     var oldOffset: CGPoint = .zero
     var updatedOffset: CGPoint = .zero
+    var extraDeltaForBeauty: CGFloat = .zero
+    var dropMenuBottomPadding: CGFloat = 10
     
     init(title: String, frame: CGRect, values: [String]) {
         
@@ -33,6 +35,8 @@ class FilterViewOfDropType: UIView, DropDownViewHolderProtocol {
         
         self.valueButton.setTitle("All", for: .normal)
         self.valueButton.dropMenu.dropDownValues = values
+        let height = self.valueButton.dropMenu.cellHeight * CGFloat(values.count) + self.dropMenuBottomPadding
+        self.valueButton.dropMenuHeight = height
         self.valueButton.holderView = self
         
         self.addSubview(titleLabel)
@@ -65,7 +69,7 @@ class FilterViewOfDropType: UIView, DropDownViewHolderProtocol {
             
             if delta > 0 {
                 let oldOffset = scroll.contentOffset
-                let beautifulDelta = delta + self.valueButton.dropMenuHeight / 2
+                let beautifulDelta = delta + extraDeltaForBeauty
                 let newOffset = CGPoint(x: oldOffset.x, y: oldOffset.y + beautifulDelta)
                 scroll.setContentOffset(newOffset, animated: true)
                 self.oldOffset = oldOffset

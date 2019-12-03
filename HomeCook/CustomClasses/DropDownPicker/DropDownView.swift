@@ -15,7 +15,7 @@ protocol DropDownViewProtocol {
 class DropDownView: UIButton {
     var holderView: DropDownViewHolderProtocol?
     var dropMenu = DropDownMenu()
-    let dropMenuHeight: CGFloat = 100
+    var dropMenuHeight: CGFloat = 100
     var isVisible = false
     
     override init(frame: CGRect) {

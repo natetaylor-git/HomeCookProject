@@ -60,24 +60,6 @@ class SearchViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = item
     }
     
-    @objc func tappedFiltersButton() {
-        self.filterButton.changeImageColor()
-        if self.filtersVisible {
-            self.filtersVisible = false
-            UIView.animate(withDuration: 0.5) {
-                self.filtersView.frame.origin = CGPoint(x: self.view.frame.width, y: self.filtersView.frame.origin.y)
-                self.view.bringSubviewToFront(self.filtersView)
-            }
-        } else {
-            self.filtersVisible = true
-            UIView.animate(withDuration: 0.5) {
-                self.filtersView.frame.origin = CGPoint(x: 0, y: self.filtersView.frame.origin.y)
-                self.view.bringSubviewToFront(self.filtersView)
-            }
-        }
-        
-    }
-    
     func setupFiltersView() {
         registerKeyboardNotifications()
         var paddingSearchBarY: CGFloat = .zero
@@ -87,7 +69,7 @@ class SearchViewController: UIViewController {
         
         let data = [("one", []), ("aaaaa",["cor","car","zhar"]), ("bbbbb", ["b1", "b2", "b3", "b3"]), ("bbbbb", ["b1", "b2", "b3", "b3"]), ("two",[]), ("bbbbb", ["b1", "b2", "b3", "b3"]), ("bbbbb", ["b1", "b2", "b3", "b3"]), ("bbbbb", ["b1", "b2", "b3", "b3"])]
         
-        self.filtersView.setup(filtersData: data, frame: CGRect(origin: CGPoint(x: self.view.frame.width, y: paddingSearchBarY), size: CGSize(width: self.view.frame.width, height: self.view.frame.maxY - paddingSearchBarY)))
+        self.filtersView.setup(filtersData: data, frame: CGRect(origin: CGPoint(x: self.view.frame.width, y: paddingSearchBarY), size: CGSize(width: self.view.frame.width, height: (self.view.frame.maxY - paddingSearchBarY) * 3/4)))
         
         self.view.addSubview(self.filtersView)
     }
@@ -132,9 +114,11 @@ class SearchViewController: UIViewController {
     @objc func onKeyboardAppear(notification: NSNotification) {
         let info = notification.userInfo!
         let rect: CGRect = info[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-        let kbSize = rect.size
+        let keyboardSize = rect.size
         
-        let insets = UIEdgeInsets(top: 0, left: 0, bottom: kbSize.height, right: 0)
+        let bottomInset = keyboardSize.height - (UIScreen.main.bounds.maxY - self.filtersView.frame.maxY)
+        
+        let insets = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
         filtersView.contentInset = insets
         
     }
@@ -143,6 +127,27 @@ class SearchViewController: UIViewController {
         filtersView.contentInset = UIEdgeInsets.zero
     }
     
+    @objc func tappedFiltersButton() {
+        self.filterButton.changeImageColor()
+        if self.filtersVisible {
+            filterExistingResults()
+            self.filtersVisible = false
+            UIView.animate(withDuration: 0.5) {
+                self.filtersView.frame.origin = CGPoint(x: self.view.frame.width, y: self.filtersView.frame.origin.y)
+                self.view.bringSubviewToFront(self.filtersView)
+            }
+        } else {
+            self.filtersVisible = true
+            UIView.animate(withDuration: 0.5) {
+                self.filtersView.frame.origin = CGPoint(x: 0, y: self.filtersView.frame.origin.y)
+                self.view.bringSubviewToFront(self.filtersView)
+            }
+        }
+    }
+    
+    func filterExistingResults() {
+        
+    }
 }
 
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
