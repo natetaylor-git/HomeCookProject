@@ -112,15 +112,14 @@ class SearchViewController: UIViewController {
     
     
     @objc func onKeyboardAppear(notification: NSNotification) {
-        let info = notification.userInfo!
-        let rect: CGRect = info[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+        let info = notification.userInfo
+        let rect: CGRect = info?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect ?? .zero
         let keyboardSize = rect.size
         
         let bottomInset = keyboardSize.height - (UIScreen.main.bounds.maxY - self.filtersView.frame.maxY)
         
         let insets = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
         filtersView.contentInset = insets
-        
     }
     
     @objc func onKeyboardDisappear(notification: NSNotification) {
@@ -130,7 +129,8 @@ class SearchViewController: UIViewController {
     @objc func tappedFiltersButton() {
         self.filterButton.changeImageColor()
         if self.filtersVisible {
-            filterExistingResults()
+            doFilterExistingResults()
+            self.view.endEditing(true)
             self.filtersVisible = false
             UIView.animate(withDuration: 0.5) {
                 self.filtersView.frame.origin = CGPoint(x: self.view.frame.width, y: self.filtersView.frame.origin.y)
@@ -145,7 +145,7 @@ class SearchViewController: UIViewController {
         }
     }
     
-    func filterExistingResults() {
+    func doFilterExistingResults() {
         
     }
 }
