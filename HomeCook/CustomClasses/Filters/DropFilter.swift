@@ -16,29 +16,51 @@ protocol DropDownViewHolderProtocol: UIView {
 }
 
 class FilterViewOfDropType: UIView, DropDownViewHolderProtocol {
+    let headerLabel = UILabel()
     let titleLabel = UILabel()
     let valueButton: DropDownView
+    
     var needChangeScrollContentSize = false
     var needChangeScrollOffset = false
+    
     var oldOffset: CGPoint = .zero
     var updatedOffset: CGPoint = .zero
     var extraDeltaForBeauty: CGFloat = .zero
     var dropMenuBottomPadding: CGFloat = 10
+    var headerHeight: CGFloat = 0
     
     init(title: String, frame: CGRect, values: [String]) {
+        self.headerLabel.frame = CGRect(origin: .zero,
+                                        size:CGSize(width: frame.width, height: headerHeight))
+        self.headerLabel.backgroundColor = UIColor.lightGreen
         
-        self.titleLabel.frame = CGRect(origin: .zero, size: CGSize(width: frame.width, height: frame.height / 2))
-        self.titleLabel.text = title
-        self.valueButton = DropDownView(frame: CGRect(x: 0, y: self.titleLabel.frame.maxY,
-                                                      width: frame.width, height: frame.height / 2))
+        self.titleLabel.frame = CGRect(origin: CGPoint(x: 0, y: self.headerLabel.frame.maxY),
+                                       size: CGSize(width: frame.width,
+                                                    height: (frame.height - headerHeight) / 2))
+        
+        let valueButtonFrame = CGRect(origin: CGPoint(x: 0, y:  self.titleLabel.frame.maxY),
+                                      size: CGSize(width: frame.width,
+                                                   height: self.titleLabel.frame.height))
+        self.valueButton = DropDownView(frame: valueButtonFrame)
+        
         super.init(frame: frame)
         
+        self.layer.borderWidth = 2.0
+        self.layer.borderColor = UIColor.lightGreen.cgColor
+        
+        self.titleLabel.text = title
+        self.titleLabel.textAlignment = .center
+        self.titleLabel.backgroundColor = .white
+        self.titleLabel.font = UIFont.boldSystemFont(ofSize: 15)
+        
         self.valueButton.setTitle("All", for: .normal)
+        self.valueButton.setTitleColor(.black, for: .normal)
         self.valueButton.dropMenu.dropDownValues = values
         let height = self.valueButton.dropMenu.cellHeight * CGFloat(values.count) + self.dropMenuBottomPadding
         self.valueButton.dropMenuHeight = height
         self.valueButton.holderView = self
         
+        self.addSubview(headerLabel)
         self.addSubview(titleLabel)
         self.addSubview(valueButton)
         self.isUserInteractionEnabled = true

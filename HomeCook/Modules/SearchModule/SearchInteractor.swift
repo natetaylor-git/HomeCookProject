@@ -18,6 +18,9 @@ class SearchInteractor: SearchInteractorInputProtocol {
     var sameSearchRecipesTotalAmount = 0
     var currentSearchText = ""
     var newSearch = true
+    var filtersParameters = [FilterParameters(name: "Maximum time", values: []),
+                             FilterParameters(name: "Cuisine type", values: ["All"]),
+                             FilterParameters(name: "Course type", values: ["All"])]
 
 //    var entity: DetailedRecipeEntity = DetailedRecipeEntity()
     
@@ -26,6 +29,40 @@ class SearchInteractor: SearchInteractorInputProtocol {
         self.searchRecipes = RecipesCollection(with: [])
         self.oneSearchRecipes = RecipesCollection(with: [])
         self.searchRecipesImages = ImagesCollection()
+    }
+    
+    func loadFiltersValues() {
+        let url = API.getCuisineAndCourseValues()
+        self.networkService.getData(at: url) { data in
+            guard let data = data else {
+                return
+            }
+            let responseDictionary = try? JSONSerialization.jsonObject(with: data, options: .init()) as? Dictionary<String, Any>
+            
+            guard let response = responseDictionary,
+                let content = response["data"] as? Dictionary<String, Any>,
+                let courses = content["courseTypes"] as? Array<Dictionary<String, Any>>,
+                let cuisines = content["cousines"] as? Array<Dictionary<String, Any>> else {
+                return
+            }
+            
+            for parameter in self.filtersParameters {
+                if parameter.name == "Course type" {
+                    for course in courses {
+                        let value = course["name"] as? String ?? ""
+                        parameter.values.append(value)
+                    }
+                }
+                if parameter.name == "Cuisine type" {
+                    for cuisine in cuisines {
+                        let value = cuisine["name"] as? String ?? ""
+                        parameter.values.append(value)
+                    }
+                }
+            }
+            
+            self.presenter?.setFiltersParameters(with: self.filtersParameters)
+        }
     }
     
     func getDetailedRecipe(for recipeIndex: Int) {

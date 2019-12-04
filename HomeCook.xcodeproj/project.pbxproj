@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		431A0C7823971EA80033B580 /* LoadFiltersParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431A0C7723971EA80033B580 /* LoadFiltersParameters.swift */; };
+		431A0C7A239725C10033B580 /* MyColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431A0C79239725C10033B580 /* MyColors.swift */; };
 		4348DFF22395D60A009D69CA /* ImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348DFF12395D60A009D69CA /* ImageButton.swift */; };
 		4348DFF52395DBD4009D69CA /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348DFF42395DBD4009D69CA /* FiltersView.swift */; };
 		4348DFF72395E978009D69CA /* DropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348DFF62395E978009D69CA /* DropDownView.swift */; };
@@ -50,6 +52,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		431A0C7723971EA80033B580 /* LoadFiltersParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadFiltersParameters.swift; sourceTree = "<group>"; };
+		431A0C79239725C10033B580 /* MyColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyColors.swift; sourceTree = "<group>"; };
 		4348DFF12395D60A009D69CA /* ImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButton.swift; sourceTree = "<group>"; };
 		4348DFF42395DBD4009D69CA /* FiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
 		4348DFF62395E978009D69CA /* DropDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownView.swift; sourceTree = "<group>"; };
@@ -112,6 +116,7 @@
 				4348DFFE2396CCFB009D69CA /* Filters */,
 				43EF9E2023959D6100B0AAEE /* RecipeDetailView.swift */,
 				4348DFF12395D60A009D69CA /* ImageButton.swift */,
+				431A0C79239725C10033B580 /* MyColors.swift */,
 			);
 			path = CustomClasses;
 			sourceTree = "<group>";
@@ -282,6 +287,7 @@
 				43EF9E032393381F00B0AAEE /* RecipeModels.swift */,
 				43EF9E052393502000B0AAEE /* LocalRecipes.swift */,
 				43EF9E0723935A8000B0AAEE /* LocalImages.swift */,
+				431A0C7723971EA80033B580 /* LoadFiltersParameters.swift */,
 				43EF9E1E23941D2C00B0AAEE /* Entities.swift */,
 			);
 			path = Entity;
@@ -393,10 +399,12 @@
 				43EF9E17239412A500B0AAEE /* RecipeDetailsView.swift in Sources */,
 				43EF9E1D239412DB00B0AAEE /* RecipeDetailsConfigurator.swift in Sources */,
 				43EF9E1F23941D2C00B0AAEE /* Entities.swift in Sources */,
+				431A0C7823971EA80033B580 /* LoadFiltersParameters.swift in Sources */,
 				43EF9E1023935E6200B0AAEE /* SearchConfigurator.swift in Sources */,
 				43EF9E0823935A8000B0AAEE /* LocalImages.swift in Sources */,
 				43F926E4239172DC00F18E47 /* CookHistoryConfigurator.swift in Sources */,
 				43EF9E1223936AEA00B0AAEE /* SessionFactory.swift in Sources */,
+				431A0C7A239725C10033B580 /* MyColors.swift in Sources */,
 				43F926EA23917F4A00F18E47 /* CookHistoryProtocols.swift in Sources */,
 				43F926B42391527300F18E47 /* MainView.swift in Sources */,
 				43EF9E042393381F00B0AAEE /* RecipeModels.swift in Sources */,

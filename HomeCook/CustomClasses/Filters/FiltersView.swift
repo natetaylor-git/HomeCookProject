@@ -12,23 +12,30 @@ class FiltersView: UIScrollView {
     let titleLabel = UILabel()
     var dropFilters = [FilterViewOfDropType]()
     var simpleFilters = [FilterViewOfSimpleType]()
-    let dropFilterHeight: CGFloat = 200
-    let simpleFilterHeight: CGFloat = 100
+    
+    let titleLabelHeight: CGFloat = 50
+    let dropFilterHeight: CGFloat = 100
+    let simpleFilterHeight: CGFloat = 80
+    
     let paddingAfterTitleLabel: CGFloat = 20
-    let paddingBetweenFilters: CGFloat = 10
+    let paddingBetweenFilters: CGFloat = 20
     let paddingBottom: CGFloat = 10
     
     func setup(filtersData: [(name: String, values: [String])], frame: CGRect) {
         self.frame = frame
         self.bounces = false
+        self.backgroundColor = .white
         self.showsVerticalScrollIndicator = false
+//        addBottomBorder()
         
-        titleLabel.frame = CGRect(origin: .zero,
-                                  size: CGSize(width: frame.width, height: frame.height / 10))
+        titleLabel.frame = CGRect(origin: self.bounds.origin,
+                                  size: CGSize(width: frame.width, height: titleLabelHeight))
         titleLabel.text = "Filters"
-        titleLabel.textAlignment = .center
+        titleLabel.textAlignment = .left
         titleLabel.font = UIFont.boldSystemFont(ofSize: 30)
-        titleLabel.backgroundColor = .red
+        titleLabel.backgroundColor = .white
+        
+        self.addSubview(titleLabel)
    
         let baseHeight = titleLabel.frame.maxY + paddingAfterTitleLabel
         let filterWidth = self.frame.width
@@ -42,7 +49,6 @@ class FiltersView: UIScrollView {
                                                       frame: CGRect(origin: origin, size: filterSize),
                                                       values: filterData.values)
                 dropFilter.extraDeltaForBeauty = self.paddingBottom
-                dropFilter.backgroundColor = .yellow
                 self.dropFilters.append(dropFilter)
                 self.addSubview(dropFilter)
                 
@@ -51,7 +57,6 @@ class FiltersView: UIScrollView {
                 let filterSize = CGSize(width: filterWidth, height: self.simpleFilterHeight)
                 let simpleFilter = FilterViewOfSimpleType(title: filterData.name,
                                                           frame: CGRect(origin: origin, size: filterSize))
-                simpleFilter.backgroundColor = .green
                 self.simpleFilters.append(simpleFilter)
                 self.addSubview(simpleFilter)
                 
@@ -61,7 +66,14 @@ class FiltersView: UIScrollView {
         
         self.contentSize = CGSize(width: self.frame.width,
                                   height: lastFilterMaxY - paddingBetweenFilters + paddingBottom)
-        self.backgroundColor = .blue
-        self.addSubview(titleLabel)
     }
+    
+//    func addBottomBorder() {
+//        let bottomLine = CALayer()
+//        let borderWidth: CGFloat = 5
+//        bottomLine.frame = CGRect(origin: CGPoint(x: 0, y: self.frame.height - borderWidth),
+//                                  size: CGSize(width: self.frame.width, height: borderWidth))
+//        bottomLine.backgroundColor = UIColor.groupTableViewBackground.cgColor
+//        self.layer.addSublayer(bottomLine)
+//    }
 }

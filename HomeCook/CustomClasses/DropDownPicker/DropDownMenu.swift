@@ -23,7 +23,7 @@ class DropDownMenu: UIView, UITableViewDataSource, UITableViewDelegate {
         tableView.frame = self.bounds
         tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         tableView.showsVerticalScrollIndicator = false
-        tableView.backgroundColor = UIColor.gray
+        tableView.backgroundColor = UIColor.lightGreen
         
         self.addSubview(tableView)
     }
@@ -43,7 +43,7 @@ class DropDownMenu: UIView, UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         cell.textLabel?.text = dropDownValues[indexPath.row]
-        cell.backgroundColor = UIColor.white
+        cell.backgroundColor = .white
         return cell
     }
     

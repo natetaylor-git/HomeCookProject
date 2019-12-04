@@ -66,10 +66,11 @@ class SearchViewController: UIViewController {
         if let navigationBar = self.navigationController?.navigationBar {
             paddingSearchBarY = navigationBar.frame.origin.y + navigationBar.frame.height
         }
-        
-        let data = [("one", []), ("aaaaa",["cor","car","zhar"]), ("bbbbb", ["b1", "b2", "b3", "b3"]), ("bbbbb", ["b1", "b2", "b3", "b3"]), ("two",[]), ("bbbbb", ["b1", "b2", "b3", "b3"]), ("bbbbb", ["b1", "b2", "b3", "b3"]), ("bbbbb", ["b1", "b2", "b3", "b3"])]
-        
-        self.filtersView.setup(filtersData: data, frame: CGRect(origin: CGPoint(x: self.view.frame.width, y: paddingSearchBarY), size: CGSize(width: self.view.frame.width, height: (self.view.frame.maxY - paddingSearchBarY) * 3/4)))
+
+        let filtersViewFrame = CGRect(origin: CGPoint(x: self.view.frame.width, y: paddingSearchBarY),
+                                      size: CGSize(width: self.view.frame.width,
+                                                   height: self.filtersView.titleLabel.frame.height))
+        self.filtersView.setup(filtersData: [], frame: filtersViewFrame)
         
         self.view.addSubview(self.filtersView)
     }
@@ -83,8 +84,7 @@ class SearchViewController: UIViewController {
         }
         self.recipesSearchBar.frame = CGRect(origin: CGPoint(x: .zero, y: paddingSearchBarY),
                                              size: CGSize(width: self.view.frame.width, height: 70))
-        let lightGreen = UIColor.init(red: 152/255, green: 251/255, blue: 152/255, alpha: 1.0)
-        self.recipesSearchBar.barTintColor = lightGreen
+        self.recipesSearchBar.barTintColor = UIColor.lightGreen
         self.view.addSubview(recipesSearchBar)
     }
     
@@ -132,13 +132,17 @@ class SearchViewController: UIViewController {
             doFilterExistingResults()
             self.view.endEditing(true)
             self.filtersVisible = false
+            self.searchResultsTableView.isUserInteractionEnabled = true
             UIView.animate(withDuration: 0.5) {
-                self.filtersView.frame.origin = CGPoint(x: self.view.frame.width, y: self.filtersView.frame.origin.y)
-                self.view.bringSubviewToFront(self.filtersView)
+                self.searchResultsTableView.alpha = 1.0
+                self.filtersView.frame.origin = CGPoint(x: self.view.frame.width,
+                                                        y: self.filtersView.frame.origin.y)
             }
         } else {
             self.filtersVisible = true
+            self.searchResultsTableView.isUserInteractionEnabled = false
             UIView.animate(withDuration: 0.5) {
+                self.searchResultsTableView.alpha = 0.5
                 self.filtersView.frame.origin = CGPoint(x: 0, y: self.filtersView.frame.origin.y)
                 self.view.bringSubviewToFront(self.filtersView)
             }
@@ -213,5 +217,18 @@ extension SearchViewController: SearchPresenterOutputProtocol {
     func updateResult(at indexPath: IndexPath, with image: UIImage) {
         self.searchResultsCollection[indexPath.row].image = image
         self.searchResultsTableView.reloadRows(at: [indexPath], with: .none)
+    }
+    
+    func updateFiltersView(with parameters: [(String, [String])]) {
+        var paddingFilterViewY: CGFloat = .zero
+        if let navigationBar = self.navigationController?.navigationBar {
+            paddingFilterViewY = navigationBar.frame.origin.y + navigationBar.frame.height
+        }
+        
+        let size = CGSize(width: self.filtersView.frame.width,
+                          height: (self.view.frame.maxY - paddingFilterViewY))
+        let filtersViewFrame = CGRect(origin: self.filtersView.frame.origin,
+                                      size: size)
+        self.filtersView.setup(filtersData: parameters, frame: filtersViewFrame)
     }
 }

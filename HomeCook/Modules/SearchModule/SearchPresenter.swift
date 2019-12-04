@@ -40,6 +40,18 @@ class SearchPresenter: SearchInteractorOutputProtocol {
         }
     }
     
+    func setFiltersParameters(with parameters: [FilterParameters]) {
+        var formattedParameters = [(String, [String])]()
+        for filterParameter in parameters {
+            formattedParameters.append((filterParameter.name + ": ", filterParameter.values))
+        }
+        
+        DispatchQueue.main.async {
+            self.view?.updateFiltersView(with: formattedParameters)
+        }
+        
+    }
+    
     func callViewCompletion(with detailedRecipe: DetailedRecipeEntity) {
         self.view?.callCompletion(with: detailedRecipe)
     }
@@ -48,6 +60,7 @@ class SearchPresenter: SearchInteractorOutputProtocol {
 extension SearchPresenter: SearchPresenterInputProtocol {
     func viewLoaded() {
         self.interactor?.loadRecipes(by: "", sameSearch: false)
+        self.interactor?.loadFiltersValues()
     }
     
     func clickedOnCell(at indexPath: IndexPath) {
@@ -65,28 +78,4 @@ extension SearchPresenter: SearchPresenterInputProtocol {
         }
         self.interactor?.loadRecipes(by: text, sameSearch: false)
     }
-    
-//    func getTableViewSourceCount() -> Int {
-//        return localRecipes?.count ?? 0
-//    }
-//
-//    func getItemForCell(at indexPath: IndexPath) -> RecipeCellModel {
-//        var text: String = ""
-//        var image = UIImage()
-//
-//        //вылетело - поменял
-//        guard let recipe = localRecipes?[indexPath.row] else {
-//            return RecipeCellModel(name: text, image: image)
-//        }
-//
-//        text = recipe.name
-//        let id = recipe.id
-//        guard let recipeImage = localImages?.imagesDict[id] else {
-//            return RecipeCellModel(name: text, image: image)
-//        }
-//
-//        image = recipeImage
-//        let model = RecipeCellModel(name: text, image: image)
-//        return model
-//    }
 }

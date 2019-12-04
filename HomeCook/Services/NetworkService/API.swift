@@ -38,4 +38,16 @@ class API {
         
         return components.url!
     }
+    
+    static func getCuisineAndCourseValues(amount: Int = 100) -> URL {
+        guard var components = URLComponents(string: baseUrl) else {
+            return URL(string: baseUrl)!
+        }
+        
+        let query = URLQueryItem(name: "query", value: "{courseTypes(first: \(amount)) { name } cousines(first: \(amount)) { name }}")
+        
+        components.queryItems = [query]
+        
+        return components.url!
+    }
 }

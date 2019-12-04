@@ -10,15 +10,29 @@ import UIKit
 
 class FilterViewOfSimpleType: UIView {
     let titleLabel = UILabel()
-    let valueLabel: UITextField
+    let valueLabel = UITextField()
+    let defaultText = "---"
     
     init(title: String, frame: CGRect) {
-        self.titleLabel.frame = CGRect(origin: .zero, size: CGSize(width: frame.width, height: frame.height / 2))
-        self.titleLabel.text = title
-        self.valueLabel = UITextField(frame: CGRect(origin: CGPoint(x: 0, y: self.titleLabel.frame.maxY), size: self.titleLabel.frame.size))
         super.init(frame: frame)
         
+        self.layer.borderWidth = 2.0
+        self.layer.borderColor = UIColor.lightGreen.cgColor
+        
+        self.titleLabel.frame = CGRect(origin: .zero,
+                                       size: CGSize(width: frame.width, height: frame.height / 2))
+        self.titleLabel.text = title
+        self.titleLabel.textAlignment = .center
+        self.titleLabel.backgroundColor = .white
+        self.titleLabel.font = UIFont.boldSystemFont(ofSize: 15)
+        
         self.valueLabel.delegate = self
+        self.valueLabel.frame = CGRect(origin: CGPoint(x: 0, y: self.titleLabel.frame.maxY),
+                                       size: self.titleLabel.frame.size)
+        self.valueLabel.textAlignment = .center
+        self.valueLabel.backgroundColor = .lightGreen
+        self.valueLabel.text = self.defaultText
+        
         self.addSubview(titleLabel)
         self.addSubview(valueLabel)
     }
@@ -32,5 +46,15 @@ extension FilterViewOfSimpleType: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.endEditing(true)
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.text = ""
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        if textField.text == "" {
+            textField.text = self.defaultText
+        }
     }
 }
