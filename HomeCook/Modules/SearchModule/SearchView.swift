@@ -40,7 +40,7 @@ class SearchViewController: UIViewController {
         self.recipesSearchBar.delegate = self
         self.searchResultsTableView.dataSource = self
         self.searchResultsTableView.delegate = self
-        self.searchResultsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "reuseId")
+        self.searchResultsTableView.register(SearchRecipeCell.self, forCellReuseIdentifier: "reuseId")
         
         self.presenter?.viewLoaded()
     }
@@ -71,6 +71,7 @@ class SearchViewController: UIViewController {
                                       size: CGSize(width: self.view.frame.width,
                                                    height: self.filtersView.titleLabel.frame.height))
         self.filtersView.setup(filtersData: [], frame: filtersViewFrame)
+        self.filtersView.alpha = 0.0
         
         self.view.addSubview(self.filtersView)
     }
@@ -134,6 +135,7 @@ class SearchViewController: UIViewController {
             self.filtersVisible = false
             self.searchResultsTableView.isUserInteractionEnabled = true
             UIView.animate(withDuration: 0.5) {
+                self.filtersView.alpha = 0.0
                 self.searchResultsTableView.alpha = 1.0
                 self.filtersView.frame.origin = CGPoint(x: self.view.frame.width,
                                                         y: self.filtersView.frame.origin.y)
@@ -142,6 +144,7 @@ class SearchViewController: UIViewController {
             self.filtersVisible = true
             self.searchResultsTableView.isUserInteractionEnabled = false
             UIView.animate(withDuration: 0.5) {
+                self.filtersView.alpha = 1.0
                 self.searchResultsTableView.alpha = 0.5
                 self.filtersView.frame.origin = CGPoint(x: 0, y: self.filtersView.frame.origin.y)
                 self.view.bringSubviewToFront(self.filtersView)
@@ -160,7 +163,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseId", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseId", for: indexPath) as! SearchRecipeCell
         
         let model = searchResultsCollection[indexPath.row]
 
@@ -177,6 +180,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.presenter?.clickedOnCell(at: indexPath)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 

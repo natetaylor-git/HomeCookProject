@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Router {
+class Router: NSObject {
     var navigationController: UINavigationController?
 //    private var detailedRecipe: DetailedRecipeEntity?
     
@@ -20,7 +20,9 @@ class Router {
     }()
     
     private init(navigationController: UINavigationController) {
+        super.init()
         self.navigationController = navigationController
+        self.navigationController?.delegate = self
         setupMainScreen()
     }
     
@@ -87,5 +89,24 @@ class Router {
 extension Router: NSCopying {
     func copy(with zone: NSZone? = nil) -> Any {
         return self
+    }
+}
+
+extension Router: UINavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        switch operation {
+        case .pop:
+            guard toVC is MainViewController else {
+                return nil
+            }
+            return PopAnimator()
+        case .push:
+            guard fromVC is MainViewController else {
+                return nil
+            }
+            return PushAnimator()
+        default: return nil
+        }
     }
 }
