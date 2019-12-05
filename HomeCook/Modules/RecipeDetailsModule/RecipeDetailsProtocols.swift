@@ -9,21 +9,29 @@
 import UIKit
 
 protocol RecipeDetailsConfiguratorProtocol: class {
-    func configure(with viewController: RecipeDetailsViewController, recipeEntity: DetailedRecipeEntity?)
+    func configure(with viewController: RecipeDetailsViewController, recipeEntity: DetailedRecipeEntity)
 }
 
 protocol RecipeDetailsPresenterInputProtocol: class {
     func viewLoaded()
+    func buyButtonActive()
+    func buyButtonNotActive()
 }
 
 protocol RecipeDetailsPresenterOutputProtocol: class {
-    func updateImageView(with image: UIImage)
+    func setupImageView(with image: UIImage)
+    func setupDetailsViews(with infoDetails: [(name: String, value: String)])
+    func activateUIElementsForEntityExistance()
 }
 
 protocol RecipeDetailsInteractorInputProtocol: class {
     func getRecipeInfo()
+    func addRecipeToLocalStorage()
+    func deleteRecipeFromLocalStorageIfExists()
+    func checkExistanceOfRecipeEntity()
 }
 
 protocol RecipeDetailsInteractorOutputProtocol: class {
     func prepareInfo(about recipeObject: DetailedRecipeEntity)
+    func updateUIForEntityExistedInLocalStorage()
 }

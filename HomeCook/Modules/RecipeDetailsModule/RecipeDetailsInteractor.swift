@@ -10,12 +10,29 @@ import Foundation
 
 class RecipeDetailsInteractor: RecipeDetailsInteractorInputProtocol {
     weak var presenter: RecipeDetailsInteractorOutputProtocol?
-    var recipeEntity: DetailedRecipeEntity?
+    var recipeEntity: DetailedRecipeEntity
+    var localRecipesCollection: LocalRecipesCollectionProtocol
+    
+    init(recipeEntity: DetailedRecipeEntity, localRecipesCollection: LocalRecipesCollectionProtocol) {
+        self.recipeEntity = recipeEntity
+        self.localRecipesCollection = localRecipesCollection
+    }
+    
+    func checkExistanceOfRecipeEntity() {
+        if self.localRecipesCollection.localRecipes.dict[recipeEntity.recipe.id] != nil {
+            self.presenter?.updateUIForEntityExistedInLocalStorage()
+        }
+    }
     
     func getRecipeInfo() {
-        guard let recipe = recipeEntity else {
-            return
-        }
-        self.presenter?.prepareInfo(about: recipe)
+        self.presenter?.prepareInfo(about: self.recipeEntity)
+    }
+    
+    func addRecipeToLocalStorage() {
+        self.localRecipesCollection.localRecipes.dict[recipeEntity.recipe.id] = recipeEntity
+    }
+    
+    func deleteRecipeFromLocalStorageIfExists() {
+        self.localRecipesCollection.localRecipes.dict.removeValue(forKey: recipeEntity.recipe.id)
     }
 }

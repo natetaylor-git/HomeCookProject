@@ -57,4 +57,12 @@ extension FilterViewOfSimpleType: UITextFieldDelegate {
             textField.text = self.defaultText
         }
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if CharacterSet(charactersIn: "0123456789").isSuperset(of: CharacterSet(charactersIn: string)) {
+            return true
+        } else {
+            return false
+        }
+    }
 }

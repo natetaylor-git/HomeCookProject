@@ -130,7 +130,10 @@ class SearchViewController: UIViewController {
     @objc func tappedFiltersButton() {
         self.filterButton.changeImageColor()
         if self.filtersVisible {
-            doFilterExistingResults()
+            
+            clearCurrentResults()
+            setupSearch()
+            
             self.view.endEditing(true)
             self.filtersVisible = false
             self.searchResultsTableView.isUserInteractionEnabled = true
@@ -152,8 +155,20 @@ class SearchViewController: UIViewController {
         }
     }
     
-    func doFilterExistingResults() {
+    func setupSearch() {
+        var parameters = [(name: String?, value: String?)]()
+        let dropDownFiltersValues = self.filtersView.dropFilters.map { object in
+            return (object.titleLabel.text, object.valueButton.titleLabel?.text) }
+        let simpleFiltersValues = self.filtersView.simpleFilters.map { object in
+            return (object.titleLabel.text, object.valueLabel.text) }
+        parameters.append(contentsOf: dropDownFiltersValues)
+        parameters.append(contentsOf: simpleFiltersValues)
         
+        self.presenter?.filtersClosed(with: parameters)
+    }
+    
+    func clearCurrentResults() {
+        self.searchResultsCollection.removeAll()
     }
 }
 

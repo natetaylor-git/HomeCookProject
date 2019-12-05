@@ -56,7 +56,7 @@ class Router: NSObject {
         let recipeDetailsController = RecipeDetailsViewController()
         let configurator = RecipeDetailsConfigurator()
         configurator.configure(with: recipeDetailsController, recipeEntity: recipeInfo)
-        recipeDetailsController.navigationItem.title = recipeInfo.recipe.name
+        recipeDetailsController.navigationItem.title = "Recipe Details"
         self.navigationController?.pushViewController(recipeDetailsController, animated: true)
     }
     

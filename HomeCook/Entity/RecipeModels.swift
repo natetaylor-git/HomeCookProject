@@ -13,21 +13,21 @@ struct RecipeDownloadModel {
     let id: Int
     let name: String
     let imagePath: String
-    let course: String?
-    let cousine: String?
-    let readyTimeMin: Int?
-    let instructions: String?
-    let ingredients: [IngredientModel]?
+    let course: String
+    let cousine: String
+    let readyTimeMin: Int
+    let instructions: String
+    let ingredients: [IngredientModel]
 }
 
 struct RecipeModel {
     let id: Int
     let name: String
-    let course: String?
-    let cousine: String?
-    let readyTimeMin: Int?
-    let instructions: String?
-    let ingredients: [IngredientModel]?
+    let course: String
+    let cousine: String
+    let readyTimeMin: Int
+    let instructions: String
+    let ingredients: [IngredientModel]
     
     init(_ downloadModel: RecipeDownloadModel) {
         self.id = downloadModel.id
@@ -37,6 +37,16 @@ struct RecipeModel {
         self.readyTimeMin = downloadModel.readyTimeMin
         self.instructions = downloadModel.instructions
         self.ingredients = downloadModel.ingredients
+    }
+    
+    init(id: Int, name: String, course: String, cuisine: String, readyTimeMin: Int, instructions: String, ingredients: [IngredientModel]) {
+        self.id = id
+        self.name = name
+        self.course = course
+        self.cousine = cuisine
+        self.readyTimeMin = readyTimeMin
+        self.instructions = instructions
+        self.ingredients = ingredients
     }
     
     init() {
@@ -51,6 +61,7 @@ struct RecipeModel {
 }
 
 struct RecipeCellModel {
+    let id: Int
     let name: String
     var image: UIImage?
 }

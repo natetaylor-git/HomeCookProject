@@ -18,64 +18,104 @@ class SearchInteractor: SearchInteractorInputProtocol {
     var sameSearchRecipesTotalAmount = 0
     var currentSearchText = ""
     var newSearch = true
-    var filtersParameters = [FilterParameters(name: "Maximum time", values: []),
-                             FilterParameters(name: "Cuisine type", values: ["All"]),
-                             FilterParameters(name: "Course type", values: ["All"])]
-
-//    var entity: DetailedRecipeEntity = DetailedRecipeEntity()
+    let filtersStorage: FilterParametersStorageProtocol
     
-    init(networkService: NetworkServiceInputProtocol) {
+    init(networkService: NetworkServiceInputProtocol,
+         filtersStorage: FilterParametersStorageProtocol) {
         self.networkService = networkService
+        self.filtersStorage = filtersStorage
+        
         self.searchRecipes = RecipesCollection(with: [])
         self.oneSearchRecipes = RecipesCollection(with: [])
         self.searchRecipesImages = ImagesCollection()
     }
     
+    func updateFiltersValues(_ parameters: [(name: String?, value: String?)]) {
+        for oneFilterParameters in parameters {
+            let name = oneFilterParameters.name ?? ""
+            let chosenValue = oneFilterParameters.value ?? "All"
+            self.filtersStorage.collection[name]?.setCurrent(called: chosenValue)
+        }
+        self.updateSearch()
+    }
+    
+    func updateSearch() {
+        self.searchRecipes.removeAll()
+        self.oneSearchRecipes.removeAll()
+        self.loadRecipes(by: currentSearchText, sameSearch: false)
+    }
+    
     func loadFiltersValues() {
-        let url = API.getCuisineAndCourseValues()
+        let filterLoadingGroup = DispatchGroup()
+        
+        for filter in self.filtersStorage.collection.values {
+            if filter.type == .manyValues && filter.isEmpty() {
+                filterLoadingGroup.enter()
+                loadOneFilterValues(for: filter.name) { values in
+                    guard let newValues = values else {
+                        filterLoadingGroup.leave()
+                        return
+                    }
+                    
+                    filter.values.append(contentsOf: newValues)
+                    filterLoadingGroup.leave()
+                }
+            }
+        }
+        
+        filterLoadingGroup.notify(queue: DispatchQueue.main) {
+            self.presenter?.setFiltersParameters(with: self.filtersStorage.collection)
+        }
+    }
+    
+    func loadOneFilterValues(for filterName: String, completion: @escaping ([ParameterValue]?) -> ()) {
+        var url: URL
+        var dataNameFromAPI: String = ""
+        
+        switch filterName {
+        case "Cuisine type":
+            url = API.getCuisineFilterValues()
+            dataNameFromAPI = "cousines"
+        case "Course type":
+            url = API.getCourseFilterValues()
+            dataNameFromAPI = "courseTypes"
+        default:
+            completion(nil)
+            return
+        }
+        
         self.networkService.getData(at: url) { data in
             guard let data = data else {
+                completion(nil)
                 return
             }
             let responseDictionary = try? JSONSerialization.jsonObject(with: data, options: .init()) as? Dictionary<String, Any>
             
             guard let response = responseDictionary,
                 let content = response["data"] as? Dictionary<String, Any>,
-                let courses = content["courseTypes"] as? Array<Dictionary<String, Any>>,
-                let cuisines = content["cousines"] as? Array<Dictionary<String, Any>> else {
-                return
+                let currentFilterContent = content[dataNameFromAPI] as? Array<Dictionary<String, Any>> else {
+                    completion(nil)
+                    return
             }
             
-            for parameter in self.filtersParameters {
-                if parameter.name == "Course type" {
-                    for course in courses {
-                        let value = course["name"] as? String ?? ""
-                        parameter.values.append(value)
-                    }
-                }
-                if parameter.name == "Cuisine type" {
-                    for cuisine in cuisines {
-                        let value = cuisine["name"] as? String ?? ""
-                        parameter.values.append(value)
-                    }
-                }
+            var values = [ParameterValue]()
+            for valueObject in currentFilterContent {
+                let name = valueObject["name"] as? String ?? ""
+                let stringId = valueObject["id"] as? String ?? "0"
+                let id = Int(stringId) ?? 0
+                
+                values.append(ParameterValue(id: id, val: name))
             }
-            
-            self.presenter?.setFiltersParameters(with: self.filtersParameters)
+            completion(values)
         }
-    }
-    
-    func getDetailedRecipe(for recipeIndex: Int) {
-        let recipe = searchRecipes[recipeIndex]
-        var imageData = Data()
-        if let data = self.searchRecipesImages.imagesDict[recipe.id] {
-            imageData = data
-        }
-        let detailedRecipeEntity = DetailedRecipeEntity(model: recipe, imageData: imageData)
-        self.presenter?.callViewCompletion(with: detailedRecipeEntity)
     }
     
     func setSearchRecipes(_ models: [RecipeDownloadModel]) {
+        if models.count == 0 {
+            self.presenter?.setRecipes(RecipesCollection())
+            return
+        }
+        
         guard let modelSearch = models.first?.searchRequest,
             self.currentSearchText == modelSearch else {
             return
@@ -129,21 +169,20 @@ class SearchInteractor: SearchInteractorInputProtocol {
             completion(data)
         }
     }
-//    
-//    func setSearchRecipeImage(for recipeId: Int, with data: Data) {
-//        self.searchRecipesImages?.imagesDict[recipeId] = data
-//        self.presenter?.setImage(for: recipeId, with: data)
-//    }
-//    
+    
     func loadRecipes(by searchString: String, sameSearch: Bool) {
         var offset: Int = 0
         if sameSearch {
-            offset = self.sameSearchRecipesTotalAmount// self.searchRecipes.count
+            offset = self.sameSearchRecipesTotalAmount
         } else {
             self.currentSearchText = searchString
         }
         
-        let url = API.getRecipes(searchString: self.currentSearchText, offset: offset)
+        let cuisineId = self.filtersStorage.collection["Cuisine type"]?.getCurrent().id ?? 0
+        let courseId = self.filtersStorage.collection["Course type"]?.getCurrent().id ?? 0
+        let maxMinute = Int(self.filtersStorage.collection["Maximum time"]?.getCurrent().val ?? "0") ?? 0
+
+        let url = API.getRecipes(searchString: self.currentSearchText, offset: offset, maxTime: maxMinute, cuisineId: cuisineId, courseTypeId: courseId)
         self.networkService.getData(at: url) { data in
             guard let data = data else {
                 return
@@ -162,11 +201,76 @@ class SearchInteractor: SearchInteractorInputProtocol {
                 let id = Int(stringId) ?? 0
                 let imageRelativePath = object["image"] as? String ?? ""
                 let name = object["name"] as? String ?? ""
-                return RecipeDownloadModel(searchRequest: searchString, id: id, name: name, imagePath: imageRelativePath, course: nil, cousine: nil, readyTimeMin: nil, instructions: nil, ingredients: nil)
+                return RecipeDownloadModel(searchRequest: searchString, id: id, name: name, imagePath: imageRelativePath, course: "", cousine: "", readyTimeMin: 0, instructions: "", ingredients: [])
             }
             
             self.newSearch = !sameSearch
             self.setSearchRecipes(models)
+        }
+    }
+    
+    func getDetailedRecipe(for recipeIndex: Int) {
+        let recipe = self.searchRecipes[recipeIndex]
+        var imageData = Data()
+        if let data = self.searchRecipesImages.imagesDict[recipe.id] {
+            imageData = data
+        }
+        loadOneRecipeInfo(by: recipe.id) { (model) in
+            guard let model = model else {
+                return
+            }
+            let detailedRecipeEntity = DetailedRecipeEntity(model: model, imageData: imageData)
+            DispatchQueue.main.async {
+                self.presenter?.callViewCompletion(with: detailedRecipeEntity)
+            }
+        }
+    }
+    
+    func loadOneRecipeInfo(by id: Int, completion: @escaping (RecipeModel?) -> ()) {
+        let url = API.getRecipeInfo(id: id)
+        self.networkService.getData(at: url) { data in
+            guard let data = data else {
+                completion(nil)
+                return
+            }
+
+            let responseDictionary = try? JSONSerialization.jsonObject(with: data, options: .init()) as? Dictionary<String, Any>
+
+            guard let response = responseDictionary,
+                let content = response["data"] as? Dictionary<String, Any>,
+                let recipe = content["recipe"] as? Dictionary<String, Any>,
+                let courseDict = recipe["courseType"] as? Dictionary<String, Any>,
+                let cuisineDict = recipe["cousine"] as? Dictionary<String, Any>,
+                let ingredientsArray = recipe["recipeIngridients"] as? Array<Dictionary<String, Any>> else {
+                    completion(nil)
+                    return
+            }
+            
+            var ingredients = [IngredientModel]()
+            for globalIngredient in ingredientsArray {
+                guard let unit = globalIngredient["unit"] as? Dictionary<String, Any>,
+                    let ingredient = globalIngredient["ingridient"] as? Dictionary<String, Any> else {
+                        completion(nil)
+                        return
+                }
+                
+                let ingredientUnit = unit["name"] as? String ?? ""
+                let ingredientName = ingredient["name"] as? String ?? ""
+                let ingredientAmount = globalIngredient["amount"] as? Int ?? 0
+                
+                let ingredientModel = IngredientModel(name: ingredientName, amount: ingredientAmount, unit: ingredientUnit)
+                ingredients.append(ingredientModel)
+            }
+            
+            let name = recipe["name"] as? String ?? ""
+            let instructions = recipe["instructions"] as? String ?? ""
+            let minutes = recipe["readyInTime"] as? Int ?? 0
+            let course = courseDict["name"] as? String ?? ""
+            let cuisine = cuisineDict["name"] as? String ?? ""
+            
+            let recipeInfo = RecipeModel(id: id, name: name, course: course, cuisine: cuisine, readyTimeMin: minutes, instructions: instructions, ingredients: ingredients)
+
+            completion(recipeInfo)
         }
     }
 }

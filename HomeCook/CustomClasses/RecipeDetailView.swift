@@ -52,15 +52,36 @@ class RecipeDetailView: UIView {
     
     func setupValueLabel(value: String) {
         self.valueLabel.font = UIFont.systemFont(ofSize: 16.0)
-        self.valueLabel.frame = CGRect(origin: CGPoint(x: 0, y: nameLabel.frame.maxY + betweenPadding),
-                                       size: CGSize(width: self.frame.width,
-                                                    height: self.nameLabel.frame.height))
+        if self.nameLabel.text == "Instructions" {
+            self.valueLabel.font = UIFont.systemFont(ofSize: 20.0)
+        }
         self.valueLabel.text = value
+        self.valueLabel.numberOfLines = 0
+        self.valueLabel.lineBreakMode = .byWordWrapping
+        self.valueLabel.frame.origin = CGPoint(x: 0, y: nameLabel.frame.maxY + betweenPadding)
+        
+        let adoptableSize = self.valueLabel.sizeThatFits(CGSize(width: self.frame.width,
+                                            height: CGFloat.greatestFiniteMagnitude))
+        if adoptableSize.height > self.nameLabel.frame.height {
+            let beautifulOriginY = self.valueLabel.frame.origin.y
+            let beautifulHeight = adoptableSize.height
+            
+            self.valueLabel.frame.origin = CGPoint(x: self.valueLabel.frame.origin.x,
+                                                   y: beautifulOriginY)
+            self.valueLabel.frame.size = CGSize(width: self.frame.width,
+                                                height: beautifulHeight)
+            
+            let newSuperViewHeight = self.valueLabel.frame.maxY
+            self.frame.size = CGSize(width: self.frame.width, height: newSuperViewHeight)
+        } else {
+            self.valueLabel.frame.size = CGSize(width: self.frame.width,
+                                                height: self.nameLabel.frame.height)
+        }
     }
     
     func drawLine() {
         let path = UIBezierPath()
-        let levelY = self.nameLabel.frame.maxY + betweenPadding / 2
+        let levelY = self.nameLabel.frame.maxY + self.betweenPadding / 2
         path.move(to: CGPoint(x: 0, y: levelY))
         path.addLine(to: CGPoint(x: self.nameLabel.frame.maxX, y: levelY))
         path.close()

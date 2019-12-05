@@ -12,14 +12,12 @@ class SearchPresenter: SearchInteractorOutputProtocol {
     
     var interactor: SearchInteractorInputProtocol?
     weak var view: SearchPresenterOutputProtocol?
-//    weak var localRecipes: LocalRecipesCollection?
-//    weak var localImages: LocalImagesCollection?
     
     func setRecipes(_ models: RecipesCollection) {
         var recipesCellModels = [RecipeCellModel]()
         for index in 0..<models.count {
             let recipeModel = models[index]
-            let cellModel = RecipeCellModel(name: recipeModel.name, image: nil)
+            let cellModel = RecipeCellModel(id: recipeModel.id, name: recipeModel.name, image: nil)
             recipesCellModels.append(cellModel)
         }
         
@@ -40,16 +38,20 @@ class SearchPresenter: SearchInteractorOutputProtocol {
         }
     }
     
-    func setFiltersParameters(with parameters: [FilterParameters]) {
+    func setFiltersParameters(with parameters: [String: FilterParameters]) {
         var formattedParameters = [(String, [String])]()
-        for filterParameter in parameters {
-            formattedParameters.append((filterParameter.name + ": ", filterParameter.values))
+        let sortedParameters = parameters.sorted(by: { filter1, filter2 in
+            return filter1.value.id < filter2.value.id
+        })
+        
+        for filterParameter in sortedParameters {
+            let valueNames = filterParameter.value.values.map {$0.val}
+            formattedParameters.append((filterParameter.value.name + ":", valueNames))
         }
         
         DispatchQueue.main.async {
             self.view?.updateFiltersView(with: formattedParameters)
         }
-        
     }
     
     func callViewCompletion(with detailedRecipe: DetailedRecipeEntity) {
@@ -77,5 +79,15 @@ extension SearchPresenter: SearchPresenterInputProtocol {
             return
         }
         self.interactor?.loadRecipes(by: text, sameSearch: false)
+    }
+    
+    func filtersClosed(with parameters: [(name: String?, value: String?)]) {
+        var formattedParameters = [(name: String?, value: String?)]()
+        for parameter in parameters {
+            let name = parameter.name ?? ""
+            formattedParameters.append((String(name.dropLast()), parameter.value))
+        }
+        
+        self.interactor?.updateFiltersValues(formattedParameters)
     }
 }

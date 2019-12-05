@@ -9,19 +9,20 @@
 import UIKit
 
 class ImageButton: UIButton {
-    let buyImageView = UIImageView()
+    let customImageView = UIImageView()
     private let colors: [UIColor] = [.black, .blue]
     private var currentColor: Int = 0
+    private var shadowMakeActive = false
     
     init(frame: CGRect, imageName: String) {
         super.init(frame: frame)
-        self.buyImageView.frame = self.bounds
-        self.buyImageView.image = UIImage(named: imageName)
-        let templateImage = self.buyImageView.image?.withRenderingMode(.alwaysTemplate)
-        self.buyImageView.image = templateImage
-        self.buyImageView.contentMode = .scaleAspectFit
+        self.customImageView.frame = self.bounds
+        self.customImageView.image = UIImage(named: imageName)
+        let templateImage = self.customImageView.image?.withRenderingMode(.alwaysTemplate)
+        self.customImageView.image = templateImage
+        self.customImageView.contentMode = .scaleAspectFit
         changeImageColor(with: .black)
-        self.addSubview(buyImageView)
+        self.addSubview(customImageView)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -29,12 +30,25 @@ class ImageButton: UIButton {
     }
     
     private func changeImageColor(with color: UIColor) {
-        self.buyImageView.tintColor = color
+        self.customImageView.tintColor = color
+    }
+    
+    private func changeShadow() {
+        if self.shadowMakeActive {
+            self.layer.shadowColor = self.colors[currentColor].cgColor
+            self.layer.shadowOffset = CGSize.zero
+            self.layer.shadowOpacity = 0.3
+            self.layer.shadowRadius = 5
+        } else {
+            self.layer.shadowColor = UIColor.clear.cgColor
+        }
     }
     
     func changeImageColor() {
         let index = abs(self.currentColor - 1)
         changeImageColor(with: self.colors[index])
         self.currentColor = index
+        self.shadowMakeActive = !self.shadowMakeActive
+        self.changeShadow()
     }
 }

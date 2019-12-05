@@ -20,32 +20,40 @@ class API {
         guard var components = URLComponents(string: baseUrl) else {
             return URL(string: baseUrl)!
         }
-        let query = URLQueryItem(name: "query", value: "{recipe(id: \(id)) { name cousine{name}  courseType{name} instructions readyInTime ingridients{name} image } } }")
+        let query = URLQueryItem(name: "query", value: "{recipe(id: \(id)) { name cousine{name} courseType{name} instructions readyInTime recipeIngridients{ amount unit{name} ingridient {name} }}}")
         
         components.queryItems = [query]
         
         return components.url!
     }
     
-    static func getRecipes(searchString: String, amount: Int = 2, offset: Int = 0) -> URL {
+    static func getRecipes(searchString: String, amount: Int = 2, offset: Int = 0, maxTime: Int = 0, cuisineId: Int = 0, courseTypeId: Int = 0) -> URL {
         guard var components = URLComponents(string: baseUrl) else {
             return URL(string: baseUrl)!
         }
         
-        let query = URLQueryItem(name: "query", value: "{recipes(searchTerm: \"\(searchString)\", offset: \(offset), first: \(amount)) {id name cousine{name}  courseType{name} instructions readyInTime ingridients{name} image}}")
+        let query = URLQueryItem(name: "query", value: "{recipes(searchTerm: \"\(searchString)\", offset: \(offset), first: \(amount), cousineId: \(cuisineId), courseTypeId: \(courseTypeId), readyInTimeMax: \(maxTime)) {id name cousine{name}  courseType{name} instructions readyInTime ingridients{name} image}}")
         
         components.queryItems = [query]
         
         return components.url!
     }
     
-    static func getCuisineAndCourseValues(amount: Int = 100) -> URL {
+    static func getCuisineFilterValues(amount: Int = 100) -> URL {
         guard var components = URLComponents(string: baseUrl) else {
             return URL(string: baseUrl)!
         }
+        let query = URLQueryItem(name: "query", value: "{cousines(first: \(amount)) { id name }}")
+        components.queryItems = [query]
         
-        let query = URLQueryItem(name: "query", value: "{courseTypes(first: \(amount)) { name } cousines(first: \(amount)) { name }}")
-        
+        return components.url!
+    }
+    
+    static func getCourseFilterValues(amount: Int = 100) -> URL {
+        guard var components = URLComponents(string: baseUrl) else {
+            return URL(string: baseUrl)!
+        }
+        let query = URLQueryItem(name: "query", value: "{courseTypes(first: \(amount)) { id name }}")
         components.queryItems = [query]
         
         return components.url!

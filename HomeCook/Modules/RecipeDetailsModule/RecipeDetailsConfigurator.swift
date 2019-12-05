@@ -9,10 +9,10 @@
 import Foundation
 
 class RecipeDetailsConfigurator: RecipeDetailsConfiguratorProtocol {
-    func configure(with viewController: RecipeDetailsViewController, recipeEntity: DetailedRecipeEntity?) {
+    func configure(with viewController: RecipeDetailsViewController, recipeEntity: DetailedRecipeEntity) {
         let presenter = RecipeDetailsPresenter()
-        let interactor = RecipeDetailsInteractor()
-        interactor.recipeEntity = recipeEntity
+        let interactor = RecipeDetailsInteractor(recipeEntity: recipeEntity,
+                                                 localRecipesCollection: LocalRecipesCollection.shared)
         
         viewController.presenter = presenter
         presenter.interactor = interactor

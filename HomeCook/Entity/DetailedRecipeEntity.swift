@@ -16,4 +16,9 @@ class DetailedRecipeEntity {
         self.recipe = model
         self.recipeImageData = imageData
     }
+    
+    init() {
+        self.recipe = RecipeModel()
+        self.recipeImageData = Data()
+    }
 }

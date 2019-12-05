@@ -15,7 +15,8 @@ class SearchConfigurator: SearchConfiguratorProtocol {
 //        presenter.localImages = LocalImagesCollection.shared
         
         let networkService = NetworkService(session: SessionFactory().createDefaultSession())
-        let interactor = SearchInteractor(networkService: networkService)
+        let interactor = SearchInteractor(networkService: networkService,
+                                          filtersStorage: FilterParametersStorage.shared)
 
         viewController.presenter = presenter
         presenter.interactor = interactor

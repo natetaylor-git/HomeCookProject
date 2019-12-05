@@ -28,21 +28,22 @@ class RecipeDetailsViewController: UIViewController {
         return button
     }()
     
+    var infoDetailsViews = [RecipeDetailView]()
+    
     let paddingX: CGFloat = 10
     var buyButtonActive = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupInitialUI()
         self.presenter?.viewLoaded()
         self.scrollView.delegate = self
-        
-        setupUI()
         
         self.view.addSubview(scrollView)
     }
     
-    func setupUI() {
+    func setupInitialUI() {
         setupBuyButton()
         setupScrollView()
     }
@@ -54,49 +55,19 @@ class RecipeDetailsViewController: UIViewController {
     }
     
     @objc func tappedBuyButton() {
+        self.buyButtonActive = !self.buyButtonActive
         self.buyButton.changeImageColor()
+        if self.buyButtonActive {
+            self.presenter?.buyButtonActive()
+        } else {
+            self.presenter?.buyButtonNotActive()
+        }
     }
     
     func setupScrollView() {
         self.scrollView.frame = CGRect(origin: CGPoint(x: 0, y: 0),
                                        size: CGSize(width: self.view.frame.width,
                                                     height: self.view.frame.maxY))
-        setupImageView()
-        setupLabels()
-        self.scrollView.backgroundColor = .white// UIColor.init(red: 152/255, green: 251/255, blue: 152/255, alpha: 1.0)
-        self.scrollView.contentSize = CGSize(width: self.scrollView.frame.width,
-                                             height: self.imageView.frame.height * 5)
-        self.scrollView.addSubview(self.imageView)
-    }
-    
-    func setupImageView() {
-        let scrollViewBounds = self.scrollView.bounds
-        let origin = CGPoint(x: paddingX, y: scrollViewBounds.origin.y)
-        let size = CGSize(width: scrollViewBounds.width - 2 * paddingX,
-                          height: scrollViewBounds.height / 2)
-        self.imageView.frame = CGRect(origin: origin, size: size)
-        self.imageView.layer.masksToBounds = true
-        self.imageView.layer.cornerRadius = 5.0
-        self.imageView.backgroundColor = .blue
-    }
-    
-    func setupLabels() {
-        let paddingY: CGFloat = 10
-        let imageViewFrame = self.imageView.frame
-        let origin = CGPoint(x: paddingX, y: imageViewFrame.maxY + paddingY)
-        let size = CGSize(width: imageViewFrame.width, height: 100)
-        let cousineFrame = CGRect(origin: origin, size: size)
-        let cousineView = RecipeDetailView(frame: cousineFrame, name: "Кухня", value: "Русская")
-        cousineView.backgroundColor = .white
-        self.scrollView.addSubview(cousineView)
-        cousineView.setNeedsDisplay()
-        
-        let origin2 = CGPoint(x: paddingX, y: cousineFrame.maxY + paddingY)
-        let size2 = CGSize(width: imageViewFrame.width, height: 100)
-        let cousineFrame2 = CGRect(origin: origin2, size: size2)
-        let cousineView2 = RecipeDetailView(frame: cousineFrame2, name: "Тип блюда", value: "Завтрак")
-        cousineView2.backgroundColor = .white
-        self.scrollView.addSubview(cousineView2)
     }
 }
 
@@ -105,8 +76,50 @@ extension RecipeDetailsViewController: UIScrollViewDelegate {
 }
 
 extension RecipeDetailsViewController: RecipeDetailsPresenterOutputProtocol {
-    func updateImageView(with image: UIImage) {
+    func setupImageView(with image: UIImage) {
+        let scrollViewBounds = self.scrollView.bounds
+        let origin = CGPoint(x: paddingX, y: scrollViewBounds.origin.y)
+        let size = CGSize(width: scrollViewBounds.width - 2 * paddingX,
+                          height: scrollViewBounds.height / 2)
+        self.imageView.frame = CGRect(origin: origin, size: size)
+        self.imageView.layer.masksToBounds = true
+        self.imageView.layer.cornerRadius = 5.0
+        self.imageView.backgroundColor = .blue
         self.imageView.image = image
+        
+        self.scrollView.contentSize = CGSize(width: self.scrollView.frame.width,
+                                             height: self.scrollView.contentSize.height + self.imageView.frame.height)
+        self.scrollView.addSubview(self.imageView)
+    }
+    
+    func setupDetailsViews(with infoDetails: [(name: String, value: String)]) {
+        let paddingY: CGFloat = 10
+        let imageViewFrame = self.imageView.frame
+        let labelWidth = imageViewFrame.width
+        let labelHeight: CGFloat = 100
+        
+        var lastLabelMaxY = imageViewFrame.maxY
+        for detail in infoDetails {
+            let origin = CGPoint(x: self.paddingX, y: lastLabelMaxY + paddingY)
+            let size = CGSize(width: labelWidth, height: labelHeight)
+            let frame = CGRect(origin: origin, size: size)
+            
+            let detailView = RecipeDetailView(frame: frame, name: detail.name, value: detail.value)
+            detailView.backgroundColor = .white
+            
+            lastLabelMaxY = detailView.frame.maxY
+            
+            self.infoDetailsViews.append(detailView)
+            self.scrollView.addSubview(detailView)
+        }
+        
+        self.scrollView.contentSize = CGSize(width: self.scrollView.frame.width,
+                                             height: lastLabelMaxY)
+    }
+    
+    func activateUIElementsForEntityExistance() {
+        self.buyButtonActive = true
+        self.buyButton.changeImageColor()
     }
 }
 
