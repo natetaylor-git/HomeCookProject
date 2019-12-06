@@ -10,6 +10,7 @@ import UIKit
 
 class CookHistoryViewController: UIViewController {
     var presenter: CookHistoryPresenterInputProtocol?
+    var clickedOnCell: ((DetailedRecipeEntity) -> Void)?
     var recipesTable = [(String, [RecipeCellModel])]()
     
     let recipeCoursesTableView: UITableView = {
@@ -21,19 +22,19 @@ class CookHistoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        presenter?.viewLoaded()
+        presenter?.viewLoaded()
         
-        for index in 0...10 {
-            recipesTable.append(("\(index)", []))
-        }
-        
-        for index in 0...10 {
-            recipesTable[index].1 = []
-            for _ in 0...5 {
-                recipesTable[index].1.append(RecipeCellModel(id: 0, name: "lal sadllsad asd asd asdsad sad asdas as das dasd asd asd asdsd d a", image: UIImage(named: "sirius")!))
-            }
-            
-        }
+//        for index in 0...10 {
+//            recipesTable.append(("\(index)", []))
+//        }
+//
+//        for index in 0...10 {
+//            recipesTable[index].1 = []
+//            for _ in 0...5 {
+//                recipesTable[index].1.append(RecipeCellModel(id: 0, name: "lal sadllsad asd asd asdsad sad asdas as das dasd asd asd asdsd d a", image: UIImage(named: "sirius")!))
+//            }
+//
+//        }
 
         self.recipeCoursesTableView.register(HistoryTableViewCell.self,
                                              forCellReuseIdentifier: "recipeCell")
@@ -53,6 +54,16 @@ extension CookHistoryViewController: CookHistoryPresenterOutputProtocol {
         self.recipesTable = cells
         self.recipeCoursesTableView.reloadData()
     }
+    
+    func callCompletion(with entity: DetailedRecipeEntity) {
+        self.clickedOnCell?(entity)
+    }
+}
+
+extension CookHistoryViewController: HistoryTableViewProtocol {
+    func selectedRecipe(id: Int) {
+        self.presenter?.clickedOnRecipe(id: id)
+    }
 }
 
 extension CookHistoryViewController: UITableViewDataSource, UITableViewDelegate {
@@ -67,7 +78,8 @@ extension CookHistoryViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "recipeCell", for: indexPath) as! HistoryTableViewCell
         
-        let model = recipesTable[indexPath.row].1
+        let model = recipesTable[indexPath.section].1
+        cell.delegate = self
         cell.recipesCollection = model
         cell.recipesCollectionView.reloadData()
         

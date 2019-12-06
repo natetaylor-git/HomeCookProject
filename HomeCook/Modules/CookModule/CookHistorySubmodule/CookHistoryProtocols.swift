@@ -14,16 +14,20 @@ protocol CookHistoryConfiguratorProtocol: class {
 
 protocol CookHistoryPresenterInputProtocol: class {
     func viewLoaded()
+    func clickedOnRecipe(id: Int)
 }
 
 protocol CookHistoryPresenterOutputProtocol: class {
     func showHistory(_ cells: [(String, [RecipeCellModel])])
+    func callCompletion(with entity: DetailedRecipeEntity) 
 }
 
 protocol CookHistoryInteractorInputProtocol: class {
     func getHistory()
+    func getDetailedRecipe(id: Int)
 }
 
 protocol CookHistoryInteractorOutputProtocol: class {
     func takeHistory(_ models: [DetailedRecipeEntity])
+    func takeRecipeInfo(_ entity: DetailedRecipeEntity)
 }

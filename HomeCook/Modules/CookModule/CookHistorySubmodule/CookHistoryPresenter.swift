@@ -40,6 +40,10 @@ class CookHistoryPresenter: CookHistoryInteractorOutputProtocol {
             }
         }
     }
+    
+    func takeRecipeInfo(_ entity: DetailedRecipeEntity) {
+        self.view?.callCompletion(with: entity)
+    }
 }
 
 extension CookHistoryPresenter: CookHistoryPresenterInputProtocol {
@@ -47,4 +51,7 @@ extension CookHistoryPresenter: CookHistoryPresenterInputProtocol {
         self.interactor?.getHistory()
     }
     
+    func clickedOnRecipe(id: Int) {
+        self.interactor?.getDetailedRecipe(id: id)
+    }
 }

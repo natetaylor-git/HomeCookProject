@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol HistoryTableViewProtocol: class {
+    func selectedRecipe(id: Int)
+}
+
 class HistoryTableViewCell: UITableViewCell {
     let recipesCollectionView: UICollectionView = {
         let collectionViewLayout = UICollectionViewFlowLayout()
@@ -17,6 +21,8 @@ class HistoryTableViewCell: UITableViewCell {
         collectionView.backgroundColor = .white
         return collectionView
     }()
+    
+    weak var delegate: HistoryTableViewProtocol?
     
     var recipesCollection = [RecipeCellModel]()
     
@@ -80,7 +86,8 @@ extension HistoryTableViewCell: UICollectionViewDataSource {
 
 extension HistoryTableViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        let recipeId = self.recipesCollection[indexPath.row].id
+        self.delegate?.selectedRecipe(id: recipeId)
     }
 }
 

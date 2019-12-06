@@ -10,7 +10,7 @@ import CoreData
 
 protocol CoreDataServiceProtocol {
     func saveRecipes()
-    func loadRecipes(completion: @escaping ([DetailedRecipeEntity]) -> Void)
+    func loadRecipes(completion: @escaping ([Int: DetailedRecipeEntity]) -> Void)
     func deleteAllRecipes(completion: @escaping (Bool) -> Void)
 }
 
@@ -18,7 +18,7 @@ class CoreDataService: CoreDataServiceProtocol {
     private let stack = CoreDataStack.shared
     private let entityName = "Recipe"
     
-    func loadRecipes(completion: @escaping ([DetailedRecipeEntity]) -> Void) {
+    func loadRecipes(completion: @escaping ([Int: DetailedRecipeEntity]) -> Void) {
         stack.persistentContainer.performBackgroundTask { (readContext) in
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
             let sorter: NSSortDescriptor = NSSortDescriptor(key: "id" , ascending: true)
@@ -31,7 +31,7 @@ class CoreDataService: CoreDataServiceProtocol {
                     return
                 }
                 
-                var recipesEntitiesCollection = [DetailedRecipeEntity]()
+                var recipesEntitiesCollection = [Int: DetailedRecipeEntity]()
                 for recipeObject in recipeObjects {
                     var recipeIngredientsModelCollection = [IngredientModel]()
                     for recipeIngredient in recipeObject.recipeIngredients {
@@ -56,13 +56,13 @@ class CoreDataService: CoreDataServiceProtocol {
                                              ingredients: recipeIngredientsModelCollection)
                     let imageData = recipeObject.imageData
                     let recipeEntity = DetailedRecipeEntity(model: recipe, imageData: imageData)
-                    recipesEntitiesCollection.append(recipeEntity)
+                    recipesEntitiesCollection[recipeEntity.recipe.id] = recipeEntity
                 }
                 
                 completion(recipesEntitiesCollection)
             } catch {
                 print(error.localizedDescription)
-                completion([])
+                completion([:])
             }
         }
     }

@@ -84,6 +84,9 @@ class Router: NSObject {
         let historyController = CookHistoryViewController()
         let historyConfigurator = CookHistoryConfigurator()
         historyConfigurator.configure(with: historyController)
+        historyController.clickedOnCell = { [weak self] recipeEntity in
+            self?.showRecipeDetailsScreen(recipeInfo: recipeEntity)
+        }
 
         let item1 = UITabBarItem(title: "Current", image: nil, tag: 1)
         let item2 = UITabBarItem(title: "History", image: nil, tag: 2)

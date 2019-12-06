@@ -18,7 +18,7 @@ class HistoryRecipeCell: UICollectionViewCell {
         let label = UILabel()
         label.backgroundColor = .white
         label.textColor = .black
-        label.textAlignment = .left
+        label.textAlignment = .center
         return label
     }()
     
