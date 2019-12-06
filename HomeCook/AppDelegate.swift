@@ -15,8 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var router: Router?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-//        self.localRecipes = LocalRecipesCollection()
-//        self.localRecipesImages = LocalImagesCollection()
         
         self.window = UIWindow()
         self.window?.backgroundColor = .white

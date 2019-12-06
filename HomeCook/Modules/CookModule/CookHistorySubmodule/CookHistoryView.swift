@@ -18,7 +18,7 @@ class CookHistoryViewController: UIViewController {
         return tableView
     }()
     
-    let headerHeight: CGFloat = 60
+    let headerHeight: CGFloat = 40
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,8 @@ class CookHistoryViewController: UIViewController {
 //            }
 //
 //        }
-
+        self.navigationItem.title = "Courses"
+        self.recipeCoursesTableView.separatorColor = .clear
         self.recipeCoursesTableView.register(HistoryTableViewCell.self,
                                              forCellReuseIdentifier: "recipeCell")
         
@@ -87,7 +88,7 @@ extension CookHistoryViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.bounds.height / 2
+        return tableView.bounds.height / 3
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -96,22 +97,43 @@ extension CookHistoryViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let textLabel = UILabel()
-        textLabel.font = UIFont.systemFont(ofSize: 30)
-        textLabel.textAlignment = .center
-        textLabel.backgroundColor = .blue
-        textLabel.text = self.recipesTable[section].0
+        textLabel.font = UIFont.boldSystemFont(ofSize: 30)
+        textLabel.textAlignment = .left
+        textLabel.text = " " + self.recipesTable[section].0.capitalized
         
         let desiredWidth = tableView.bounds.size.width
         let size = textLabel.sizeThatFits(CGSize(width: desiredWidth,
                                                  height: .greatestFiniteMagnitude))
         textLabel.frame = CGRect(origin: .zero, size: CGSize(width: desiredWidth,
                                                              height: size.height))
-        textLabel.backgroundColor = .lightGreen
+//        textLabel.layer.borderColor = UIColor.black.cgColor
+//        textLabel.layer.borderWidth = 1.0
+//        textLabel.backgroundColor = .darkGreen
+//        textLabel.textColor = .white
+        textLabel.backgroundColor = .white
+        textLabel.textColor = .black
+        drawBottomLine(for: textLabel)
         return textLabel
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        self.presenter?.clickedOnCell(at: indexPath)
 //        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension CookHistoryViewController {
+    func drawBottomLine(for view: UIView, width: CGFloat = 2.0) {
+        let path = UIBezierPath()
+        let levelY = view.frame.origin.y + headerHeight
+        path.move(to: CGPoint(x: 0, y: levelY))
+        path.addLine(to: CGPoint(x: view.frame.maxX, y: levelY))
+        path.close()
+        
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = path.cgPath
+        shapeLayer.strokeColor = UIColor.lightGreen.cgColor
+        shapeLayer.lineWidth = width
+        view.layer.addSublayer(shapeLayer)
     }
 }

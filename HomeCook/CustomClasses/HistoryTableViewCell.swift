@@ -26,8 +26,8 @@ class HistoryTableViewCell: UITableViewCell {
     
     var recipesCollection = [RecipeCellModel]()
     
-    let insetX: CGFloat = 10
-    let insetY: CGFloat = 5
+    let insetX: CGFloat = 5
+    let insetY: CGFloat = 10
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -93,18 +93,19 @@ extension HistoryTableViewCell: UICollectionViewDelegate {
 
 extension HistoryTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let imageHeightInCell = 3/4 * self.frame.height - insetY * 2
-        var width = imageHeightInCell // image is in square
+//        let imageHeightInCell = 5/6 * self.frame.height - insetY * 2
+//        var width = imageHeightInCell // image is in square
+//
+//        if let oldImage = self.recipesCollection[indexPath.row].image {
+//            let newSize = maximumSizeOfImageForCell(actualSize: oldImage.size,
+//                                                    heightConstant: imageHeightInCell)
+//            if newSize.width > (width / 2) {
+//                width = newSize.width
+//            }
+//        }
         
-        if let oldImage = self.recipesCollection[indexPath.row].image {
-            let newSize = maximumSizeOfImageForCell(actualSize: oldImage.size,
-                                                    heightConstant: imageHeightInCell)
-            if newSize.width > (width / 2) {
-                width = newSize.width
-            }
-        }
-        
-        let itemWidth = width
+//        let itemWidth = width
+        let itemWidth = self.frame.height
         let itemHeight = self.frame.height - insetY * 2 - 1
         return CGSize(width: itemWidth, height: itemHeight)
     }

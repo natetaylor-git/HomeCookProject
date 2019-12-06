@@ -30,6 +30,7 @@
 		431A0CA223997FBC0033B580 /* BuyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431A0CA123997FBC0033B580 /* BuyView.swift */; };
 		431A0CA4239985090033B580 /* HistoryRecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431A0CA3239985090033B580 /* HistoryRecipeCell.swift */; };
 		431A0CA82399A7C00033B580 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431A0CA72399A7C00033B580 /* HistoryTableViewCell.swift */; };
+		431A0CAA2399F3490033B580 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 431A0CA92399F3480033B580 /* LaunchScreen.storyboard */; };
 		4348DFF22395D60A009D69CA /* ImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348DFF12395D60A009D69CA /* ImageButton.swift */; };
 		4348DFF52395DBD4009D69CA /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348DFF42395DBD4009D69CA /* FiltersView.swift */; };
 		4348DFF72395E978009D69CA /* DropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348DFF62395E978009D69CA /* DropDownView.swift */; };
@@ -94,6 +95,7 @@
 		431A0CA123997FBC0033B580 /* BuyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyView.swift; sourceTree = "<group>"; };
 		431A0CA3239985090033B580 /* HistoryRecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRecipeCell.swift; sourceTree = "<group>"; };
 		431A0CA72399A7C00033B580 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
+		431A0CA92399F3480033B580 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = HomeCook/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4348DFF12395D60A009D69CA /* ImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButton.swift; sourceTree = "<group>"; };
 		4348DFF42395DBD4009D69CA /* FiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
 		4348DFF62395E978009D69CA /* DropDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownView.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 		43F926A52391527300F18E47 = {
 			isa = PBXGroup;
 			children = (
+				431A0CA92399F3480033B580 /* LaunchScreen.storyboard */,
 				43F926B02391527300F18E47 /* HomeCook */,
 				43F926AF2391527300F18E47 /* Products */,
 			);
@@ -418,6 +421,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				431A0CAA2399F3490033B580 /* LaunchScreen.storyboard in Resources */,
 				43F926B92391527400F18E47 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

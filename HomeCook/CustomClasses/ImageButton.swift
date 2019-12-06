@@ -38,7 +38,7 @@ class ImageButton: UIButton {
     private func changeShadow() {
         if self.shadowMakeActive {
             self.layer.shadowColor = self.colors[currentColor].cgColor
-            self.layer.shadowOffset = CGSize.zero
+            self.layer.shadowOffset = .zero
             self.layer.shadowOpacity = 0.5
             self.layer.shadowRadius = 5
         } else {
