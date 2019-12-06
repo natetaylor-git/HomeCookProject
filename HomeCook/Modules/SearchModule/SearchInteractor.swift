@@ -31,12 +31,20 @@ class SearchInteractor: SearchInteractorInputProtocol {
     }
     
     func updateFiltersValues(_ parameters: [(name: String?, value: String?)]) {
+        var needToUpdate = false
         for oneFilterParameters in parameters {
             let name = oneFilterParameters.name ?? ""
             let chosenValue = oneFilterParameters.value ?? "All"
-            self.filtersStorage.collection[name]?.setCurrent(called: chosenValue)
+            if let filter = self.filtersStorage.collection[name],
+                filter.currentIsEqualTo(value: chosenValue) == false {
+                filter.setCurrent(called: chosenValue)
+                needToUpdate = true
+            }
         }
-        self.updateSearch()
+        
+        if needToUpdate {
+            self.updateSearch()
+        }
     }
     
     func updateSearch() {

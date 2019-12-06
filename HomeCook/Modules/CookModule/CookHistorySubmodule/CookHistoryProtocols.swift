@@ -11,3 +11,19 @@ import Foundation
 protocol CookHistoryConfiguratorProtocol: class {
     func configure(with viewController: CookHistoryViewController)
 }
+
+protocol CookHistoryPresenterInputProtocol: class {
+    func viewLoaded()
+}
+
+protocol CookHistoryPresenterOutputProtocol: class {
+    func showHistory(_ cells: [(String, [RecipeCellModel])])
+}
+
+protocol CookHistoryInteractorInputProtocol: class {
+    func getHistory()
+}
+
+protocol CookHistoryInteractorOutputProtocol: class {
+    func takeHistory(_ models: [DetailedRecipeEntity])
+}

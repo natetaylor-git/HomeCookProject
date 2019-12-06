@@ -11,12 +11,12 @@ import UIKit
 class CookCurrentConfigurator: CookCurrentConfiguratorProtocol {
     
     func configure(with viewController: CookCurrentViewController) {
-        //        let presenter = MainPresenter()
-        //        let interactor = MainInteractor()
-        //
-        //        viewController.presenter = presenter
-        //        presenter.interactor = interactor
-        //        interactor.presenter = presenter
-        //        presenter.view = viewController
+        let presenter = CookCurrentPresenter()
+        let interactor = CookCurrentInteractor()
+        
+        viewController.presenter = presenter
+        presenter.interactor = interactor
+        interactor.presenter = presenter
+        presenter.view = viewController
     }
 }

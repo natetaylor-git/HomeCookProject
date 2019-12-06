@@ -11,12 +11,13 @@ import UIKit
 class CookHistoryConfigurator: CookHistoryConfiguratorProtocol {
     
     func configure(with viewController: CookHistoryViewController) {
-        //        let presenter = MainPresenter()
-        //        let interactor = MainInteractor()
-        //
-        //        viewController.presenter = presenter
-        //        presenter.interactor = interactor
-        //        interactor.presenter = presenter
-        //        presenter.view = viewController
+        let presenter = CookHistoryPresenter()
+        let coreDataService = CoreDataService()
+        let interactor = CookHistoryInteractor(coreDataService: coreDataService)
+        
+        viewController.presenter = presenter
+        presenter.interactor = interactor
+        interactor.presenter = presenter
+        presenter.view = viewController
     }
 }

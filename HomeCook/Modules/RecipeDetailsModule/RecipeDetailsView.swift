@@ -24,7 +24,7 @@ class RecipeDetailsViewController: UIViewController {
     
     let buyButton: ImageButton = {
         let button = ImageButton(frame: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)),
-                              imageName: "BuyIcon")
+                                 imageName: "BuyIcon", shadow: true)
         return button
     }()
     

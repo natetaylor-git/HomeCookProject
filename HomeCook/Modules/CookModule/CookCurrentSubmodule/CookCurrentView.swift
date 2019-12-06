@@ -9,12 +9,13 @@
 import UIKit
 
 class CookCurrentViewController: UIViewController {
-    var configurator: CookCurrentConfiguratorProtocol?
+    var presenter: CookCurrentPresenterInputProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configurator = CookCurrentConfigurator()
-        configurator?.configure(with: self)
     }
+}
 
+extension CookCurrentViewController: CookCurrentPresenterOutputProtocol {
+    
 }

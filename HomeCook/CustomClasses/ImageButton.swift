@@ -13,14 +13,16 @@ class ImageButton: UIButton {
     private let colors: [UIColor] = [.black, .blue]
     private var currentColor: Int = 0
     private var shadowMakeActive = false
+    private var useShadowOption = false
     
-    init(frame: CGRect, imageName: String) {
+    init(frame: CGRect, imageName: String, shadow: Bool = false) {
         super.init(frame: frame)
         self.customImageView.frame = self.bounds
         self.customImageView.image = UIImage(named: imageName)
         let templateImage = self.customImageView.image?.withRenderingMode(.alwaysTemplate)
         self.customImageView.image = templateImage
         self.customImageView.contentMode = .scaleAspectFit
+        self.useShadowOption = shadow
         changeImageColor(with: .black)
         self.addSubview(customImageView)
     }
@@ -37,7 +39,7 @@ class ImageButton: UIButton {
         if self.shadowMakeActive {
             self.layer.shadowColor = self.colors[currentColor].cgColor
             self.layer.shadowOffset = CGSize.zero
-            self.layer.shadowOpacity = 0.3
+            self.layer.shadowOpacity = 0.5
             self.layer.shadowRadius = 5
         } else {
             self.layer.shadowColor = UIColor.clear.cgColor
@@ -48,7 +50,9 @@ class ImageButton: UIButton {
         let index = abs(self.currentColor - 1)
         changeImageColor(with: self.colors[index])
         self.currentColor = index
-        self.shadowMakeActive = !self.shadowMakeActive
-        self.changeShadow()
+        if self.useShadowOption {
+            self.shadowMakeActive = !self.shadowMakeActive
+            self.changeShadow()
+        }
     }
 }

@@ -14,7 +14,6 @@ class SearchRecipeCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    /// Configure imageView and textLabel frames that depend on cell bounds and setup imageView content mode
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -39,5 +38,4 @@ class SearchRecipeCell: UITableViewCell {
         self.textLabel?.text = ""
         self.imageView?.image = nil
     }
-    
 }

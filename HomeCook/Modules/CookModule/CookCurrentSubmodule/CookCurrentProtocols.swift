@@ -11,3 +11,16 @@ import UIKit
 protocol CookCurrentConfiguratorProtocol: class {
     func configure(with viewController: CookCurrentViewController)
 }
+
+protocol CookCurrentPresenterInputProtocol: class {
+    func viewLoaded()
+}
+
+protocol CookCurrentPresenterOutputProtocol: class {
+}
+
+protocol CookCurrentInteractorInputProtocol: class {
+}
+
+protocol CookCurrentInteractorOutputProtocol: class {
+}

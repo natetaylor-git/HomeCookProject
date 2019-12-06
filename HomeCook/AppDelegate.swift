@@ -13,9 +13,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var router: Router?
-//    var localRecipes: LocalRecipesCollection?
-//    var localRecipesImages: LocalImagesCollection?
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 //        self.localRecipes = LocalRecipesCollection()
@@ -25,6 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.backgroundColor = .white
         self.window?.rootViewController = Router.shared.navigationController
         self.window?.makeKeyAndVisible()
+//        if let directoryLocation = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).last { print("Documents Directory: \(directoryLocation)Application Support")
+//        }
+        
         return true
     }
 

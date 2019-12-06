@@ -14,6 +14,9 @@ class Router: NSObject {
     
     static let shared: Router = {
         let mainViewController = MainViewController()
+        let configurator = MainConfigurator()
+        configurator.configure(with: mainViewController)
+        
         let navigationController = UINavigationController(rootViewController: mainViewController)
         let router = Router(navigationController: navigationController)
         return router
@@ -34,6 +37,11 @@ class Router: NSObject {
         root.clickedOnSearchButton = {[weak self] in
             self?.showSearchScreen()
         }
+        
+        root.clickedOnBuyButton = {[weak self] in
+            self?.showBuyScreen()
+        }
+        
         root.clickedOnCookButton = {[weak self] in
             self?.showCookScreen()
         }
@@ -60,9 +68,22 @@ class Router: NSObject {
         self.navigationController?.pushViewController(recipeDetailsController, animated: true)
     }
     
+    private func showBuyScreen() {
+        let buyViewController = BuyViewController()
+        let configurator = BuyConfigurator()
+        configurator.configure(with: buyViewController)
+        buyViewController.navigationItem.title = "Shop List"
+        self.navigationController?.pushViewController(buyViewController, animated: true)
+    }
+    
     private func showCookScreen() {
         let currentController = CookCurrentViewController()
+        let currentConfigurator = CookCurrentConfigurator()
+        currentConfigurator.configure(with: currentController)
+        
         let historyController = CookHistoryViewController()
+        let historyConfigurator = CookHistoryConfigurator()
+        historyConfigurator.configure(with: historyController)
 
         let item1 = UITabBarItem(title: "Current", image: nil, tag: 1)
         let item2 = UITabBarItem(title: "History", image: nil, tag: 2)

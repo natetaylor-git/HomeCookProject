@@ -9,15 +9,12 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    
-    var configurator: MainConfiguratorProtocol?
-
     let searchButton: UIButton = {
         let button = UIButton()
 //        button.setImage(UIImage(named: "SearchIcon"), for: .normal)
         button.backgroundColor = .lightGray
         button.setTitle("Search", for: .normal)
-        button.addTarget(self, action: #selector(tappedSearchButton), for: .touchUpInside)
+        
         return button
     }()
     
@@ -34,7 +31,6 @@ class MainViewController: UIViewController {
         button.imageView?.contentMode = .scaleAspectFit
         button.backgroundColor = .lightGray
         button.setTitle("Cook", for: .normal)
-        button.addTarget(self, action: #selector(tappedCookButton), for: .touchUpInside)
         return button
     }()
     
@@ -50,12 +46,18 @@ class MainViewController: UIViewController {
         clickedOnCookButton?()
     }
     
+    @objc func tappedBuyButton() {
+        clickedOnBuyButton?()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configurator = MainConfigurator()
-        configurator?.configure(with: self)
         
         setupUI()
+        
+        searchButton.addTarget(self, action: #selector(tappedSearchButton), for: .touchUpInside)
+        buyButton.addTarget(self, action: #selector(tappedBuyButton), for: .touchUpInside)
+        cookButton.addTarget(self, action: #selector(tappedCookButton), for: .touchUpInside)
     }
     
     func setupUI() {

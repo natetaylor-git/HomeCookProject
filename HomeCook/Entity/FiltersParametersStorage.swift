@@ -70,6 +70,10 @@ class FilterParameters {
         return false
     }
     
+    func currentIsEqualTo(value: String) -> Bool {
+        return self.current.val == value
+    }
+    
     func setCurrent(called name: String) {
         if self.type == .manyValues {
             for value in self.values {
