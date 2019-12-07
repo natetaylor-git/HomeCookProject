@@ -31,6 +31,7 @@
 		431A0CA4239985090033B580 /* HistoryRecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431A0CA3239985090033B580 /* HistoryRecipeCell.swift */; };
 		431A0CA82399A7C00033B580 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431A0CA72399A7C00033B580 /* HistoryTableViewCell.swift */; };
 		431A0CAA2399F3490033B580 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 431A0CA92399F3480033B580 /* LaunchScreen.storyboard */; };
+		431A0CAE239AA3A60033B580 /* CurrentRecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431A0CAD239AA3A60033B580 /* CurrentRecipeCell.swift */; };
 		4348DFF22395D60A009D69CA /* ImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348DFF12395D60A009D69CA /* ImageButton.swift */; };
 		4348DFF52395DBD4009D69CA /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348DFF42395DBD4009D69CA /* FiltersView.swift */; };
 		4348DFF72395E978009D69CA /* DropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348DFF62395E978009D69CA /* DropDownView.swift */; };
@@ -96,6 +97,7 @@
 		431A0CA3239985090033B580 /* HistoryRecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRecipeCell.swift; sourceTree = "<group>"; };
 		431A0CA72399A7C00033B580 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		431A0CA92399F3480033B580 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = HomeCook/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		431A0CAD239AA3A60033B580 /* CurrentRecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentRecipeCell.swift; sourceTree = "<group>"; };
 		4348DFF12395D60A009D69CA /* ImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButton.swift; sourceTree = "<group>"; };
 		4348DFF42395DBD4009D69CA /* FiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
 		4348DFF62395E978009D69CA /* DropDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownView.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				431A0C7B2397468E0033B580 /* SearchRecipeCell.swift */,
 				431A0CA3239985090033B580 /* HistoryRecipeCell.swift */,
 				431A0CA72399A7C00033B580 /* HistoryTableViewCell.swift */,
+				431A0CAD239AA3A60033B580 /* CurrentRecipeCell.swift */,
 			);
 			path = CustomClasses;
 			sourceTree = "<group>";
@@ -475,6 +478,7 @@
 				43EF9DFE2393356500B0AAEE /* NetworkService.swift in Sources */,
 				4348DFFB2396CB84009D69CA /* SimpleFilter.swift in Sources */,
 				43F926E22391729500F18E47 /* CookCurrentConfigurator.swift in Sources */,
+				431A0CAE239AA3A60033B580 /* CurrentRecipeCell.swift in Sources */,
 				431A0C9C23997F9B0033B580 /* BuyConfigurator.swift in Sources */,
 				43EF9E0E23935D1F00B0AAEE /* SearchInteractor.swift in Sources */,
 				4348DFF52395DBD4009D69CA /* FiltersView.swift in Sources */,

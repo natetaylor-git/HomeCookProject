@@ -12,7 +12,7 @@ class CookCurrentConfigurator: CookCurrentConfiguratorProtocol {
     
     func configure(with viewController: CookCurrentViewController) {
         let presenter = CookCurrentPresenter()
-        let interactor = CookCurrentInteractor()
+        let interactor = CookCurrentInteractor(localRecipesCollection: LocalRecipesCollection.shared)
         
         viewController.presenter = presenter
         presenter.interactor = interactor

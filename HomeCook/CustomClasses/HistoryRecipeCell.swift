@@ -18,7 +18,8 @@ class HistoryRecipeCell: UICollectionViewCell {
         let label = UILabel()
         label.backgroundColor = .white
         label.textColor = .black
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+//        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.font = UIFont.italicSystemFont(ofSize: 18)
         label.textAlignment = .center
         return label
     }()
@@ -30,7 +31,7 @@ class HistoryRecipeCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.contentView.backgroundColor = UIColor.black
+        self.contentView.backgroundColor = UIColor.white
         
         let padding: CGFloat = 1
         let viewOrigin = self.bounds.origin
@@ -45,10 +46,9 @@ class HistoryRecipeCell: UICollectionViewCell {
         self.imageView.backgroundColor = .black
         self.imageView.layer.masksToBounds = true
         
-        self.imageView.layer.borderWidth = 1.0
-        self.imageView.layer.borderColor = UIColor.black.cgColor
+//        self.imageView.layer.borderWidth = 1
+//        self.imageView.layer.borderColor = UIColor.black.cgColor
         self.imageView.layer.cornerRadius = 10.0
-        
         
         
 //        let path = UIBezierPath(roundedRect:self.imageView.bounds, byRoundingCorners:[.topRight, .topLeft], cornerRadii: CGSize(width: 10, height: 10))
@@ -69,13 +69,11 @@ class HistoryRecipeCell: UICollectionViewCell {
                                                          height: recipeNameLabelHeight))
         self.recipeNameLabel.numberOfLines = 2
         self.recipeNameLabel.lineBreakMode = .byCharWrapping
-//        self.recipeNameLabel.layer.borderWidth = 1.0
         self.recipeNameLabel.layer.cornerRadius = 10.0
-//        self.recipeNameLabel.layer.borderColor = UIColor.black.cgColor
         self.recipeNameLabel.layer.masksToBounds = true
         
-        self.contentView.layer.borderWidth = 1.0
-        self.contentView.layer.borderColor = UIColor.black.cgColor
+//        self.contentView.layer.borderWidth = 1.0
+//        self.contentView.layer.borderColor = UIColor.black.cgColor
         self.contentView.layer.cornerRadius = 10.0
         self.contentView.addSubview(self.recipeNameLabel)
     }
@@ -86,7 +84,5 @@ class HistoryRecipeCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        
     }
 }

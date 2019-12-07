@@ -96,6 +96,10 @@ class Router: NSObject {
 
         let cookTabBarController = UITabBarController()
         cookTabBarController.viewControllers = [currentController, historyController]
+        cookTabBarController.navigationItem.title = "Cook"
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        cookTabBarController.navigationItem.backBarButtonItem = backButton
+        
         self.navigationController?.pushViewController(cookTabBarController, animated: true)
 //        let historyController = CookHistoryViewController()
 //        self.navigationController?.pushViewController(historyController, animated: true)

@@ -35,7 +35,7 @@ class CookHistoryViewController: UIViewController {
 //            }
 //
 //        }
-        self.navigationItem.title = "Courses"
+        
         self.recipeCoursesTableView.separatorColor = .clear
         self.recipeCoursesTableView.register(HistoryTableViewCell.self,
                                              forCellReuseIdentifier: "recipeCell")
@@ -46,6 +46,12 @@ class CookHistoryViewController: UIViewController {
         self.recipeCoursesTableView.delegate = self
         
         self.view.addSubview(self.recipeCoursesTableView)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let navigationItem = self.navigationController?.topViewController?.navigationItem
+        navigationItem?.title = "Cooked Recipes"
+        navigationItem?.rightBarButtonItem = nil
     }
     
 }
