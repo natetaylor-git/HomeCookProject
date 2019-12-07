@@ -13,7 +13,8 @@ class CookHistoryConfigurator: CookHistoryConfiguratorProtocol {
     func configure(with viewController: CookHistoryViewController) {
         let presenter = CookHistoryPresenter()
         let coreDataService = CoreDataService()
-        let interactor = CookHistoryInteractor(coreDataService: coreDataService)
+        let userDefaultsService = UserDefaultsService()
+        let interactor = CookHistoryInteractor(coreDataService: coreDataService, userDefaultsService: userDefaultsService)
         
         viewController.presenter = presenter
         presenter.interactor = interactor

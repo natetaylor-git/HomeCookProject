@@ -14,8 +14,10 @@ class CookCurrentConfigurator: CookCurrentConfiguratorProtocol {
         let presenter = CookCurrentPresenter()
         let localRecipesCollection = LocalRecipesCollection.shared
         let coreDataService = CoreDataService()
+        let userDefaultsService = UserDefaultsService()
         let interactor = CookCurrentInteractor(localCollection: localRecipesCollection,
-                                               coreDataService: coreDataService)
+                                               coreDataService: coreDataService,
+                                               userDefaultsService: userDefaultsService)
         
         viewController.presenter = presenter
         presenter.interactor = interactor

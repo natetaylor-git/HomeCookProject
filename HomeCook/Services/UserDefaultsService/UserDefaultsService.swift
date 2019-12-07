@@ -11,6 +11,7 @@ import Foundation
 protocol UserDefaultsServiceProtocol {
     func saveSet<T>(set: Set<T>, key: String?) -> Bool
     func getSet<T>(key: String?) -> Set<T>?
+    var historyKey: String { get }
 }
 
 extension UserDefaultsServiceProtocol {
@@ -25,11 +26,12 @@ extension UserDefaultsServiceProtocol {
 
 class UserDefaultsService: UserDefaultsServiceProtocol {
     private var myKey = "CurrentRecipesIds"
+    var historyKey = "HistoryRecipesIds"
     
     func saveSet<T>(set: Set<T>, key: String? = nil) -> Bool {
         let actualKey = key ?? self.myKey
         let data = try? NSKeyedArchiver.archivedData(withRootObject: set, requiringSecureCoding: false)
-        if let data = data, let _ = UserDefaults.standard.object(forKey: actualKey) {
+        if let data = data {
             UserDefaults.standard.set(data, forKey: actualKey)
             return true
         } else {

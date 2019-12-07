@@ -11,15 +11,27 @@ import Foundation
 class CookHistoryInteractor: CookHistoryInteractorInputProtocol {
     weak var presenter: CookHistoryInteractorOutputProtocol?
     let coreDataService: CoreDataServiceProtocol
+    let userDefaultsService: UserDefaultsServiceProtocol
     private var recipesFromDataBase: [Int: DetailedRecipeEntity]
     
-    init(coreDataService: CoreDataServiceProtocol) {
+    init(coreDataService: CoreDataServiceProtocol, userDefaultsService: UserDefaultsServiceProtocol) {
         self.coreDataService = coreDataService
         self.recipesFromDataBase = [:]
+        self.userDefaultsService = userDefaultsService
     }
     
     func getHistory() {
-        self.coreDataService.loadRecipes(completion: { models in
+        let fetchedIds: Set<Int>? = self.userDefaultsService.getSet(key: self.userDefaultsService.historyKey)
+        
+        guard let currentIds = fetchedIds else {
+            return
+        }
+        
+        if fetchedIds?.count == 0 {
+            return
+        }
+        
+        self.coreDataService.loadRecipes(specificIds: currentIds, completion: { models in
             if models.count != 0 {
                 self.recipesFromDataBase = models
                 self.presenter?.takeHistory(Array(models.values))

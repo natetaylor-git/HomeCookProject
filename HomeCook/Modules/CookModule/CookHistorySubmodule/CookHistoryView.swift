@@ -24,18 +24,6 @@ class CookHistoryViewController: UIViewController {
         super.viewDidLoad()
         presenter?.viewLoaded()
         
-//        for index in 0...10 {
-//            recipesTable.append(("\(index)", []))
-//        }
-//
-//        for index in 0...10 {
-//            recipesTable[index].1 = []
-//            for _ in 0...5 {
-//                recipesTable[index].1.append(RecipeCellModel(id: 0, name: "lal sadllsad asd asd asdsad sad asdas as das dasd asd asd asdsd d a", image: UIImage(named: "sirius")!))
-//            }
-//
-//        }
-        
         self.recipeCoursesTableView.separatorColor = .clear
         self.recipeCoursesTableView.register(HistoryTableViewCell.self,
                                              forCellReuseIdentifier: "recipeCell")
