@@ -7,3 +7,20 @@
 //
 
 import UIKit
+
+class MainPresenter: MainPresenterInputProtocol {
+    var interactor: MainInteractorInputProtocol?
+    weak var view: MainPresenterOutputProtocol?
+    
+    func viewLoaded() {
+        self.interactor?.loadCurrentRecipes()
+    }
+    
+    func viewWillAppear() {
+        
+    }
+}
+
+extension MainPresenter: MainInteractorOutputProtocol {
+    
+}

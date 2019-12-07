@@ -11,11 +11,14 @@ import Foundation
 class CookCurrentInteractor: CookCurrentInteractorInputProtocol {
     weak var presenter: CookCurrentInteractorOutputProtocol?
     var localRecipesCollection: LocalRecipesCollectionProtocol
+    let coreDataService: CoreDataServiceProtocol
+    
     private var existingLocalRecipesIds: Set<Int>
     private var needUpdate = false
     
-    init(localRecipesCollection: LocalRecipesCollectionProtocol) {
-        self.localRecipesCollection = localRecipesCollection
+    init(localCollection: LocalRecipesCollectionProtocol, coreDataService: CoreDataServiceProtocol) {
+        self.localRecipesCollection = localCollection
+        self.coreDataService = coreDataService
         self.existingLocalRecipesIds = Set<Int>(self.localRecipesCollection.localRecipes.dict.keys)
     }
     
@@ -26,21 +29,6 @@ class CookCurrentInteractor: CookCurrentInteractorInputProtocol {
     }
     
     func checkIfLocalRecipesUpdated() {
-//        var newRecipesExist = false
-//        var setToCheckDeleted = Set<Int>(self.existingLocalRecipesIds)
-//        for (key, _) in self.localRecipesCollection.localRecipes.dict {
-//            setToCheckDeleted.remove(key)
-//            if self.existingLocalRecipesIds.contains(key) == false {
-//                newRecipesExist = true
-//                self.existingLocalRecipesIds.insert(key)
-//            }
-//        }
-//
-//        self.needUpdate = newRecipesExist || setToCheckDeleted.count != 0
-//        if self.needUpdate {
-//             self.getCurrentRecipes()
-//        }
-        
         let currentRecipesIds = Set<Int>(self.localRecipesCollection.localRecipes.dict.keys)
         if self.existingLocalRecipesIds != currentRecipesIds {
             self.needUpdate = true
@@ -49,5 +37,15 @@ class CookCurrentInteractor: CookCurrentInteractorInputProtocol {
         } else {
             self.needUpdate = false
         }
+    }
+    
+    func deleteRecipeFromLocalStorage(id: Int) {
+        let cookedRecipe = self.localRecipesCollection.localRecipes.dict.removeValue(forKey: id)
+        self.localRecipesCollection.localRecipes.updateUserDefaults()
+        if let recipeForHistory = cookedRecipe {
+            self.coreDataService.saveRecipes([id: recipeForHistory])
+        }
+        
+        checkIfLocalRecipesUpdated()
     }
 }

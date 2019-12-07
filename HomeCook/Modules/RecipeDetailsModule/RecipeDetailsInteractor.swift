@@ -30,6 +30,7 @@ class RecipeDetailsInteractor: RecipeDetailsInteractorInputProtocol {
     
     func addRecipeToLocalStorage() {
         self.localRecipesCollection.localRecipes.dict[recipeEntity.recipe.id] = recipeEntity
+        self.localRecipesCollection.localRecipes.updateUserDefaults()
 //        let core = CoreDataService()
 //        core.deleteAllRecipes(completion: {lol in })
 //        core.saveRecipes()
@@ -40,5 +41,6 @@ class RecipeDetailsInteractor: RecipeDetailsInteractorInputProtocol {
     
     func deleteRecipeFromLocalStorageIfExists() {
         self.localRecipesCollection.localRecipes.dict.removeValue(forKey: recipeEntity.recipe.id)
+        self.localRecipesCollection.localRecipes.updateUserDefaults()
     }
 }

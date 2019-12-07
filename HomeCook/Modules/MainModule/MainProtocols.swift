@@ -12,3 +12,17 @@ protocol MainConfiguratorProtocol: class {
     func configure(with viewController: MainViewController)
 }
 
+protocol MainPresenterInputProtocol: class {
+    func viewLoaded()
+    func viewWillAppear()
+}
+
+protocol MainPresenterOutputProtocol: class {
+}
+
+protocol MainInteractorInputProtocol: class {
+    func loadCurrentRecipes()
+}
+
+protocol MainInteractorOutputProtocol: class {
+}

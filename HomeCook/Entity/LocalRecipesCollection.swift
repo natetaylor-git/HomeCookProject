@@ -19,6 +19,20 @@ class LocalRecipesCollection {
     }()
     
     var dict = [Int: DetailedRecipeEntity]()
+    let userDefaultsService: UserDefaultsServiceProtocol
+    
+    private init() {
+        self.userDefaultsService = UserDefaultsService()
+    }
+    
+    func updateUserDefaults() {
+        let updatedIds = Set<Int>(self.dict.keys)
+        let result = self.userDefaultsService.saveSet(set: updatedIds)
+        if  result == false {
+            print("can't save current recipe ids to user defaults")
+            return
+        }
+    }
 }
 
 extension LocalRecipesCollection: LocalRecipesCollectionProtocol {
@@ -26,6 +40,7 @@ extension LocalRecipesCollection: LocalRecipesCollectionProtocol {
         return LocalRecipesCollection.shared
     }
 }
+
 
 //class LocalRecipesCollection {
 //    static var shared: LocalRecipesCollection = {

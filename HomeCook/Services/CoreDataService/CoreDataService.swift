@@ -9,20 +9,30 @@
 import CoreData
 
 protocol CoreDataServiceProtocol {
-    func saveRecipes()
-    func loadRecipes(completion: @escaping ([Int: DetailedRecipeEntity]) -> Void)
+    func saveRecipes(_ recipesCollection: [Int : DetailedRecipeEntity])
+    func loadRecipes(specificIds: Set<Int>, completion: @escaping ([Int: DetailedRecipeEntity]) -> Void)
     func deleteAllRecipes(completion: @escaping (Bool) -> Void)
+}
+
+extension CoreDataServiceProtocol {
+    func loadRecipes(completion: @escaping ([Int: DetailedRecipeEntity]) -> Void) {
+        return loadRecipes(specificIds: Set<Int>(), completion: completion)
+    }
 }
 
 class CoreDataService: CoreDataServiceProtocol {
     private let stack = CoreDataStack.shared
     private let entityName = "Recipe"
     
-    func loadRecipes(completion: @escaping ([Int: DetailedRecipeEntity]) -> Void) {
+    func loadRecipes(specificIds: Set<Int> = Set<Int>(), completion: @escaping ([Int: DetailedRecipeEntity]) -> Void) {
         stack.persistentContainer.performBackgroundTask { (readContext) in
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
             let sorter: NSSortDescriptor = NSSortDescriptor(key: "id" , ascending: true)
             fetchRequest.sortDescriptors = [sorter]
+            if specificIds.count > 0 {
+                fetchRequest.predicate = NSPredicate(format: "id in %@", specificIds)
+            }
+            
             
             do {
                 let result = try readContext.fetch(fetchRequest) as? [MORecipe]
@@ -131,8 +141,8 @@ class CoreDataService: CoreDataServiceProtocol {
             deleteContext.delete(loadedEntity)
     }
     
-    func saveRecipes() {
-        let localStorage = LocalRecipesCollection.shared.localRecipes.dict
+    func saveRecipes(_ recipesCollection: [Int : DetailedRecipeEntity]) {
+        let localStorage = recipesCollection
         stack.persistentContainer.performBackgroundTask { (writeContext) in
             for localRecipe in localStorage {
                 let recipeModel = localRecipe.value.recipe

@@ -10,12 +10,17 @@ import Foundation
 
 class MainConfigurator: MainConfiguratorProtocol {
     func configure(with viewController: MainViewController) {
-//        let presenter = MainPresenter()
-//        let interactor = MainInteractor()
-//
-//        viewController.presenter = presenter
-//        presenter.interactor = interactor
-//        interactor.presenter = presenter
-//        presenter.view = viewController
+        let presenter = MainPresenter()
+        let coreDataService = CoreDataService()
+        let userDefaultsService = UserDefaultsService()
+        let localRecipesCollection = LocalRecipesCollection.shared
+        let interactor = MainInteractor(coreDataService: coreDataService,
+                                        userDefaultsService: userDefaultsService,
+                                        localRecipesCollection: localRecipesCollection)
+
+        viewController.presenter = presenter
+        presenter.interactor = interactor
+        interactor.presenter = presenter
+        presenter.view = viewController
     }
 }

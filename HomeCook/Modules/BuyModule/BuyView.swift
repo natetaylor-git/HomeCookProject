@@ -13,6 +13,25 @@ class BuyViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+//        let data = try? NSKeyedArchiver.archivedData(withRootObject: set, requiringSecureCoding: false)
+//        if let data = data {
+//            UserDefaults.standard.set(data, forKey: "CurrentRecipesIds")
+//        }
+    
+//        if let gotData = UserDefaults.standard.data(forKey: "CurrentRecipesIds"),
+//            let gotSet = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSSet.self, from: gotData) {
+//            print(gotSet)
+//        }
+        
+        let a = UserDefaultsService()
+        
+        let set = Set<Int>([1])
+        a.saveSet(set: set)
+        
+//        let s: Set<Int>? = a.getSet()
+//        print(s)
     }
 }
 

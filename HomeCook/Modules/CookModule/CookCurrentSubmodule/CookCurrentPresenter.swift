@@ -20,20 +20,25 @@ class CookCurrentPresenter: CookCurrentPresenterInputProtocol {
         self.interactor?.checkIfLocalRecipesUpdated()
     }
     
+    func clickedDoneButton(recipeId: Int) {
+        self.interactor?.deleteRecipeFromLocalStorage(id: recipeId)
+    }
 }
 
 extension CookCurrentPresenter: CookCurrentInteractorOutputProtocol {
     
     func takeCurrentRecipes(_ recipes: LocalRecipesCollectionProtocol) {
-        var recipesInfoToShow = [(name: String, image: UIImage, instructions: String)]()
+        var recipesInfoToShow = [(id:Int, name: String, image: UIImage, instructions: String)]()
         let sortedRecipes = recipes.localRecipes.dict.sorted{ $0.0 < $1.0 }
         
         for recipe in sortedRecipes {
             let recipeValue = recipe.value
             let image = UIImage(data: recipeValue.recipeImageData) ?? UIImage()
-            let recipeInfo = (name: recipeValue.recipe.name,
+            let recipe = recipeValue.recipe
+            let recipeInfo = (id: recipe.id,
+                              name: recipe.name,
                               image: image,
-                              instructions: recipeValue.recipe.instructions)
+                              instructions: recipe.instructions)
             recipesInfoToShow.append(recipeInfo)
         }
         self.view?.updateCollectionView(with: recipesInfoToShow)

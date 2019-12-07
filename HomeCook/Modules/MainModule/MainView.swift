@@ -9,6 +9,8 @@
 import UIKit
 
 class MainViewController: UIViewController {
+     var presenter: MainPresenterInputProtocol?
+    
     let searchButton: UIButton = {
         let button = UIButton()
 //        button.setImage(UIImage(named: "SearchIcon"), for: .normal)
@@ -53,11 +55,17 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.presenter?.viewLoaded()
+        
         setupUI()
         
         searchButton.addTarget(self, action: #selector(tappedSearchButton), for: .touchUpInside)
         buyButton.addTarget(self, action: #selector(tappedBuyButton), for: .touchUpInside)
         cookButton.addTarget(self, action: #selector(tappedCookButton), for: .touchUpInside)
+    }
+    
+    func showSplashElements() {
+        self.view.alpha = 0
     }
     
     func setupUI() {
@@ -93,3 +101,6 @@ class MainViewController: UIViewController {
     }
 }
 
+extension MainViewController: MainPresenterOutputProtocol {
+    
+}

@@ -41,13 +41,15 @@ class CookCurrentViewController: UIViewController {
         return label
     }()
     
-    var pages = [(name: String, image: UIImage, instructions: String)]()
+    var pages = [(id: Int, name: String, image: UIImage, instructions: String)]()
     let insetX: CGFloat = 0
     let insetY: CGFloat = 0
     let pageControlHeight: CGFloat = 10
     let pageControlWidthMargin: CGFloat = 2
     let recipeNumberLabelHeight: CGFloat = 30
     var lastPageNumber: Int = 0
+    
+    var doneButton: UIBarButtonItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +64,8 @@ class CookCurrentViewController: UIViewController {
         self.recipesCollectionView.bounces = false
         self.pageControl.numberOfPages = self.pages.count
         
+        self.doneButton = UIBarButtonItem(title: "✅", style: .done, target: self, action: #selector(tappedDoneButton))
+        
         self.view.addSubview(recipesCollectionView)
         self.view.addSubview(self.pageControl)
     }
@@ -74,7 +78,6 @@ class CookCurrentViewController: UIViewController {
         if currentPageNumber != self.lastPageNumber {
             let navigationItem = self.navigationController?.topViewController?.navigationItem
             navigationItem?.title = self.pages[currentPageNumber].name
-            updatePageNumberLabel(with: currentPageNumber + 1)
             self.lastPageNumber = currentPageNumber
         }
     }
@@ -95,12 +98,15 @@ class CookCurrentViewController: UIViewController {
         self.recipesCollectionView.frame = frame
         
         layoutPageControl()
+        
+        let navigationItem = self.navigationController?.topViewController?.navigationItem
+        navigationItem?.rightBarButtonItem = self.doneButton
     }
     
     func layoutPageControl() {
         let tabBarHeight = self.tabBarController?.tabBar.frame.height ?? 0
         let viewSize = self.view.frame.size
-        
+
         var pageControlWidth: CGFloat
         let desiredlSize = self.pageControl.size(forNumberOfPages: self.pageControl.numberOfPages)
         if desiredlSize.width > viewSize.width {
@@ -108,52 +114,43 @@ class CookCurrentViewController: UIViewController {
         } else {
             pageControlWidth = desiredlSize.width
         }
-        
+
         let pageControlSize = CGSize(width: pageControlWidth, height: self.pageControlHeight)
         let pageControlOriginY = self.view.frame.maxY - pageControlSize.height - tabBarHeight
         let pageControlOrigin = CGPoint(x: (viewSize.width - pageControlWidth) / 2,
                                         y: pageControlOriginY)
-        
+
         self.pageControl.frame = CGRect(origin: pageControlOrigin, size: pageControlSize)
+    }
+    
+    func layoutNavigationBar() {
+        let navigationItem = self.navigationController?.topViewController?.navigationItem
+        
+        var title = "No recipes to cook"
+        var alpha: CGFloat = 0
+        if self.pages.count != 0 {
+            title = self.pages[self.pageControl.currentPage].name
+            alpha = 1.0
+        }
+        
+        navigationItem?.title = title
+        navigationItem?.rightBarButtonItem = self.doneButton
+        navigationItem?.rightBarButtonItem?.tintColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: alpha)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.presenter?.viewWillAppear()
-        
-        let navigationItem = self.navigationController?.topViewController?.navigationItem
-        
-        var title = "No recipes to cook"
-        if self.pages.count != 0 {
-            title = self.pages[self.pageControl.currentPage].name
-            
-            let recipeNumber = self.pageControl.currentPage + 1
-            updatePageNumberLabel(with: recipeNumber)
-            
-            let item = UIBarButtonItem(customView: recipeNumberLabel)
-            navigationItem?.rightBarButtonItem = item
-        }
-        navigationItem?.title = title
+        layoutNavigationBar()
     }
     
-    func updatePageNumberLabel(with number: Int) {
-        if number == 0 {
-            return
-        }
-        let navigationItem = self.navigationController?.topViewController?.navigationItem
-        self.recipeNumberLabel.text = "#\(number)"
+    @objc func tappedDoneButton() {
+        let currentPage = self.pageControl.currentPage
         
-        var minX: CGFloat
-        if let titleMaxY = navigationItem?.titleView?.frame.maxY {
-            minX = titleMaxY
-        } else {
-            minX = self.view.frame.width / 2
+        if self.pages.count > 0 {
+            self.presenter?.clickedDoneButton(recipeId: self.pages[currentPage].id)
         }
         
-        let desiredSize = recipeNumberLabel.sizeThatFits(CGSize(width: self.view.frame.width - minX,
-                                                                height: self.recipeNumberLabelHeight))
-        let recipeNumberLabelOrigin = CGPoint(x: 0, y: 0)
-        self.recipeNumberLabel.frame = CGRect(origin: recipeNumberLabelOrigin,
-                                              size: desiredSize)
+        layoutNavigationBar()
     }
 }
 
@@ -164,7 +161,7 @@ extension CookCurrentViewController: CurrentRecipeCellDelegate {
 }
 
 extension CookCurrentViewController: CookCurrentPresenterOutputProtocol {
-    func updateCollectionView(with recipes: [(name: String, image: UIImage, instructions: String)]) {
+    func updateCollectionView(with recipes: [(id: Int, name: String, image: UIImage, instructions: String)]) {
         self.pages = recipes
         self.pageControl.numberOfPages = self.pages.count
         layoutPageControl()
