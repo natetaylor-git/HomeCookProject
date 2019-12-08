@@ -21,6 +21,11 @@ class MainInteractor: MainInteractorInputProtocol {
         self.coreDataService = coreDataService
         self.userDefaultsService = userDefaultsService
         self.localRecipesCollection = localRecipesCollection
+        
+        
+//        self.coreDataService.deleteAllRecipes(completion: {lol in })
+//        self.userDefaultsService.clearAllCustomKeys()
+        
     }
     
     func loadCurrentRecipes() {

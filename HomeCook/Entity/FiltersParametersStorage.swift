@@ -54,7 +54,7 @@ class FilterParameters {
             self.current = defaultValue
         } else {
             self.values = []
-            self.current = ParameterValue(id: 0, val: "0")
+            self.current = ParameterValue(id: 0, val: "---")
         }
     }
     

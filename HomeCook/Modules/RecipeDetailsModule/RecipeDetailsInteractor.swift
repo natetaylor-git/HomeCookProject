@@ -31,12 +31,6 @@ class RecipeDetailsInteractor: RecipeDetailsInteractorInputProtocol {
     func addRecipeToLocalStorage() {
         self.localRecipesCollection.localRecipes.dict[recipeEntity.recipe.id] = recipeEntity
         self.localRecipesCollection.localRecipes.updateUserDefaults()
-//        let core = CoreDataService()
-//        core.deleteAllRecipes(completion: {lol in })
-//        core.saveRecipes()
-//        core.loadRecipes { (a) in
-//            
-//        }
     }
     
     func deleteRecipeFromLocalStorageIfExists() {

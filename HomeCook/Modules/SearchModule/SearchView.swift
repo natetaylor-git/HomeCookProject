@@ -24,8 +24,7 @@ class SearchViewController: UIViewController {
     }()
     
     let filterButton: ImageButton = {
-        let button = ImageButton(frame: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)),
-                                 imageName: "FilterIcon")
+        let button = ImageButton(frame: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)), imageName: "FilterIcon", brightColor: .blue)
         return button
     }()
     
@@ -48,6 +47,8 @@ class SearchViewController: UIViewController {
     func setupUI() {
         self.navigationItem.title = "Search"
         self.navigationItem.largeTitleDisplayMode = .never
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        
         setupFiltersButton()
         setupFiltersView()
         setupRecipesSearchBar()
@@ -85,7 +86,7 @@ class SearchViewController: UIViewController {
         }
         self.recipesSearchBar.frame = CGRect(origin: CGPoint(x: .zero, y: paddingSearchBarY),
                                              size: CGSize(width: self.view.frame.width, height: 70))
-        self.recipesSearchBar.barTintColor = UIColor.lightGreen
+        self.recipesSearchBar.barTintColor = .darkGreen
         self.view.addSubview(recipesSearchBar)
     }
     
@@ -96,10 +97,6 @@ class SearchViewController: UIViewController {
         self.searchResultsTableView.frame = CGRect(origin: origin,
                                                    size: size)
         self.view.addSubview(searchResultsTableView)
-    }
-
-    func setupFilters() {
-        
     }
     
     func registerKeyboardNotifications() {
@@ -130,8 +127,7 @@ class SearchViewController: UIViewController {
     @objc func tappedFiltersButton() {
         self.filterButton.changeImageColor()
         if self.filtersVisible {
-            
-            clearCurrentResults()
+
             setupSearch()
             
             self.view.endEditing(true)
@@ -169,6 +165,7 @@ class SearchViewController: UIViewController {
     
     func clearCurrentResults() {
         self.searchResultsCollection.removeAll()
+        self.searchResultsTableView.reloadData()
     }
 }
 
@@ -233,12 +230,13 @@ extension SearchViewController: SearchPresenterOutputProtocol {
         self.searchResultsTableView.reloadData()
     }
     
+    //nene
     func updateResult(at indexPath: IndexPath, with image: UIImage) {
         self.searchResultsCollection[indexPath.row].image = image
         self.searchResultsTableView.reloadRows(at: [indexPath], with: .none)
     }
     
-    func updateFiltersView(with parameters: [(String, [String])]) {
+    func updateFiltersView(with parameters: [(String, [String], String)]) {
         var paddingFilterViewY: CGFloat = .zero
         if let navigationBar = self.navigationController?.navigationBar {
             paddingFilterViewY = navigationBar.frame.origin.y + navigationBar.frame.height

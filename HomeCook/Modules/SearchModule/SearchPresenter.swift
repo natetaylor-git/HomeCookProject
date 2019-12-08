@@ -39,14 +39,15 @@ class SearchPresenter: SearchInteractorOutputProtocol {
     }
     
     func setFiltersParameters(with parameters: [String: FilterParameters]) {
-        var formattedParameters = [(String, [String])]()
+        var formattedParameters = [(String, [String], String)]()
         let sortedParameters = parameters.sorted(by: { filter1, filter2 in
             return filter1.value.id < filter2.value.id
         })
         
         for filterParameter in sortedParameters {
             let valueNames = filterParameter.value.values.map {$0.val}
-            formattedParameters.append((filterParameter.value.name + ":", valueNames))
+            let current = filterParameter.value.getCurrent().val
+            formattedParameters.append((filterParameter.value.name + ":", valueNames, current))
         }
         
         DispatchQueue.main.async {
@@ -57,12 +58,16 @@ class SearchPresenter: SearchInteractorOutputProtocol {
     func callViewCompletion(with detailedRecipe: DetailedRecipeEntity) {
         self.view?.callCompletion(with: detailedRecipe)
     }
+    
+    func clearExistedResults() {
+        self.view?.clearCurrentResults()
+    }
 }
 
 extension SearchPresenter: SearchPresenterInputProtocol {
     func viewLoaded() {
         self.interactor?.loadRecipes(by: "", sameSearch: false)
-        self.interactor?.loadFiltersValues()
+        self.interactor?.loadFiltersValues() // поменять местами?!
     }
     
     func clickedOnCell(at indexPath: IndexPath) {

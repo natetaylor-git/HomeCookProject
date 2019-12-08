@@ -23,7 +23,7 @@ class DropDownMenu: UIView, UITableViewDataSource, UITableViewDelegate {
         tableView.frame = self.bounds
         tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         tableView.showsVerticalScrollIndicator = false
-        tableView.backgroundColor = UIColor.lightGreen
+        tableView.backgroundColor = UIColor.darkGreen
         
         self.addSubview(tableView)
     }

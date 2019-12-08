@@ -12,8 +12,9 @@ class API {
     private static let baseUrl = ""
     private static let imageBaseUrl = ""
     
-    static func getImageUrl(relativePath: String) -> URL {
-        return URL(string: imageBaseUrl + relativePath)!
+    static func getImageUrl(relativePath: String) -> URL? {
+        let url = URL(string: imageBaseUrl + relativePath)
+        return url
     }
     
     static func getRecipeInfo(id: Int) -> URL {
@@ -27,7 +28,7 @@ class API {
         return components.url!
     }
     
-    static func getRecipes(searchString: String, amount: Int = 2, offset: Int = 0, maxTime: Int = 0, cuisineId: Int = 0, courseTypeId: Int = 0) -> URL {
+    static func getRecipes(searchString: String, amount: Int = 5, offset: Int = 0, maxTime: Int = 0, cuisineId: Int = 0, courseTypeId: Int = 0) -> URL {
         guard var components = URLComponents(string: baseUrl) else {
             return URL(string: baseUrl)!
         }

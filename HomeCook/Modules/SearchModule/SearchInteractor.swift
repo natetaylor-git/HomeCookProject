@@ -50,6 +50,7 @@ class SearchInteractor: SearchInteractorInputProtocol {
     func updateSearch() {
         self.searchRecipes.removeAll()
         self.oneSearchRecipes.removeAll()
+        self.presenter?.clearExistedResults()
         self.loadRecipes(by: currentSearchText, sameSearch: false)
     }
     
@@ -168,7 +169,10 @@ class SearchInteractor: SearchInteractorInputProtocol {
     }
     
     func loadImage(at path: String, completion: @escaping (Data?) -> Void) {
-        let url = API.getImageUrl(relativePath: path)
+        guard let url = API.getImageUrl(relativePath: path) else {
+            completion(nil)
+            return
+        }
         self.networkService.getData(at: url) { data in
             guard let data = data else {
                 completion(nil)

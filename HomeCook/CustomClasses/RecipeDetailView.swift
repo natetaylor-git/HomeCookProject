@@ -39,7 +39,7 @@ class RecipeDetailView: UIView {
     func setupHeaderLabel() {
         self.headerLabel.frame = CGRect(origin: .zero,
                                         size:CGSize(width: self.frame.width, height: headerHeight))
-        self.headerLabel.backgroundColor = UIColor.lightGreen
+        self.headerLabel.backgroundColor = UIColor.darkGreen
     }
     
     func setupNameLabel(name: String) {

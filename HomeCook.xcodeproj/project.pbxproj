@@ -39,6 +39,7 @@
 		4348DFF92396CB4E009D69CA /* DropFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348DFF82396CB4E009D69CA /* DropFilter.swift */; };
 		4348DFFB2396CB84009D69CA /* SimpleFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348DFFA2396CB84009D69CA /* SimpleFilter.swift */; };
 		4348DFFD2396CC39009D69CA /* DropDownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348DFFC2396CC39009D69CA /* DropDownMenu.swift */; };
+		43D1D86E239C71180059EB3D /* MainButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D1D86D239C71180059EB3D /* MainButtonView.swift */; };
 		43EF9DFE2393356500B0AAEE /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF9DFD2393356500B0AAEE /* NetworkService.swift */; };
 		43EF9E00239336C400B0AAEE /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF9DFF239336C400B0AAEE /* MainPresenter.swift */; };
 		43EF9E02239336D700B0AAEE /* MainInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF9E01239336D700B0AAEE /* MainInteractor.swift */; };
@@ -106,6 +107,7 @@
 		4348DFF82396CB4E009D69CA /* DropFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropFilter.swift; sourceTree = "<group>"; };
 		4348DFFA2396CB84009D69CA /* SimpleFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleFilter.swift; sourceTree = "<group>"; };
 		4348DFFC2396CC39009D69CA /* DropDownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownMenu.swift; sourceTree = "<group>"; };
+		43D1D86D239C71180059EB3D /* MainButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButtonView.swift; sourceTree = "<group>"; };
 		43EF9DFD2393356500B0AAEE /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		43EF9DFF239336C400B0AAEE /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		43EF9E01239336D700B0AAEE /* MainInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInteractor.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				431A0CA3239985090033B580 /* HistoryRecipeCell.swift */,
 				431A0CA72399A7C00033B580 /* HistoryTableViewCell.swift */,
 				431A0CAD239AA3A60033B580 /* CurrentRecipeCell.swift */,
+				43D1D86D239C71180059EB3D /* MainButtonView.swift */,
 			);
 			path = CustomClasses;
 			sourceTree = "<group>";
@@ -449,6 +452,7 @@
 			files = (
 				4348DFF22395D60A009D69CA /* ImageButton.swift in Sources */,
 				43EF9E1B239412C900B0AAEE /* RecipeDetailsInteractor.swift in Sources */,
+				43D1D86E239C71180059EB3D /* MainButtonView.swift in Sources */,
 				4348DFFD2396CC39009D69CA /* DropDownMenu.swift in Sources */,
 				43F926C7239157D100F18E47 /* SearchView.swift in Sources */,
 				43F926E62391754B00F18E47 /* CookCurrentProtocols.swift in Sources */,

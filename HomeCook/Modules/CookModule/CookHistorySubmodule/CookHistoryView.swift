@@ -18,10 +18,21 @@ class CookHistoryViewController: UIViewController {
         return tableView
     }()
     
+    var indicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.hidesWhenStopped = true
+        indicator.color = .black
+        return indicator
+    }()
+    
     let headerHeight: CGFloat = 40
+    let indicatorSide: CGFloat = 80
+    let indicatorScale: CGFloat = 2
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupIndicator()
         presenter?.viewLoaded()
         
         self.recipeCoursesTableView.separatorColor = .clear
@@ -34,6 +45,8 @@ class CookHistoryViewController: UIViewController {
         self.recipeCoursesTableView.delegate = self
         
         self.view.addSubview(self.recipeCoursesTableView)
+        self.view.addSubview(self.indicator)
+        self.indicator.startAnimating()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,12 +55,23 @@ class CookHistoryViewController: UIViewController {
         navigationItem?.rightBarButtonItem = nil
     }
     
+    func setupIndicator() {
+        let viewBounds = self.view.bounds
+        let origin = CGPoint(x: (viewBounds.width - indicatorSide) / 2,
+                             y: (viewBounds.height - indicatorSide) / 2)
+        self.indicator.frame = CGRect(origin: origin, size: CGSize(width: indicatorSide,
+                                                                   height: indicatorSide))
+        self.indicator.transform = CGAffineTransform(scaleX: self.indicatorScale,
+                                                     y: self.indicatorScale)
+    }
+    
 }
 
 extension CookHistoryViewController: CookHistoryPresenterOutputProtocol {
     func showHistory(_ cells: [(String, [RecipeCellModel])]) {
         self.recipesTable = cells
         self.recipeCoursesTableView.reloadData()
+        self.indicator.stopAnimating()
     }
     
     func callCompletion(with entity: DetailedRecipeEntity) {
@@ -126,7 +150,7 @@ extension CookHistoryViewController {
         
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
-        shapeLayer.strokeColor = UIColor.lightGreen.cgColor
+        shapeLayer.strokeColor = UIColor.darkGreen.cgColor
         shapeLayer.lineWidth = width
         view.layer.addSublayer(shapeLayer)
     }

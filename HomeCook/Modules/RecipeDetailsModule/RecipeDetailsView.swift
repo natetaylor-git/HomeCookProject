@@ -23,14 +23,13 @@ class RecipeDetailsViewController: UIViewController {
     }()
     
     let buyButton: ImageButton = {
-        let button = ImageButton(frame: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)),
-                                 imageName: "BuyIcon", shadow: true)
+        let button = ImageButton(frame: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)), imageName: "BuyIconDetailed", brightColor: .blue, shadow: true)
         return button
     }()
     
     var infoDetailsViews = [RecipeDetailView]()
     
-    let paddingX: CGFloat = 10
+    let paddingX: CGFloat = 5
     var buyButtonActive = false
     
     override func viewDidLoad() {

@@ -29,10 +29,10 @@ class FilterViewOfDropType: UIView, DropDownViewHolderProtocol {
     var dropMenuBottomPadding: CGFloat = 10
     var headerHeight: CGFloat = 0
     
-    init(title: String, frame: CGRect, values: [String]) {
+    init(title: String, frame: CGRect, values: [String], current: String) {
         self.headerLabel.frame = CGRect(origin: .zero,
                                         size:CGSize(width: frame.width, height: headerHeight))
-        self.headerLabel.backgroundColor = UIColor.lightGreen
+        self.headerLabel.backgroundColor = UIColor.darkGreen
         
         self.titleLabel.frame = CGRect(origin: CGPoint(x: 0, y: self.headerLabel.frame.maxY),
                                        size: CGSize(width: frame.width,
@@ -46,15 +46,16 @@ class FilterViewOfDropType: UIView, DropDownViewHolderProtocol {
         super.init(frame: frame)
         
         self.layer.borderWidth = 2.0
-        self.layer.borderColor = UIColor.lightGreen.cgColor
+        self.layer.borderColor = UIColor.darkGreen.cgColor
         
         self.titleLabel.text = title
         self.titleLabel.textAlignment = .center
         self.titleLabel.backgroundColor = .white
         self.titleLabel.font = UIFont.boldSystemFont(ofSize: 15)
         
-        self.valueButton.setTitle("All", for: .normal)
-        self.valueButton.setTitleColor(.black, for: .normal)
+//        self.valueButton.setTitle("All", for: .normal)
+        self.valueButton.setTitle(current, for: .normal)
+        self.valueButton.setTitleColor(.white, for: .normal)
         self.valueButton.dropMenu.dropDownValues = values
         let height = self.valueButton.dropMenu.cellHeight * CGFloat(values.count) + self.dropMenuBottomPadding
         self.valueButton.dropMenuHeight = height

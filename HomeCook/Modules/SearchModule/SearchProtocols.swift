@@ -23,8 +23,9 @@ protocol SearchPresenterInputProtocol: class {
 protocol SearchPresenterOutputProtocol: class {
     func updateResults(with recipesCellModels: [RecipeCellModel])
     func updateResult(at indexPath: IndexPath, with image: UIImage)
-    func updateFiltersView(with parameters: [(String, [String])])
+    func updateFiltersView(with parameters: [(String, [String], String)])
     func callCompletion(with detailedRecipe: DetailedRecipeEntity)
+    func clearCurrentResults()
 }
 
 protocol SearchInteractorInputProtocol: class {
@@ -40,4 +41,5 @@ protocol SearchInteractorOutputProtocol: class {
     func setImage(for recipeId: Int, with data: Data?)
     func setFiltersParameters(with parameters: [String: FilterParameters])
     func callViewCompletion(with detailedRecipe: DetailedRecipeEntity)
+    func clearExistedResults()
 }

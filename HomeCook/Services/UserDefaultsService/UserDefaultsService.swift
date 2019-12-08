@@ -12,6 +12,7 @@ protocol UserDefaultsServiceProtocol {
     func saveSet<T>(set: Set<T>, key: String?) -> Bool
     func getSet<T>(key: String?) -> Set<T>?
     var historyKey: String { get }
+    func clearAllCustomKeys()
 }
 
 extension UserDefaultsServiceProtocol {
@@ -25,11 +26,11 @@ extension UserDefaultsServiceProtocol {
 }
 
 class UserDefaultsService: UserDefaultsServiceProtocol {
-    private var myKey = "CurrentRecipesIds"
+    private var currentRecipesKey = "CurrentRecipesIds"
     var historyKey = "HistoryRecipesIds"
     
     func saveSet<T>(set: Set<T>, key: String? = nil) -> Bool {
-        let actualKey = key ?? self.myKey
+        let actualKey = key ?? self.currentRecipesKey
         let data = try? NSKeyedArchiver.archivedData(withRootObject: set, requiringSecureCoding: false)
         if let data = data {
             UserDefaults.standard.set(data, forKey: actualKey)
@@ -40,7 +41,7 @@ class UserDefaultsService: UserDefaultsServiceProtocol {
     }
     
     func getSet<T>(key: String? = nil) -> Set<T>? {
-        let actualKey = key ?? self.myKey
+        let actualKey = key ?? self.currentRecipesKey
         if let fetchedData = UserDefaults.standard.data(forKey: actualKey),
             let fetchedSet = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSSet.self,
                                                                      from: fetchedData),
@@ -49,5 +50,10 @@ class UserDefaultsService: UserDefaultsServiceProtocol {
         } else {
             return nil
         }
+    }
+    
+    func clearAllCustomKeys() {
+        UserDefaults.standard.removeObject(forKey: self.currentRecipesKey)
+        UserDefaults.standard.removeObject(forKey: self.historyKey)
     }
 }

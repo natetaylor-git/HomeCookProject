@@ -21,7 +21,7 @@ class DropDownView: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = .lightGreen
+        self.backgroundColor = .darkGreen
         let buttonFrame = self.frame
         let dropMenuFrame = CGRect(origin: CGPoint(x: buttonFrame.minX, y: buttonFrame.maxY),
                            size: CGSize(width: buttonFrame.width, height: 0))
@@ -81,7 +81,7 @@ class DropDownView: UIButton {
 extension DropDownView: DropDownViewProtocol {
     func didSelectValue(named text: String) {
         self.setTitle(text, for: .normal)
-        self.setTitleColor(.black, for: .normal)
+        self.setTitleColor(.white, for: .normal)
         self.dismissTableView()
     }
 }

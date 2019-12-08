@@ -126,7 +126,7 @@ class CookCurrentViewController: UIViewController {
     func layoutNavigationBar() {
         let navigationItem = self.navigationController?.topViewController?.navigationItem
         
-        var title = "No recipes to cook"
+        var title = "No Recipes To Cook"
         var alpha: CGFloat = 0
         if self.pages.count != 0 {
             title = self.pages[self.pageControl.currentPage].name

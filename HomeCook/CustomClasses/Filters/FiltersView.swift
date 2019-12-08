@@ -21,7 +21,7 @@ class FiltersView: UIScrollView {
     let paddingBetweenFilters: CGFloat = 20
     let paddingBottom: CGFloat = 10
     
-    func setup(filtersData: [(name: String, values: [String])], frame: CGRect) {
+    func setup(filtersData: [(name: String, values: [String], current: String)], frame: CGRect) {
         self.frame = frame
         self.bounces = false
         self.backgroundColor = .white
@@ -47,7 +47,8 @@ class FiltersView: UIScrollView {
                 let filterSize = CGSize(width: filterWidth, height: self.dropFilterHeight)
                 let dropFilter = FilterViewOfDropType(title: filterData.name,
                                                       frame: CGRect(origin: origin, size: filterSize),
-                                                      values: filterData.values)
+                                                      values: filterData.values,
+                                                      current: filterData.current)
                 dropFilter.extraDeltaForBeauty = self.paddingBottom
                 self.dropFilters.append(dropFilter)
                 self.addSubview(dropFilter)
@@ -56,7 +57,8 @@ class FiltersView: UIScrollView {
             } else {
                 let filterSize = CGSize(width: filterWidth, height: self.simpleFilterHeight)
                 let simpleFilter = FilterViewOfSimpleType(title: filterData.name,
-                                                          frame: CGRect(origin: origin, size: filterSize))
+                                                          frame: CGRect(origin: origin, size: filterSize),
+                                                          current: filterData.current)
                 self.simpleFilters.append(simpleFilter)
                 self.addSubview(simpleFilter)
                 
