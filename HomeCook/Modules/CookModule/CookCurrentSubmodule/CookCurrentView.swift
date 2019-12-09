@@ -34,12 +34,12 @@ class CookCurrentViewController: UIViewController {
         return pageControl
     }()
     
-    let recipeNumberLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.textColor = .blue
-        return label
-    }()
+//    let recipeNumberLabel: UILabel = {
+//        let label = UILabel()
+//        label.font = UIFont.boldSystemFont(ofSize: 16)
+//        label.textColor = .blue
+//        return label
+//    }()
     
     var pages = [(id: Int, name: String, image: UIImage, instructions: String)]()
     let insetX: CGFloat = 0
@@ -64,7 +64,7 @@ class CookCurrentViewController: UIViewController {
         self.recipesCollectionView.bounces = false
         self.pageControl.numberOfPages = self.pages.count
         
-        self.doneButton = UIBarButtonItem(title: "✅", style: .done, target: self, action: #selector(tappedDoneButton))
+        self.doneButton = UIBarButtonItem(title: "✔️", style: .done, target: self, action: #selector(tappedDoneButton))
         
         self.view.addSubview(recipesCollectionView)
         self.view.addSubview(self.pageControl)

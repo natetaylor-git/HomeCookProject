@@ -8,15 +8,17 @@
 
 import Foundation
 
-class BuyPresenter: BuyInteractorOutputProtocol {
+class BuyPresenter: BuyPresenterInputProtocol {
     var interactor: BuyInteractorInputProtocol?
     weak var view: BuyPresenterOutputProtocol?
+ 
+    
+    func viewLoaded() {
+//        self.interactor.getIngredientsSummary()
+    }
     
 }
 
-extension BuyPresenter: BuyPresenterInputProtocol {
-    func viewLoaded() {
-        
-    }
-    
+extension BuyPresenter: BuyInteractorOutputProtocol {
+
 }

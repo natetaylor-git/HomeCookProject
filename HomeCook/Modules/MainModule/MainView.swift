@@ -109,6 +109,7 @@ class MainViewController: UIViewController {
 //        UIGraphicsBeginImageContextWithOptions(newSize, true, .zero)
 //        image.draw(in: CGRect(origin: CGPoint.zero, size: newSize))
 //        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        
         self.view.contentMode = .topLeft
         self.view.layer.contents = image.cgImage
     }

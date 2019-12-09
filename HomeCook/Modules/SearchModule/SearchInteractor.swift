@@ -131,7 +131,6 @@ class SearchInteractor: SearchInteractorInputProtocol {
         }
         
         if self.newSearch {
-            self.sameSearchRecipesTotalAmount = 0
             self.searchRecipes.removeAll()
         }
         
@@ -143,16 +142,15 @@ class SearchInteractor: SearchInteractorInputProtocol {
             self.searchRecipes.append(recipeModel)
         }
         self.presenter?.setRecipes(oneSearchRecipes)
-        self.setSearchRecipesImages(models)
+        
+        self.setSearchRecipesImages(models, baseIndex: self.searchRecipes.count - models.count)
     }
     
-    func setSearchRecipesImages(_ models: [RecipeDownloadModel]) {
-        let baseIndex = self.sameSearchRecipesTotalAmount
+    func setSearchRecipesImages(_ models: [RecipeDownloadModel], baseIndex: Int) {
         for (index, model) in models.enumerated() {
             let absoluteIndex = baseIndex + index
             if let imageData = self.searchRecipesImages.imagesDict[model.id] {
                 self.presenter?.setImage(for: absoluteIndex, with: imageData)
-                self.sameSearchRecipesTotalAmount += 1
                 continue
             }
             
@@ -163,7 +161,6 @@ class SearchInteractor: SearchInteractorInputProtocol {
                 }
                 self.searchRecipesImages.imagesDict[model.id] = data
                 self.presenter?.setImage(for: absoluteIndex, with: data)
-                self.sameSearchRecipesTotalAmount += 1
             }
         }
     }
@@ -184,17 +181,23 @@ class SearchInteractor: SearchInteractorInputProtocol {
     
     func loadRecipes(by searchString: String, sameSearch: Bool) {
         var offset: Int = 0
+        let batchSize = API.batchSize
+        
         if sameSearch {
             offset = self.sameSearchRecipesTotalAmount
+            self.sameSearchRecipesTotalAmount += batchSize
         } else {
+            self.sameSearchRecipesTotalAmount = batchSize
             self.currentSearchText = searchString
         }
         
+        let searchRequest = self.currentSearchText
         let cuisineId = self.filtersStorage.collection["Cuisine type"]?.getCurrent().id ?? 0
         let courseId = self.filtersStorage.collection["Course type"]?.getCurrent().id ?? 0
         let maxMinute = Int(self.filtersStorage.collection["Maximum time"]?.getCurrent().val ?? "0") ?? 0
-
+        
         let url = API.getRecipes(searchString: self.currentSearchText, offset: offset, maxTime: maxMinute, cuisineId: cuisineId, courseTypeId: courseId)
+        
         self.networkService.getData(at: url) { data in
             guard let data = data else {
                 return
@@ -213,7 +216,7 @@ class SearchInteractor: SearchInteractorInputProtocol {
                 let id = Int(stringId) ?? 0
                 let imageRelativePath = object["image"] as? String ?? ""
                 let name = object["name"] as? String ?? ""
-                return RecipeDownloadModel(searchRequest: searchString, id: id, name: name, imagePath: imageRelativePath, course: "", cousine: "", readyTimeMin: 0, instructions: "", ingredients: [])
+                return RecipeDownloadModel(searchRequest: searchRequest, id: id, name: name, imagePath: imageRelativePath, course: "", cousine: "", readyTimeMin: 0, instructions: "", ingredients: [])
             }
             
             self.newSearch = !sameSearch

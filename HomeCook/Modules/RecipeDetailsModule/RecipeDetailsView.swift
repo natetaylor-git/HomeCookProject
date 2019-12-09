@@ -19,6 +19,7 @@ class RecipeDetailsViewController: UIViewController {
     
     let imageView: UIImageView = {
         let imageView = UIImageView(frame: .zero)
+        imageView.contentMode = .scaleToFill
         return imageView
     }()
     

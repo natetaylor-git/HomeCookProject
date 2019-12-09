@@ -10,5 +10,8 @@ import Foundation
 
 class BuyInteractor: BuyInteractorInputProtocol {
     weak var presenter: BuyInteractorOutputProtocol?
+ 
+    func getIngredientsSummary() {
     
+    }
 }

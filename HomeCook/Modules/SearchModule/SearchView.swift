@@ -230,7 +230,6 @@ extension SearchViewController: SearchPresenterOutputProtocol {
         self.searchResultsTableView.reloadData()
     }
     
-    //nene
     func updateResult(at indexPath: IndexPath, with image: UIImage) {
         self.searchResultsCollection[indexPath.row].image = image
         self.searchResultsTableView.reloadRows(at: [indexPath], with: .none)

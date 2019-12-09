@@ -11,6 +11,7 @@ import Foundation
 class API {
     private static let baseUrl = ""
     private static let imageBaseUrl = ""
+    static let batchSize: Int = 5
     
     static func getImageUrl(relativePath: String) -> URL? {
         let url = URL(string: imageBaseUrl + relativePath)
@@ -28,11 +29,11 @@ class API {
         return components.url!
     }
     
-    static func getRecipes(searchString: String, amount: Int = 5, offset: Int = 0, maxTime: Int = 0, cuisineId: Int = 0, courseTypeId: Int = 0) -> URL {
+    static func getRecipes(searchString: String, offset: Int = 0, maxTime: Int = 0, cuisineId: Int = 0, courseTypeId: Int = 0) -> URL {
         guard var components = URLComponents(string: baseUrl) else {
             return URL(string: baseUrl)!
         }
-        
+        let amount = batchSize
         let query = URLQueryItem(name: "query", value: "{recipes(searchTerm: \"\(searchString)\", offset: \(offset), first: \(amount), cousineId: \(cuisineId), courseTypeId: \(courseTypeId), readyInTimeMax: \(maxTime)) {id name cousine{name}  courseType{name} instructions readyInTime ingridients{name} image}}")
         
         components.queryItems = [query]

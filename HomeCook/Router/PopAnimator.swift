@@ -25,11 +25,11 @@ class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         toViewController?.view.alpha = 0.0
         
         UIView.animateKeyframes(withDuration: 1, delay: 0, options:.calculationModePaced, animations: {
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.3, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.6, animations: {
                 fromViewController?.view.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
                 fromViewController?.view.alpha = 0.0
             })
-            UIView.addKeyframe(withRelativeStartTime: 0.3, relativeDuration: 0.7, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.6, relativeDuration: 0.4, animations: {
                 toViewController?.view.transform = CGAffineTransform.identity
                 toViewController?.view.alpha = 1.0
             })

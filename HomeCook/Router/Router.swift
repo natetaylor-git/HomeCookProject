@@ -72,7 +72,7 @@ class Router: NSObject {
         let buyViewController = BuyViewController()
         let configurator = BuyConfigurator()
         configurator.configure(with: buyViewController)
-        buyViewController.navigationItem.title = "Shop List"
+        buyViewController.navigationItem.title = "Shopping List"
         self.navigationController?.pushViewController(buyViewController, animated: true)
     }
     

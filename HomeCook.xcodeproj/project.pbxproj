@@ -33,6 +33,8 @@
 		431A0CAA2399F3490033B580 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 431A0CA92399F3480033B580 /* LaunchScreen.storyboard */; };
 		431A0CAE239AA3A60033B580 /* CurrentRecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431A0CAD239AA3A60033B580 /* CurrentRecipeCell.swift */; };
 		431A0CB5239BFF8C0033B580 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431A0CB4239BFF8C0033B580 /* UserDefaultsService.swift */; };
+		431F2DDF239D7C0C003C32A2 /* IngredientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431F2DDE239D7C0C003C32A2 /* IngredientTableViewCell.swift */; };
+		431F2DE1239D9D67003C32A2 /* BuyIngredientHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431F2DE0239D9D67003C32A2 /* BuyIngredientHeaderView.swift */; };
 		4348DFF22395D60A009D69CA /* ImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348DFF12395D60A009D69CA /* ImageButton.swift */; };
 		4348DFF52395DBD4009D69CA /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348DFF42395DBD4009D69CA /* FiltersView.swift */; };
 		4348DFF72395E978009D69CA /* DropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348DFF62395E978009D69CA /* DropDownView.swift */; };
@@ -101,6 +103,8 @@
 		431A0CA92399F3480033B580 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = HomeCook/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		431A0CAD239AA3A60033B580 /* CurrentRecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentRecipeCell.swift; sourceTree = "<group>"; };
 		431A0CB4239BFF8C0033B580 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
+		431F2DDE239D7C0C003C32A2 /* IngredientTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientTableViewCell.swift; sourceTree = "<group>"; };
+		431F2DE0239D9D67003C32A2 /* BuyIngredientHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyIngredientHeaderView.swift; sourceTree = "<group>"; };
 		4348DFF12395D60A009D69CA /* ImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButton.swift; sourceTree = "<group>"; };
 		4348DFF42395DBD4009D69CA /* FiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
 		4348DFF62395E978009D69CA /* DropDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownView.swift; sourceTree = "<group>"; };
@@ -189,6 +193,8 @@
 				431A0CA72399A7C00033B580 /* HistoryTableViewCell.swift */,
 				431A0CAD239AA3A60033B580 /* CurrentRecipeCell.swift */,
 				43D1D86D239C71180059EB3D /* MainButtonView.swift */,
+				431F2DDE239D7C0C003C32A2 /* IngredientTableViewCell.swift */,
+				431F2DE0239D9D67003C32A2 /* BuyIngredientHeaderView.swift */,
 			);
 			path = CustomClasses;
 			sourceTree = "<group>";
@@ -340,8 +346,8 @@
 			children = (
 				431A0C9923997F8B0033B580 /* BuyProtocols.swift */,
 				431A0C9B23997F9B0033B580 /* BuyConfigurator.swift */,
-				431A0C9D23997FA60033B580 /* BuyPresenter.swift */,
 				431A0C9F23997FB30033B580 /* BuyInteractor.swift */,
+				431A0C9D23997FA60033B580 /* BuyPresenter.swift */,
 				431A0CA123997FBC0033B580 /* BuyView.swift */,
 			);
 			path = BuyModule;
@@ -454,6 +460,7 @@
 				43EF9E1B239412C900B0AAEE /* RecipeDetailsInteractor.swift in Sources */,
 				43D1D86E239C71180059EB3D /* MainButtonView.swift in Sources */,
 				4348DFFD2396CC39009D69CA /* DropDownMenu.swift in Sources */,
+				431F2DDF239D7C0C003C32A2 /* IngredientTableViewCell.swift in Sources */,
 				43F926C7239157D100F18E47 /* SearchView.swift in Sources */,
 				43F926E62391754B00F18E47 /* CookCurrentProtocols.swift in Sources */,
 				43EF9E0C23935CE500B0AAEE /* SearchPresenter.swift in Sources */,
@@ -504,6 +511,7 @@
 				43EF9E152394129B00B0AAEE /* RecipeDetailsProtocols.swift in Sources */,
 				4348DFF72395E978009D69CA /* DropDownView.swift in Sources */,
 				431A0C7E23974A140033B580 /* PushAnimator.swift in Sources */,
+				431F2DE1239D9D67003C32A2 /* BuyIngredientHeaderView.swift in Sources */,
 				43F926B22391527300F18E47 /* AppDelegate.swift in Sources */,
 				43F926DA23916C3F00F18E47 /* MainProtocols.swift in Sources */,
 				43F926D02391606B00F18E47 /* CookHistoryView.swift in Sources */,
