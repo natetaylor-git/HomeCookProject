@@ -12,19 +12,33 @@ class IngredientView: UIView {
     let nameLabel = UILabel(frame: .zero)
     let amountLabel = UILabel(frame: .zero)
     let unitLabel = UILabel(frame: .zero)
-    let padding: CGFloat = 5
+
     let nameFontSize: CGFloat = 20
+    let amountWidth: CGFloat
+    let maxAmount = String(9999)
+    let amountAndUnitFont = UIFont.systemFont(ofSize: 14)
+    let paddingX: CGFloat = 5
+    let paddingY: CGFloat = 5
+    let paddingBetweenX: CGFloat = 2
+    let paddingBetweenY: CGFloat = 0
     
     override init(frame: CGRect) {
+        let amountWidth = self.maxAmount.size(withAttributes: [NSAttributedString.Key.font: self.amountAndUnitFont])
+        self.amountWidth = amountWidth.width
+        
         super.init(frame: frame)
         
         self.nameLabel.numberOfLines = 0
         self.nameLabel.lineBreakMode = .byWordWrapping
         self.nameLabel.font = UIFont.boldSystemFont(ofSize: self.nameFontSize)
+        
+        self.amountLabel.textColor = .blue
         self.amountLabel.textAlignment = .left
-        self.unitLabel.textAlignment = .right
-        self.amountLabel.textColor = .darkGray
-        self.unitLabel.textColor = .darkGray
+        
+        self.unitLabel.textColor = .blue
+        self.unitLabel.textAlignment = .left
+        self.unitLabel.numberOfLines = 0
+        self.unitLabel.lineBreakMode = .byWordWrapping
         self.autoresizingMask = [.flexibleHeight]
         
         self.addSubview(nameLabel)
@@ -39,26 +53,49 @@ class IngredientView: UIView {
         self.unitLabel.text = unit
     }
     
-    override func layoutSubviews() {
-        let selfWidth = self.bounds.width
-        let selfHeight = self.bounds.height
+    func changeLayout() {
+        let ratio: CGFloat = 4/7
+        let contentWidth = self.bounds.width - paddingX
+        let nameWidth = contentWidth * ratio
+        let featureWidth = contentWidth - nameWidth - paddingBetweenX
         
-        let desiredSize = CGSize(width: selfWidth, height: CGFloat.greatestFiniteMagnitude)
-        let nameFittedSize = self.nameLabel.sizeThatFits(desiredSize)
-        self.nameLabel.frame = CGRect(origin: .zero,
-                                      size: CGSize(width: selfWidth, height: nameFittedSize.height))
-        
-        let amountHeight = selfHeight - self.nameLabel.frame.height - padding
-        let amountFittedSize = self.amountLabel.sizeThatFits(CGSize(width: selfWidth,
-                                                                    height: amountHeight))
-        let amountOrigin = CGPoint(x: 0, y: self.nameLabel.frame.maxY + padding)
-        let amountSize = CGSize(width: amountFittedSize.width, height: amountHeight)
+        let amountOrigin = CGPoint(x: self.bounds.width - featureWidth + paddingX, y: paddingY)
+        let amounDesiredSize = CGSize(width: featureWidth, height: CGFloat.greatestFiniteMagnitude)
+        let amountFittedSize = self.amountLabel.sizeThatFits(amounDesiredSize)
+        let amountSize = CGSize(width: featureWidth, height: amountFittedSize.height)
         self.amountLabel.frame = CGRect(origin: amountOrigin, size: amountSize)
         
-        let unitOrigin = CGPoint(x: self.amountLabel.frame.maxX, y: self.amountLabel.frame.minY)
-        let unitSize = CGSize(width: selfWidth - self.amountLabel.frame.width,
-                              height: self.amountLabel.frame.height)
+        let unitOrigin = CGPoint(x: self.amountLabel.frame.origin.x,
+                                 y: self.amountLabel.frame.maxY + paddingBetweenY)
+        let desiredUnitSize = CGSize(width: featureWidth, height: CGFloat.greatestFiniteMagnitude)
+        let unitFittedSize = self.unitLabel.sizeThatFits(desiredUnitSize)
+        let unitSize = CGSize(width: featureWidth, height: unitFittedSize.height)
         self.unitLabel.frame = CGRect(origin: unitOrigin, size: unitSize)
+        
+        let nameDesiredSize = CGSize(width: nameWidth, height: CGFloat.greatestFiniteMagnitude)
+        let nameFittedSize = self.nameLabel.sizeThatFits(nameDesiredSize)
+        let nameSize = CGSize(width: nameWidth, height: nameFittedSize.height)
+        var nameOrigin: CGPoint = CGPoint(x: paddingX, y: paddingY)
+        
+        let featuresTotalHeight = self.amountLabel.frame.height + paddingBetweenY + self.unitLabel.frame.height
+        let heightDifference = featuresTotalHeight - nameSize.height
+        
+        if heightDifference > 0 {
+            nameOrigin = CGPoint(x: paddingX, y: paddingY + heightDifference / 2)
+        } else {
+            amountLabel.frame.origin = CGPoint(x: self.amountLabel.frame.origin.x,
+                                               y: abs(heightDifference) / 2)
+            unitLabel.frame.origin = CGPoint(x: self.unitLabel.frame.origin.x,
+                                             y: self.amountLabel.frame.maxY + paddingBetweenY)
+        }
+        self.nameLabel.frame = CGRect(origin: nameOrigin, size: nameSize)
+        
+        let newHeight = 2 * paddingY + (heightDifference > 0 ? featuresTotalHeight : nameFittedSize.height)
+        self.frame.size = CGSize(width: self.frame.width, height: newHeight)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
     }
     
     required init?(coder aDecoder: NSCoder) {

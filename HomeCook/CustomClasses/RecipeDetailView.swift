@@ -51,17 +51,23 @@ class RecipeDetailView: UIView {
     }
     
     func setupValueLabel(value: String) {
+        if self.nameLabel.text == "Ingredients" {
+            self.valueLabel.frame = .zero
+            return
+        }
+        
         self.valueLabel.font = UIFont.systemFont(ofSize: 16.0)
+        self.valueLabel.text = value
         if self.nameLabel.text == "Instructions" {
             self.valueLabel.font = UIFont.systemFont(ofSize: 20.0)
         }
-        self.valueLabel.text = value
+        
         self.valueLabel.numberOfLines = 0
         self.valueLabel.lineBreakMode = .byWordWrapping
         self.valueLabel.frame.origin = CGPoint(x: 0, y: nameLabel.frame.maxY + betweenPadding)
         
-        let adoptableSize = self.valueLabel.sizeThatFits(CGSize(width: self.frame.width,
-                                            height: CGFloat.greatestFiniteMagnitude))
+        let desiredSize = CGSize(width: self.frame.width, height: CGFloat.greatestFiniteMagnitude)
+        let adoptableSize = self.valueLabel.sizeThatFits(desiredSize)
         if adoptableSize.height > self.nameLabel.frame.height {
             let beautifulOriginY = self.valueLabel.frame.origin.y
             let beautifulHeight = adoptableSize.height

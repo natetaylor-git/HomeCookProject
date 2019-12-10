@@ -117,6 +117,27 @@ extension RecipeDetailsViewController: RecipeDetailsPresenterOutputProtocol {
                                              height: lastLabelMaxY)
     }
     
+    func setupIngredientsView(with info: [IngredientModel]) {
+        let baseHeight = self.infoDetailsViews.last?.frame.maxY ?? 0
+        var lastIngredientMaxY: CGFloat = baseHeight
+        for ingredient in info {
+            let origin = CGPoint(x: self.paddingX, y: lastIngredientMaxY)
+            let size = CGSize(width: self.imageView.frame.width, height: 10)
+            let ingredientView = IngredientView(frame: .zero)
+            let stringAmount = String(ingredient.amount)
+            ingredientView.setup(frame: CGRect(origin: origin, size: size),
+                                 name: ingredient.name,
+                                 amount: stringAmount,
+                                 unit: ingredient.unit)
+            ingredientView.changeLayout()
+            lastIngredientMaxY = ingredientView.frame.maxY
+            self.scrollView.addSubview(ingredientView)
+        }
+        
+        self.scrollView.contentSize = CGSize(width: self.scrollView.frame.width,
+                                             height: lastIngredientMaxY)
+    }
+    
     func activateUIElementsForEntityExistance() {
         self.buyButtonActive = true
         self.buyButton.changeImageColor()

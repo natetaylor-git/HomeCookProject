@@ -21,14 +21,15 @@ class RecipeDetailsPresenter: RecipeDetailsInteractorOutputProtocol {
         }
         
         let stringMinutes = String(recipeInfo.readyTimeMin)
-//        let instructions = String(recipeInfo.instructions)
         let infoForView = [(name: "Name", value: recipeInfo.name),
                            (name: "Course", value: recipeInfo.course),
                            (name: "Cuisine", value: recipeInfo.cousine),
                            (name: "Time in minutes", value: stringMinutes),
-                           (name: "Instructions", value: recipeInfo.instructions)]
+                           (name: "Instructions", value: recipeInfo.instructions),
+                           (name: "Ingredients", value: "Name Details")]
         
         self.view?.setupDetailsViews(with: infoForView)
+        self.view?.setupIngredientsView(with: recipeInfo.ingredients)
     }
     
     func updateUIForEntityExistedInLocalStorage() {

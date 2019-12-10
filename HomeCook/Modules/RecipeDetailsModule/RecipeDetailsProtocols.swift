@@ -21,6 +21,7 @@ protocol RecipeDetailsPresenterInputProtocol: class {
 protocol RecipeDetailsPresenterOutputProtocol: class {
     func setupImageView(with image: UIImage)
     func setupDetailsViews(with infoDetails: [(name: String, value: String)])
+    func setupIngredientsView(with info: [IngredientModel])
     func activateUIElementsForEntityExistance()
 }
 

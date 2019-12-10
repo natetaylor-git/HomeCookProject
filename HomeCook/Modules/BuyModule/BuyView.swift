@@ -24,6 +24,7 @@ class BuyViewController: UIViewController {
     let headerHeight: CGFloat = 80
     let cellHeight: CGFloat = 80
     let zeroSectionFooterHeight: CGFloat = 20
+    let headerPaddingX: CGFloat = 5
     
     let helpMessage = "Double TAP on section NAME to open / close"
     
@@ -73,7 +74,9 @@ class BuyViewController: UIViewController {
 extension BuyViewController: BuyPresenterOutputProtocol {
     func setIngredients(active: [IngredientBuyModel], bought: [IngredientBuyModel]) {
         self.ingredients[0] = active
-        self.ingredients[1] = bought
+        if active.count != 0 {
+            self.ingredients[1] = bought
+        }
         self.ingredientsTableView.reloadData()
     }
 }
@@ -92,7 +95,7 @@ extension BuyViewController: UITableViewDataSource, UITableViewDelegate {
         
         let model = self.ingredients[indexPath.section][indexPath.row]
         let amount = model.amount
-        
+
         cell.setValues(name: model.name, amount: String(amount), unit: model.unit)
         
         var backgroundColor = UIColor.white
@@ -119,23 +122,45 @@ extension BuyViewController: UITableViewDataSource, UITableViewDelegate {
         
         let model = self.ingredients[indexPath.section][indexPath.row]
         
-        let padding: CGFloat = 5
         let nameLabel = UILabel()
+        let amountLabel = UILabel()
+        let unitLabel = UILabel()
+        
         nameLabel.numberOfLines = 0
         nameLabel.lineBreakMode = .byWordWrapping
         nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
         nameLabel.text = model.name
+        unitLabel.numberOfLines = 0
         
-        let desiredSize = CGSize(width: tableView.frame.width,
-                                 height: CGFloat.greatestFiniteMagnitude)
-        let nameFittedSize = nameLabel.sizeThatFits(desiredSize)
+        let paddingX: CGFloat = 5
+        let paddingY: CGFloat = 5
+        let paddingBetweenY: CGFloat = 0
+        let paddingBetweenX: CGFloat = 2
         
-        let amountLabel = UILabel()
+        unitLabel.lineBreakMode = .byWordWrapping
+        
         amountLabel.text = String(model.amount)
-        let amountFittedSize = amountLabel.sizeThatFits(CGSize(width: tableView.frame.width,
-                                                                    height: 100))
-       
-        return nameFittedSize.height + padding + amountFittedSize.height
+        unitLabel.text = model.unit
+        
+        let ratio: CGFloat = 4/7
+        let contentWidth = tableView.frame.width - paddingX
+        let nameWidth = contentWidth * ratio
+        let featureWidth = contentWidth - nameWidth - paddingBetweenX
+        
+        let amounDesiredSize = CGSize(width: featureWidth, height: CGFloat.greatestFiniteMagnitude)
+        let amountFittedSize = amountLabel.sizeThatFits(amounDesiredSize)
+        
+        let desiredUnitSize = CGSize(width: featureWidth, height: CGFloat.greatestFiniteMagnitude)
+        let unitFittedSize = unitLabel.sizeThatFits(desiredUnitSize)
+        
+        let nameDesiredSize = CGSize(width: nameWidth, height: CGFloat.greatestFiniteMagnitude)
+        let nameFittedSize = nameLabel.sizeThatFits(nameDesiredSize)
+        
+        let featuresTotalHeight = amountFittedSize.height + paddingBetweenY + unitFittedSize.height
+        let heightDifference = featuresTotalHeight - nameFittedSize.height
+        
+        let cellHeight = 2 * paddingY + (heightDifference > 0 ? featuresTotalHeight : nameFittedSize.height)
+        return cellHeight
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -143,15 +168,19 @@ extension BuyViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         let name = self.sectionNames[section]
+        let headerSuperView = UIView()
+        headerSuperView.frame = CGRect(origin: .zero, size: CGSize(width: self.view.bounds.width,
+                                                                   height: self.headerHeight))
         
-        let frame = CGRect(origin: .zero, size: CGSize(width: self.view.bounds.width,
-                                                       height: self.headerHeight))
+        let size = CGSize(width: self.view.bounds.width - headerPaddingX, height: self.headerHeight)
+        let frame = CGRect(origin: CGPoint(x: headerPaddingX, y: 0), size: size)
         let headerView = BuyIngredientHeaderView(frame: frame, section: section,
                                                  text: name, hide: self.hideSections[section])
         headerView.delegate = self
-        return headerView
+        headerSuperView.backgroundColor = headerView.backgroundColor
+        headerSuperView.addSubview(headerView)
+        return headerSuperView
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
