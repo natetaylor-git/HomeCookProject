@@ -9,8 +9,8 @@
 import Foundation
 
 class API {
-    private static let baseUrl = ""
-    private static let imageBaseUrl = ""
+    private static let baseUrl = "http://cousine.gbezyuk.ru:8098/api/graphql"
+    private static let imageBaseUrl = "http://cousine.gbezyuk.ru:8098/media/"
     static let batchSize: Int = 5
     
     static func getImageUrl(relativePath: String) -> URL? {

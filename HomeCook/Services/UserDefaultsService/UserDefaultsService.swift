@@ -9,10 +9,14 @@
 import Foundation
 
 protocol UserDefaultsServiceProtocol {
+    var historyKey: String { get }
+    var boughtIngredientsKey: String { get }
     func saveSet<T>(set: Set<T>, key: String?) -> Bool
     func getSet<T>(key: String?) -> Set<T>?
-    var historyKey: String { get }
     func clearAllCustomKeys()
+    func checkStatusOfHintForBuyScreen() -> Bool
+    func setHintStatusToNeeded()
+    func setHintStatusToNotNeeded()
 }
 
 extension UserDefaultsServiceProtocol {
@@ -28,6 +32,8 @@ extension UserDefaultsServiceProtocol {
 class UserDefaultsService: UserDefaultsServiceProtocol {
     private var currentRecipesKey = "CurrentRecipesIds"
     var historyKey = "HistoryRecipesIds"
+    var hintAtBuyScreenKey = "HintIsNeeded"
+    var boughtIngredientsKey = "BoughtIngredients"
     
     func saveSet<T>(set: Set<T>, key: String? = nil) -> Bool {
         let actualKey = key ?? self.currentRecipesKey
@@ -55,5 +61,19 @@ class UserDefaultsService: UserDefaultsServiceProtocol {
     func clearAllCustomKeys() {
         UserDefaults.standard.removeObject(forKey: self.currentRecipesKey)
         UserDefaults.standard.removeObject(forKey: self.historyKey)
+        UserDefaults.standard.set(true, forKey: self.hintAtBuyScreenKey)
+    }
+    
+    func checkStatusOfHintForBuyScreen() -> Bool {
+        let status = UserDefaults.standard.bool(forKey: self.hintAtBuyScreenKey)
+        return status
+    }
+    
+    func setHintStatusToNotNeeded() {
+        UserDefaults.standard.set(false, forKey: self.hintAtBuyScreenKey)
+    }
+    
+    func setHintStatusToNeeded() {
+        UserDefaults.standard.set(true, forKey: self.hintAtBuyScreenKey)
     }
 }

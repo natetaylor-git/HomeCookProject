@@ -12,7 +12,12 @@ class BuyConfigurator: BuyConfiguratorProtocol {
     
     func configure(with viewController: BuyViewController) {
         let presenter = BuyPresenter()
-        let interactor = BuyInteractor()
+        let userDefaultsService = UserDefaultsService()
+        let localRecipesCollection = LocalRecipesCollection.shared
+        let ingredientsCollection = IngredientsCollection.shared
+        let interactor = BuyInteractor(userDefaultsService: userDefaultsService,
+                                       localCollection: localRecipesCollection,
+                                       ingredientsCollection: ingredientsCollection)
         
         viewController.presenter = presenter
         presenter.interactor = interactor

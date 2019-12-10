@@ -44,6 +44,12 @@ class CookHistoryPresenter: CookHistoryInteractorOutputProtocol {
     func takeRecipeInfo(_ entity: DetailedRecipeEntity) {
         self.view?.callCompletion(with: entity)
     }
+    
+    func noDataFetched() {
+        DispatchQueue.main.async {
+            self.view?.stopIndicator()
+        }
+    }
 }
 
 extension CookHistoryPresenter: CookHistoryPresenterInputProtocol {

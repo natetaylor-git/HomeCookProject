@@ -22,7 +22,7 @@ class MainInteractor: MainInteractorInputProtocol {
         self.userDefaultsService = userDefaultsService
         self.localRecipesCollection = localRecipesCollection
         
-        
+//        self.userDefaultsService.setHintStatusToNeeded()
 //        self.coreDataService.deleteAllRecipes(completion: {lol in })
 //        self.userDefaultsService.clearAllCustomKeys()
         
@@ -40,7 +40,12 @@ class MainInteractor: MainInteractorInputProtocol {
         
         self.coreDataService.loadRecipes(specificIds: currentIds, completion: { models in
             self.localRecipesCollection.localRecipes.dict = models
+            let ingredientsCollection = IngredientsCollection.shared
+            let summary = ingredientsCollection.getCurrentIngredientsSummary(localRecipesCollection: self.localRecipesCollection)
+            ingredientsCollection.summary = summary
         })
         
+//        UserDefaults.standard.removeObject(forKey: userDefaultsService.boughtIngredientsKey)
+//        self.userDefaultsService.setHintStatusToNeeded()
     }
 }

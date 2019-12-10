@@ -10,7 +10,6 @@ import UIKit
 
 class Router: NSObject {
     var navigationController: UINavigationController?
-//    private var detailedRecipe: DetailedRecipeEntity?
     
     static let shared: Router = {
         let mainViewController = MainViewController()

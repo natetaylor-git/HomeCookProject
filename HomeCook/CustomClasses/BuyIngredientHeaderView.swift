@@ -9,24 +9,35 @@
 import UIKit
 
 protocol BuyIngredientHeaderDelegate: UITableViewDelegate {
-    func changeVisibility(for section: Int, to alpha: CGFloat)
+    func changeVisibility(for section: Int, hide: Bool)
 }
 
 class BuyIngredientHeaderView: UIView {
     private var section: Int
-    private var alphaOfCellsInSection: CGFloat = 1.0
-    let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedHeader))
+    private var hideSection: Bool
+    var gestureRecognizer: UITapGestureRecognizer?
     let textLabel = UILabel()
     weak var delegate: BuyIngredientHeaderDelegate?
     
-    init(frame: CGRect, section: Int, text: String) {
+    init(frame: CGRect, section: Int, text: String, hide: Bool) {
         self.section = section
+        self.hideSection = hide
         super.init(frame: frame)
         
+        self.backgroundColor = .darkGreen
         self.textLabel.font = UIFont.boldSystemFont(ofSize: 30)
         self.textLabel.textAlignment = .left
         self.textLabel.text = text
-        self.gestureRecognizer.numberOfTapsRequired = 2
+        self.textLabel.textColor = .white
+        
+        self.textLabel.frame = CGRect(origin: .zero, size: self.bounds.size)
+        
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedHeader))
+        self.gestureRecognizer = gestureRecognizer
+        self.gestureRecognizer?.numberOfTapsRequired = 2
+        
+        self.addSubview(textLabel)
+        self.addGestureRecognizer(gestureRecognizer)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,7 +45,7 @@ class BuyIngredientHeaderView: UIView {
     }
     
     @objc func tappedHeader() {
-        self.alphaOfCellsInSection = abs(1 - self.alphaOfCellsInSection)
-        self.delegate?.changeVisibility(for: self.section, to: self.alphaOfCellsInSection)
+        self.hideSection = !self.hideSection
+        self.delegate?.changeVisibility(for: self.section, hide: self.hideSection)
     }
 }

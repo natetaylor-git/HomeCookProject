@@ -60,13 +60,6 @@ class MainButtonView: UIButton {
         let labelSize = CGSize(width: self.bounds.width - self.myImageView.frame.width,
                                 height: self.bounds.height - 2 * padding)
         self.textLabel.frame = CGRect(origin: labelOrigin, size: labelSize)
-        
-//        let gradient:CAGradientLayer = CAGradientLayer()
-//        gradient.frame.size = self.textLabel.frame.size
-//        gradient.frame.origin = self.textLabel.frame.origin
-//        gradient.colors = [UIColor.darkGreen.withAlphaComponent(1).cgColor,
-//                           UIColor.white.withAlphaComponent(0.2).cgColor]
-//        self.layer.addSublayer(gradient)z
     }
     
 }

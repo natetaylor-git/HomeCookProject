@@ -36,6 +36,7 @@ class HistoryTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        self.recipesCollectionView.showsHorizontalScrollIndicator = false
         self.recipesCollectionView.register(HistoryRecipeCell.self,
                                             forCellWithReuseIdentifier: "reuseId")
         

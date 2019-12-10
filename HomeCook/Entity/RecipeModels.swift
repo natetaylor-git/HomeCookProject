@@ -68,8 +68,29 @@ struct RecipeCellModel {
 
 struct IngredientModel {
     let name: String
-    let amount: Int
+    var amount: Int
     let unit: String
+}
+
+struct IngredientBuyModel {
+    let name: String
+    var amount: Int
+    let unit: String
+    var amountBoughtStatus: Int
+    
+    init(ingredient: IngredientModel) {
+        self.name = ingredient.name
+        self.amount = ingredient.amount
+        self.unit = ingredient.unit
+        self.amountBoughtStatus = ingredient.amount
+    }
+    
+    init(name: String, amount: Int, unit: String, amountBoughtStatus: Int) {
+        self.name = name
+        self.amount = amount
+        self.unit = unit
+        self.amountBoughtStatus = amountBoughtStatus
+    }
 }
 
 struct RecipeImage {

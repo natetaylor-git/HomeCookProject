@@ -33,6 +33,7 @@ class CookHistoryViewController: UIViewController {
         super.viewDidLoad()
         
         setupIndicator()
+        self.indicator.startAnimating()
         presenter?.viewLoaded()
         
         self.recipeCoursesTableView.separatorColor = .clear
@@ -46,7 +47,6 @@ class CookHistoryViewController: UIViewController {
         
         self.view.addSubview(self.recipeCoursesTableView)
         self.view.addSubview(self.indicator)
-        self.indicator.startAnimating()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,6 +76,10 @@ extension CookHistoryViewController: CookHistoryPresenterOutputProtocol {
     
     func callCompletion(with entity: DetailedRecipeEntity) {
         self.clickedOnCell?(entity)
+    }
+    
+    func stopIndicator() {
+        self.indicator.stopAnimating()
     }
 }
 

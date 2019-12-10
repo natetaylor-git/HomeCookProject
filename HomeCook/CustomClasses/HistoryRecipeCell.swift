@@ -18,7 +18,6 @@ class HistoryRecipeCell: UICollectionViewCell {
         let label = UILabel()
         label.backgroundColor = .white
         label.textColor = .black
-//        label.font = UIFont.boldSystemFont(ofSize: 18)
         label.font = UIFont.italicSystemFont(ofSize: 18)
         label.textAlignment = .center
         return label

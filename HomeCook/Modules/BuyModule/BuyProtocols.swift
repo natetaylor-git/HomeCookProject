@@ -14,13 +14,23 @@ protocol BuyConfiguratorProtocol: class {
 
 protocol BuyPresenterInputProtocol: class {
     func viewLoaded()
+    func alertWasShown()
+    func viewWillDisappear(bought: [IngredientBuyModel])
 }
 
 protocol BuyPresenterOutputProtocol: class {
+    func showHint()
+    func setIngredients(active: [IngredientBuyModel], bought: [IngredientBuyModel])
 }
 
 protocol BuyInteractorInputProtocol: class {
+    func checkIfHintIsNeeded()
+    func turnHintOff()
+    func getIngredientsSummary()
+    func saveBoughtIngredients(ingredients: Set<String>)
 }
 
 protocol BuyInteractorOutputProtocol: class {
+    func hintNeeded()
+    func takeIngredients(summarized: [String: IngredientBuyModel], boughtLabels: Set<String>)
 }

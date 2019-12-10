@@ -9,16 +9,30 @@
 import UIKit
 
 class IngredientTableViewCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    var ingredient: IngredientView?
+    
+    override func prepareForReuse() {
+        self.ingredient?.amountLabel.text = ""
+        self.ingredient?.unitLabel.text = ""
+        self.ingredient?.nameLabel.text = ""
     }
-
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    }
+    
+    func setValues(name: String, amount: String, unit: String) {
+        self.ingredient = IngredientView(frame: self.bounds)
+        self.ingredient?.setup(frame: self.bounds, name: name, amount: amount, unit: unit)
+        self.ingredient?.clipsToBounds = true
+        self.contentView.addSubview(ingredient!)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
-
 }

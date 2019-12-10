@@ -24,10 +24,12 @@ class CookHistoryInteractor: CookHistoryInteractorInputProtocol {
         let fetchedIds: Set<Int>? = self.userDefaultsService.getSet(key: self.userDefaultsService.historyKey)
         
         guard let currentIds = fetchedIds else {
+            self.presenter?.noDataFetched()
             return
         }
         
         if fetchedIds?.count == 0 {
+            self.presenter?.noDataFetched()
             return
         }
         
@@ -35,6 +37,8 @@ class CookHistoryInteractor: CookHistoryInteractorInputProtocol {
             if models.count != 0 {
                 self.recipesFromDataBase = models
                 self.presenter?.takeHistory(Array(models.values))
+            } else {
+                self.presenter?.noDataFetched()
             }
         })
     }

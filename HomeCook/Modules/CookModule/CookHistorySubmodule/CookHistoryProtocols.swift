@@ -19,7 +19,8 @@ protocol CookHistoryPresenterInputProtocol: class {
 
 protocol CookHistoryPresenterOutputProtocol: class {
     func showHistory(_ cells: [(String, [RecipeCellModel])])
-    func callCompletion(with entity: DetailedRecipeEntity) 
+    func callCompletion(with entity: DetailedRecipeEntity)
+    func stopIndicator()
 }
 
 protocol CookHistoryInteractorInputProtocol: class {
@@ -30,4 +31,5 @@ protocol CookHistoryInteractorInputProtocol: class {
 protocol CookHistoryInteractorOutputProtocol: class {
     func takeHistory(_ models: [DetailedRecipeEntity])
     func takeRecipeInfo(_ entity: DetailedRecipeEntity)
+    func noDataFetched()
 }
