@@ -9,38 +9,20 @@
 import UIKit
 
 class MainViewController: UIViewController {
-     var presenter: MainPresenterInputProtocol?
-    
-    let searchButton = MainButtonView(frame: .zero,
-                                      name: "Search",
-                                      image: UIImage(named: "SearchIcon"))
-    
-    let buyButton = MainButtonView(frame: .zero,
-                                   name: "Buy",
-                                   image: UIImage(named: "BuyIcon"))
-    
-    let cookButton = MainButtonView(frame: .zero,
-                                    name: "Cook",
-                                    image: UIImage(named: "CookIcon"))
-    
-//    let bottomPicture = UIImageView(frame: .zero)
-//    var pictureHeight: CGFloat = 100
-    
+    var presenter: MainPresenterInputProtocol?
     var clickedOnSearchButton: (() -> Void)?
     var clickedOnBuyButton: (() -> Void)?
     var clickedOnCookButton: (() -> Void)?
     
-    @objc func tappedSearchButton() {
-        clickedOnSearchButton?()
-    }
-    
-    @objc func tappedCookButton() {
-        clickedOnCookButton?()
-    }
-    
-    @objc func tappedBuyButton() {
-        clickedOnBuyButton?()
-    }
+    let searchButton = MainButtonView(frame: .zero,
+                                      name: "Search",
+                                      image: UIImage(named: "SearchIcon"))
+    let buyButton = MainButtonView(frame: .zero,
+                                   name: "Buy",
+                                   image: UIImage(named: "BuyIcon"))
+    let cookButton = MainButtonView(frame: .zero,
+                                    name: "Cook",
+                                    image: UIImage(named: "CookIcon"))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,15 +36,22 @@ class MainViewController: UIViewController {
         cookButton.addTarget(self, action: #selector(tappedCookButton), for: .touchUpInside)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     func setupUI() {
         self.navigationItem.title = "Main"
         self.view.backgroundColor = .darkGreen
-//        self.bottomPicture.image = UIImage(named: "MainPicture")
         
         layoutButtons()
         layoutBackgroundImage()
     }
-
+    
     func layoutButtons() {
         let window = UIApplication.shared.windows[0]
         let safeFrame = window.safeAreaLayoutGuide.layoutFrame
@@ -89,50 +78,29 @@ class MainViewController: UIViewController {
             
             self.view.addSubview(button)
         }
-//        self.pictureHeight = (self.view.frame.height - self.cookButton.frame.maxY) / 2
     }
-    
-//    func layoutBottomPicture() {
-//        let origin = CGPoint(x: 0, y: self.view.frame.height - self.pictureHeight)
-//        let size = CGSize(width: self.view.bounds.width, height: self.pictureHeight)
-//        self.bottomPicture.frame = CGRect(origin: origin, size: size)
-//        self.view.addSubview(bottomPicture)
-//    }
     
     func layoutBackgroundImage() {
         guard let image = UIImage(named: "MainBackground") else {
             return
         }
-//        let viewSize = self.view.bounds.size
-//        let newSize = maximumSizeOfImage(actualSize: image.size, width: viewSize.width,
-//                                         height: viewSize.height)
-//        UIGraphicsBeginImageContextWithOptions(newSize, true, .zero)
-//        image.draw(in: CGRect(origin: CGPoint.zero, size: newSize))
-//        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-        
+
         self.view.contentMode = .topLeft
         self.view.layer.contents = image.cgImage
     }
     
-    func maximumSizeOfImage(actualSize: CGSize, width: CGFloat, height: CGFloat) -> CGSize {
-        let oldSize = actualSize
-        let scale = max(height / oldSize.height, width / oldSize.width)
-        
-        let newHeight = scale * oldSize.height
-        let newWidth = scale * oldSize.width
-        
-        return CGSize(width: newWidth, height: newHeight)
+    @objc func tappedSearchButton() {
+        clickedOnSearchButton?()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    @objc func tappedCookButton() {
+        clickedOnCookButton?()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    @objc func tappedBuyButton() {
+        clickedOnBuyButton?()
     }
 }
 
 extension MainViewController: MainPresenterOutputProtocol {
-    
 }

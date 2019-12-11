@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// View that consists of all filters (drop and simple)
 class FiltersView: UIScrollView {
     let titleLabel = UILabel()
     var dropFilters = [FilterViewOfDropType]()
@@ -26,7 +27,6 @@ class FiltersView: UIScrollView {
         self.bounces = false
         self.backgroundColor = .white
         self.showsVerticalScrollIndicator = false
-//        addBottomBorder()
         
         titleLabel.frame = CGRect(origin: self.bounds.origin,
                                   size: CGSize(width: frame.width, height: titleLabelHeight))
@@ -69,13 +69,4 @@ class FiltersView: UIScrollView {
         self.contentSize = CGSize(width: self.frame.width,
                                   height: lastFilterMaxY - paddingBetweenFilters + paddingBottom)
     }
-    
-//    func addBottomBorder() {
-//        let bottomLine = CALayer()
-//        let borderWidth: CGFloat = 5
-//        bottomLine.frame = CGRect(origin: CGPoint(x: 0, y: self.frame.height - borderWidth),
-//                                  size: CGSize(width: self.frame.width, height: borderWidth))
-//        bottomLine.backgroundColor = UIColor.groupTableViewBackground.cgColor
-//        self.layer.addSublayer(bottomLine)
-//    }
 }

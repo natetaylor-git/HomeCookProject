@@ -29,7 +29,7 @@ class CookCurrentViewController: UIViewController {
         pageControl.hidesForSinglePage = true
         pageControl.backgroundColor = .groupTableViewBackground
         pageControl.pageIndicatorTintColor = .black
-        pageControl.currentPageIndicatorTintColor = .darkGreen
+        pageControl.currentPageIndicatorTintColor = .blue//darkGreen
         pageControl.isUserInteractionEnabled = false
         return pageControl
     }()

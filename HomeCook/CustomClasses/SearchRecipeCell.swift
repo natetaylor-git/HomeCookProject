@@ -8,8 +8,8 @@
 
 import UIKit
 
+/// Class for cell in tableview presented on search screen
 class SearchRecipeCell: UITableViewCell {
-    
     override func awakeFromNib() {
         super.awakeFromNib()
     }

@@ -8,19 +8,7 @@
 
 import UIKit
 
-//class LocalImagesCollection {
-//    static var shared: LocalImagesCollection = {
-//        let localImages = LocalImagesCollection()
-//        return localImages
-//    }()
-//    
-//    var imagesDict: [Int: UIImage]
-//    
-//    private init() {
-//        self.imagesDict = [Int: UIImage]()
-//    }
-//}
-
+/// Collection of images that is used to cache downloaded images during recipe search process
 class ImagesCollection {
     var imagesDict: [Int: Data]
     

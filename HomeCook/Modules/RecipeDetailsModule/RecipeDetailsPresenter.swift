@@ -32,6 +32,7 @@ class RecipeDetailsPresenter: RecipeDetailsInteractorOutputProtocol {
         self.view?.setupIngredientsView(with: recipeInfo.ingredients)
     }
     
+    /// Method that tells view to update activate ui elements if recipe was found in local storage
     func updateUIForEntityExistedInLocalStorage() {
         self.view?.activateUIElementsForEntityExistance()
     }

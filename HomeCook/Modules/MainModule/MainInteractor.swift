@@ -22,12 +22,13 @@ class MainInteractor: MainInteractorInputProtocol {
         self.userDefaultsService = userDefaultsService
         self.localRecipesCollection = localRecipesCollection
         
-//        self.userDefaultsService.setHintStatusToNeeded()
-//        self.coreDataService.deleteAllRecipes(completion: {lol in })
-//        self.userDefaultsService.clearAllCustomKeys()
+        self.coreDataService.deleteAllRecipes(completion: {lol in })
+        self.userDefaultsService.resetAllCustomKeys()
+        self.userDefaultsService.setHintStatusToNeeded()
         
     }
-    
+
+    /// Method that loads last chosen recipes by ids saved at UserDefaults
     func loadCurrentRecipes() {
         let fetchedIds: Set<Int>? = self.userDefaultsService.getSet()
         guard let currentIds = fetchedIds else {

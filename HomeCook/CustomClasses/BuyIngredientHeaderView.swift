@@ -12,6 +12,7 @@ protocol BuyIngredientHeaderDelegate: UITableViewDelegate {
     func changeVisibility(for section: Int, hide: Bool)
 }
 
+/// Class for header of ingredients table view at buy screen
 class BuyIngredientHeaderView: UIView {
     private var section: Int
     private var hideSection: Bool

@@ -13,6 +13,7 @@ protocol IngredientsCollectionProtocol {
     func getCurrentIngredientsSummary(localRecipesCollection: LocalRecipesCollectionProtocol) -> [String: IngredientBuyModel]
 }
 
+/// Collection of ingredients used to store ingredients data shown at buy screen while app is active
 class IngredientsCollection {
     static var shared: IngredientsCollection = {
         let localRecipes = IngredientsCollection()
@@ -27,16 +28,10 @@ class IngredientsCollection {
         self.userDefaultsService = UserDefaultsService()
     }
     
-//    func updateUserDefaults() {
-//        let updatedIds = Set<String>(self.summary.keys)
-//        let key = self.userDefaultsService.boughtIngredientsKey
-//        let result = self.userDefaultsService.saveSet(set: updatedIds, key: key)
-//        if  result == false {
-//            print("can't save ingredient bought labels to user defaults")
-//            return
-//        }
-//    }
-    
+    /// Method that returns collection of ingredients with summarized amount
+    ///
+    /// - Parameter localRecipesCollection: current recipes that are chosen by user
+    /// - Returns: dictionary that contains summarized ingredients with names as keys
     func getCurrentIngredientsSummary(localRecipesCollection: LocalRecipesCollectionProtocol) -> [String: IngredientBuyModel] {
         var summary = [String: IngredientBuyModel]()
         

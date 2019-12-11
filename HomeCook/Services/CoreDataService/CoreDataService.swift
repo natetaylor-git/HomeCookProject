@@ -14,16 +14,23 @@ protocol CoreDataServiceProtocol {
     func deleteAllRecipes(completion: @escaping (Bool) -> Void)
 }
 
+// MARK: - Extension for method with default values in arguments
 extension CoreDataServiceProtocol {
     func loadRecipes(completion: @escaping ([Int: DetailedRecipeEntity]) -> Void) {
         return loadRecipes(specificIds: Set<Int>(), completion: completion)
     }
 }
 
+/// Service that allows to save recipes, load all or specisifc recipes and delete all recipes from coreData persistent store
 class CoreDataService: CoreDataServiceProtocol {
     private let stack = CoreDataStack.shared
     private let entityName = "Recipe"
     
+    /// Method that loads needed recipes specified by id
+    ///
+    /// - Parameters:
+    ///   - specificIds: set consisted of ids of needed recipes
+    ///   - completion: passes collection of recipe models based on retrieved MORecipe objects
     func loadRecipes(specificIds: Set<Int> = Set<Int>(), completion: @escaping ([Int: DetailedRecipeEntity]) -> Void) {
         stack.persistentContainer.performBackgroundTask { (readContext) in
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
@@ -77,6 +84,9 @@ class CoreDataService: CoreDataServiceProtocol {
         }
     }
     
+    /// Method that allows to delete all recipes from persistent store, but ingredients still exist
+    ///
+    /// - Parameter completion: passes success status of delete opearation
     func deleteAllRecipes(completion: @escaping (Bool) -> Void) {
         stack.persistentContainer.performBackgroundTask { (deleteContext) in
             do {
@@ -94,6 +104,12 @@ class CoreDataService: CoreDataServiceProtocol {
         }
     }
     
+    /// Method that checks if given ingredient already exists in persistent store
+    ///
+    /// - Parameters:
+    ///   - name: ingredient name
+    ///   - context: managed object context
+    /// - Returns: returns found ingredient managed object or nil
     func ingredientExists(name: String, context: NSManagedObjectContext) -> MOIngredient? {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Ingredient")
         fetchRequest.predicate = NSPredicate(format: "name == %@", name)
@@ -110,6 +126,12 @@ class CoreDataService: CoreDataServiceProtocol {
         return results.first as? MOIngredient
     }
     
+    /// Method that checks if given recipe already exists in persistent store
+    ///
+    /// - Parameters:
+    ///   - id: recipe id
+    ///   - context: managed object context
+    /// - Returns: returns found recipe managed object or nil
     func recipeExists(id: Int, context: NSManagedObjectContext) -> MORecipe? {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Recipe")
         fetchRequest.predicate = NSPredicate(format: "id == %d", id)
@@ -126,6 +148,14 @@ class CoreDataService: CoreDataServiceProtocol {
         return results.first as? MORecipe
     }
     
+    
+    /// Method that checks if given recipe model differs from recipe located at persistent store
+    ///
+    /// - Parameters:
+    ///   - localEntity: recipe u want to check to find out if it needs to be resaved
+    ///   - localImageData: recipe image data
+    ///   - loadedEntity: entity loaded from persistent store ( ofthen with same id as local entity)
+    /// - Returns: returns the result of comparison based on name, cousine, instructions and image data parameters
     func recipeChanged(localEntity: RecipeModel, localImageData: Data, loadedEntity: MORecipe) -> Bool {
         if localEntity.name == loadedEntity.name,
             localEntity.cousine == loadedEntity.cuisine,
@@ -137,10 +167,19 @@ class CoreDataService: CoreDataServiceProtocol {
         return true
     }
     
+    /// Method that deletes given recipe managed object from presistent store
+    ///
+    /// - Parameters:
+    ///   - loadedEntity: recipe to delete
+    ///   - deleteContext: managed object context
     func deleteRecipe(loadedEntity: MORecipe, deleteContext: NSManagedObjectContext) {
             deleteContext.delete(loadedEntity)
     }
     
+    /// Method that saves collection of recipes to persistent store also checking if there any
+    /// recipes need to be updated
+    ///
+    /// - Parameter recipesCollection: collection of detailed recipes to be saved to persistent store
     func saveRecipes(_ recipesCollection: [Int : DetailedRecipeEntity]) {
         let localStorage = recipesCollection
         stack.persistentContainer.performBackgroundTask { (writeContext) in
@@ -199,4 +238,3 @@ class CoreDataService: CoreDataServiceProtocol {
         }
     }
 }
-

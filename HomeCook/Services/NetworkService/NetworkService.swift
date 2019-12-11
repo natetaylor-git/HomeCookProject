@@ -12,7 +12,7 @@ protocol NetworkServiceInputProtocol {
     func getData(at path: URL, completion: @escaping (Data?) -> Void)
 }
 
-/// Service for getting data from web using paths in url or string formats
+/// Service for getting data from web using url paths
 class NetworkService: NetworkServiceInputProtocol {
     let session: URLSession
     
@@ -27,4 +27,3 @@ class NetworkService: NetworkServiceInputProtocol {
         dataTask.resume()
     }
 }
-

@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Thread safe collection of recipes used to store downloaded recipes for current search
 class RecipesCollection {
     private let queue = DispatchQueue(label: "com.cacheQueue", attributes: .concurrent)
     private var collection = [RecipeModel]()

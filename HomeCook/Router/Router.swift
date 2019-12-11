@@ -8,6 +8,8 @@
 
 import UIKit
 
+/// Class that contains all navigation logic starting from main screen assigning existing
+/// transitions to callbacks of specific screens
 class Router: NSObject {
     var navigationController: UINavigationController?
     
@@ -28,6 +30,7 @@ class Router: NSObject {
         setupMainScreen()
     }
     
+    /// Method that concretizes transitions from main screen buttons
     private func setupMainScreen() {
         guard let root = self.navigationController?.viewControllers.first as? MainViewController else {
             return
@@ -36,16 +39,15 @@ class Router: NSObject {
         root.clickedOnSearchButton = {[weak self] in
             self?.showSearchScreen()
         }
-        
         root.clickedOnBuyButton = {[weak self] in
             self?.showBuyScreen()
         }
-        
         root.clickedOnCookButton = {[weak self] in
             self?.showCookScreen()
         }
     }
     
+    /// Method that creates configured instance of search screen and concretizes its transition
     private func showSearchScreen() {
         let searchViewController = SearchViewController()
         let configurator = SearchConfigurator()
@@ -59,6 +61,7 @@ class Router: NSObject {
         self.navigationController?.pushViewController(searchViewController, animated: true)
     }
     
+    /// Method that creates configured instance of details screen and concretizes its transition
     private func showRecipeDetailsScreen(recipeInfo: DetailedRecipeEntity) {
         let recipeDetailsController = RecipeDetailsViewController()
         let configurator = RecipeDetailsConfigurator()
@@ -67,6 +70,7 @@ class Router: NSObject {
         self.navigationController?.pushViewController(recipeDetailsController, animated: true)
     }
     
+    /// Method that creates configured instance of buy screen and concretizes its transition
     private func showBuyScreen() {
         let buyViewController = BuyViewController()
         let configurator = BuyConfigurator()
@@ -75,6 +79,8 @@ class Router: NSObject {
         self.navigationController?.pushViewController(buyViewController, animated: true)
     }
     
+    /// Method that creates configured instance of tab bar screen with two imbeded cook screens and
+    /// concretizes transitions
     private func showCookScreen() {
         let currentController = CookCurrentViewController()
         let currentConfigurator = CookCurrentConfigurator()
@@ -100,16 +106,6 @@ class Router: NSObject {
         cookTabBarController.navigationItem.backBarButtonItem = backButton
         
         self.navigationController?.pushViewController(cookTabBarController, animated: true)
-//        let historyController = CookHistoryViewController()
-//        self.navigationController?.pushViewController(historyController, animated: true)
-    }
-    
-    func push(viewController: UIViewController, animated: Bool) {
-        self.navigationController?.pushViewController(viewController, animated: animated)
-    }
-    
-    func pop(animated: Bool) {
-        self.navigationController?.popViewController(animated: false)
     }
 }
 
@@ -119,6 +115,7 @@ extension Router: NSCopying {
     }
 }
 
+// MARK: - Extension for assigning custom navigation animations to navigation controller
 extension Router: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         

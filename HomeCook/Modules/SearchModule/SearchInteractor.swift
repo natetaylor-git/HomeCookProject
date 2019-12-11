@@ -30,6 +30,9 @@ class SearchInteractor: SearchInteractorInputProtocol {
         self.searchRecipesImages = ImagesCollection()
     }
     
+    /// Method that updates filters if needed and asks to update search results
+    ///
+    /// - Parameter parameters: current values of filters
     func updateFiltersValues(_ parameters: [(name: String?, value: String?)]) {
         var needToUpdate = false
         for oneFilterParameters in parameters {
@@ -47,6 +50,7 @@ class SearchInteractor: SearchInteractorInputProtocol {
         }
     }
     
+    /// Method that removes all existed search results and asks to load new search results
     func updateSearch() {
         self.searchRecipes.removeAll()
         self.oneSearchRecipes.removeAll()
@@ -54,6 +58,7 @@ class SearchInteractor: SearchInteractorInputProtocol {
         self.loadRecipes(by: currentSearchText, sameSearch: false)
     }
     
+    /// Method that asks to load all available values for filters
     func loadFiltersValues() {
         let filterLoadingGroup = DispatchGroup()
         
@@ -77,6 +82,11 @@ class SearchInteractor: SearchInteractorInputProtocol {
         }
     }
     
+    /// Method that loads all available values for specific filter
+    ///
+    /// - Parameters:
+    ///   - filterName: name of filter to be setted with available loaded values
+    ///   - completion: passes loaded filter values
     func loadOneFilterValues(for filterName: String, completion: @escaping ([ParameterValue]?) -> ()) {
         var url: URL
         var dataNameFromAPI: String = ""
@@ -119,6 +129,10 @@ class SearchInteractor: SearchInteractorInputProtocol {
         }
     }
     
+    /// Method that updates current search results, passes data to presenter and asks to download
+    /// images for downloaded recipes
+    ///
+    /// - Parameter models: donloaded recipes models
     func setSearchRecipes(_ models: [RecipeDownloadModel]) {
         if models.count == 0 {
             self.presenter?.setRecipes(RecipesCollection())
@@ -146,6 +160,11 @@ class SearchInteractor: SearchInteractorInputProtocol {
         self.setSearchRecipesImages(models, baseIndex: self.searchRecipes.count - models.count)
     }
     
+    /// Method that passes loaded images of recipes to presenter
+    ///
+    /// - Parameters:
+    ///   - models: downloaded recipe models with recipe ids
+    ///   - baseIndex: index in collection of search results equal to recipe index
     func setSearchRecipesImages(_ models: [RecipeDownloadModel], baseIndex: Int) {
         for (index, model) in models.enumerated() {
             let absoluteIndex = baseIndex + index
@@ -165,6 +184,11 @@ class SearchInteractor: SearchInteractorInputProtocol {
         }
     }
     
+    /// Method that loads one image for specific recipe by url
+    ///
+    /// - Parameters:
+    ///   - path: path from downloaded recipe model that is used to create url for image loading
+    ///   - completion: passes image data
     func loadImage(at path: String, completion: @escaping (Data?) -> Void) {
         guard let url = API.getImageUrl(relativePath: path) else {
             completion(nil)
@@ -179,6 +203,11 @@ class SearchInteractor: SearchInteractorInputProtocol {
         }
     }
     
+    /// Method that loads recipes by given search string
+    ///
+    /// - Parameters:
+    ///   - searchString: key words that recipe name should contain
+    ///   - sameSearch: parameter that tells about current search state
     func loadRecipes(by searchString: String, sameSearch: Bool) {
         var offset: Int = 0
         let batchSize = API.batchSize
@@ -224,6 +253,9 @@ class SearchInteractor: SearchInteractorInputProtocol {
         }
     }
     
+    /// Method that passes detailed recipe model to presenter
+    ///
+    /// - Parameter recipeIndex: recipe index in search results collection
     func getDetailedRecipe(for recipeIndex: Int) {
         let recipe = self.searchRecipes[recipeIndex]
         var imageData = Data()
@@ -241,6 +273,11 @@ class SearchInteractor: SearchInteractorInputProtocol {
         }
     }
     
+    /// Method that loads data for specific recipe
+    ///
+    /// - Parameters:
+    ///   - id: recipe id
+    ///   - completion: passes recipe model with loaded data
     func loadOneRecipeInfo(by id: Int, completion: @escaping (RecipeModel?) -> ()) {
         let url = API.getRecipeInfo(id: id)
         self.networkService.getData(at: url) { data in

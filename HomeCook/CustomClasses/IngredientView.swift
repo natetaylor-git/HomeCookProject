@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Class for specific ingredient view (consists of name, amount and unit labels)
 class IngredientView: UIView {
     let nameLabel = UILabel(frame: .zero)
     let amountLabel = UILabel(frame: .zero)

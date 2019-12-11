@@ -31,6 +31,7 @@ class CookCurrentInteractor: CookCurrentInteractorInputProtocol {
         }
     }
     
+    /// Method that checks if any recipes were cooked and current recipes need to be updated
     func checkIfLocalRecipesUpdated() {
         let currentRecipesIds = Set<Int>(self.localRecipesCollection.localRecipes.dict.keys)
         if self.existingLocalRecipesIds != currentRecipesIds {
@@ -42,6 +43,9 @@ class CookCurrentInteractor: CookCurrentInteractorInputProtocol {
         }
     }
     
+    /// Method that deletes cooked recipes from current recipes (local storage)
+    ///
+    /// - Parameter id: recipe id
     func deleteRecipeFromLocalStorage(id: Int) {
         let cookedRecipe = self.localRecipesCollection.localRecipes.dict.removeValue(forKey: id)
         self.localRecipesCollection.localRecipes.updateUserDefaults()

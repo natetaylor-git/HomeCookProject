@@ -10,7 +10,6 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
     var router: Router?
     var localRecipesEntity: LocalRecipesCollectionProtocol?
@@ -22,12 +21,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.backgroundColor = .white
         self.window?.rootViewController = Router.shared.navigationController
         self.window?.makeKeyAndVisible()
-//        if let directoryLocation = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).last { print("Documents Directory: \(directoryLocation)Application Support")
-//        }
         
         return true
     }
 
+    /// Method that is called when app is going to resign, saves info about current recipes to
+    /// persistent storage of core data
+    ///
+    /// - Parameter application: application object
     func applicationWillResignActive(_ application: UIApplication) {
         let coreService = CoreDataService()
         guard let recipes = self.localRecipesEntity else {

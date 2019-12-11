@@ -15,12 +15,7 @@ class MainPresenter: MainPresenterInputProtocol {
     func viewLoaded() {
         self.interactor?.loadCurrentRecipes()
     }
-    
-    func viewWillAppear() {
-        
-    }
 }
 
 extension MainPresenter: MainInteractorOutputProtocol {
-    
 }

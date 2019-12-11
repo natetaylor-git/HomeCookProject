@@ -8,27 +8,26 @@
 
 import UIKit
 
+/// Class for buttons at main screen
 class MainButtonView: UIButton {
+    let imageViewBackgroundView = UIView()
+    
     let myImageView = UIImageView(frame: .zero)
     let textLabel = UILabel(frame: .zero)
     
-    let padding: CGFloat = 0
-    let insetValue: CGFloat = 5
     let fontSize: CGFloat = 30
     let cornerRadius: CGFloat = 10.0
     
     init(frame: CGRect, name: String, image: UIImage?) {
         super.init(frame: frame)
         
-        self.backgroundColor = .darkGreen
-        self.myImageView.layer.cornerRadius = cornerRadius
-        
-        let insets = UIEdgeInsets(top: insetValue, left: insetValue,
-                                  bottom: insetValue, right: insetValue)
-        self.imageView?.contentMode = .center
-        
-        self.myImageView.image = image?.withAlignmentRectInsets(insets)
+        self.myImageView.image = image
+        self.myImageView.contentMode = .scaleAspectFit
         self.myImageView.backgroundColor = .white
+    
+        self.imageViewBackgroundView.isUserInteractionEnabled = false
+        self.imageViewBackgroundView.layer.cornerRadius = cornerRadius
+        self.imageViewBackgroundView.backgroundColor = .white
         
         self.textLabel.text = name
         self.textLabel.font = UIFont.boldSystemFont(ofSize: fontSize)
@@ -41,8 +40,10 @@ class MainButtonView: UIButton {
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowRadius = 5.0
         self.layer.cornerRadius = cornerRadius
+        self.backgroundColor = .darkGreen
         
-        self.addSubview(myImageView)
+        self.imageViewBackgroundView.addSubview(myImageView)
+        self.addSubview(imageViewBackgroundView)
         self.addSubview(textLabel)
     }
     
@@ -51,15 +52,20 @@ class MainButtonView: UIButton {
     }
     
     override func layoutSubviews() {
-        let side = self.frame.height - 2 * padding
-        let imageViewOrigin = CGPoint(x: padding, y: padding)
-        let imageViewSize = CGSize(width: side, height: side)
+        let imagePadding: CGFloat = 5
+        
+        let side = self.frame.height
+        let imageViewBackgroundSize = CGSize(width: side, height: side)
+        self.imageViewBackgroundView.frame = CGRect(origin: .zero, size: imageViewBackgroundSize)
+        
+        let imageViewOrigin = CGPoint(x: imagePadding, y: imagePadding)
+        let imageViewSize = CGSize(width: imageViewBackgroundSize.width - 2 * imagePadding,
+                                   height: imageViewBackgroundSize.height - 2 * imagePadding)
         self.myImageView.frame = CGRect(origin: imageViewOrigin, size: imageViewSize)
 
-        let labelOrigin = CGPoint(x: self.myImageView.frame.maxX, y: padding)
-        let labelSize = CGSize(width: self.bounds.width - self.myImageView.frame.width,
-                                height: self.bounds.height - 2 * padding)
+        let labelOrigin = CGPoint(x: self.imageViewBackgroundView.frame.maxX, y: 0)
+        let labelSize = CGSize(width: self.bounds.width - self.imageViewBackgroundView.frame.width,
+                               height: self.bounds.height)
         self.textLabel.frame = CGRect(origin: labelOrigin, size: labelSize)
     }
-    
 }

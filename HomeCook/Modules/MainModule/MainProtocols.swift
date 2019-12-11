@@ -14,7 +14,6 @@ protocol MainConfiguratorProtocol: class {
 
 protocol MainPresenterInputProtocol: class {
     func viewLoaded()
-    func viewWillAppear()
 }
 
 protocol MainPresenterOutputProtocol: class {

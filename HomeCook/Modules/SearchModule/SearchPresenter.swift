@@ -9,10 +9,12 @@
 import UIKit
 
 class SearchPresenter: SearchInteractorOutputProtocol {
-    
     var interactor: SearchInteractorInputProtocol?
     weak var view: SearchPresenterOutputProtocol?
     
+    /// Method that sets recipes to view
+    ///
+    /// - Parameter models: taken recipes collection from interactor
     func setRecipes(_ models: RecipesCollection) {
         var recipesCellModels = [RecipeCellModel]()
         for index in 0..<models.count {
@@ -26,6 +28,11 @@ class SearchPresenter: SearchInteractorOutputProtocol {
         }
     }
     
+    /// Method thats passes recipe image to view
+    ///
+    /// - Parameters:
+    ///   - recipeId: recipe id
+    ///   - data: image data taken from interactor
     func setImage(for recipeId: Int, with data: Data?) {
         var imageToSet: UIImage
         if let data = data, let image = UIImage(data: data) {
@@ -62,6 +69,9 @@ class SearchPresenter: SearchInteractorOutputProtocol {
         }
     }
     
+    /// Method that tells view to call completion (transition to recipe details view)
+    ///
+    /// - Parameter detailedRecipe: full recipe data to pass
     func callViewCompletion(with detailedRecipe: DetailedRecipeEntity) {
         self.view?.callCompletion(with: detailedRecipe)
     }

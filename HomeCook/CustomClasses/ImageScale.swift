@@ -8,6 +8,7 @@
 
 import UIKit
 
+// MARK: - Extension for image scaling used at recipe details screen for better image representation
 extension UIImageView {
     func findFitAspectInRect(_ rect: CGRect) -> CGRect {
         guard let image = self.image else {

@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Class for one recipe detail (consists of header - color label and name, value labels)
 class RecipeDetailView: UIView {
     let headerLabel = UILabel()
     let nameLabel = UILabel()

@@ -26,7 +26,9 @@ class CookCurrentPresenter: CookCurrentPresenterInputProtocol {
 }
 
 extension CookCurrentPresenter: CookCurrentInteractorOutputProtocol {
-    
+    /// Method that passes current recipes to view with instructions and image
+    ///
+    /// - Parameter recipes: collection of current recipes
     func takeCurrentRecipes(_ recipes: LocalRecipesCollectionProtocol) {
         var recipesInfoToShow = [(id:Int, name: String, image: UIImage, instructions: String)]()
         let sortedRecipes = recipes.localRecipes.dict.sorted{ $0.0 < $1.0 }

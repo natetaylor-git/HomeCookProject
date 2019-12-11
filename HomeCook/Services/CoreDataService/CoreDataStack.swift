@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 
+/// Class for core data stack (with persistent container)
 internal final class CoreDataStack {
     static let shared: CoreDataStack = {
         let coreDataStack = CoreDataStack()

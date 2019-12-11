@@ -80,6 +80,8 @@ class SearchViewController: UIViewController {
     func setupRecipesSearchBar() {
         self.recipesSearchBar.showsBookmarkButton = true
         self.recipesSearchBar.enablesReturnKeyAutomatically = false
+        self.recipesSearchBar.placeholder = "Search recipes ..."
+        self.recipesSearchBar.setImage(UIImage(named: "SearchPlusIcon"), for: .bookmark, state: .normal)
         var paddingSearchBarY: CGFloat = .zero
         if let navigationBar = self.navigationController?.navigationBar {
             paddingSearchBarY = navigationBar.frame.origin.y + navigationBar.frame.height
@@ -193,18 +195,6 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.presenter?.clickedOnCell(at: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
-    }
-}
-
-extension SearchViewController: UITableViewDataSourcePrefetching {
-    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        let rows = indexPaths.map{$0.row}
-        let downloadAtOffset: Int = 10
-        let totalRowsNumber = self.searchResultsCollection.count
-        let tenthFromEndNumber = totalRowsNumber - downloadAtOffset
-        if rows.contains(tenthFromEndNumber) {
-            self.presenter?.prefetchCalled()
-        }
     }
 }
 

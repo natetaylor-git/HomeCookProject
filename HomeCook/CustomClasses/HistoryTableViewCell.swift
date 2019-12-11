@@ -12,6 +12,7 @@ protocol HistoryTableViewProtocol: class {
     func selectedRecipe(id: Int)
 }
 
+/// Class for history table view cell that is implemented as collectionView
 class HistoryTableViewCell: UITableViewCell {
     let recipesCollectionView: UICollectionView = {
         let collectionViewLayout = UICollectionViewFlowLayout()
@@ -94,18 +95,7 @@ extension HistoryTableViewCell: UICollectionViewDelegate {
 
 extension HistoryTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let imageHeightInCell = 5/6 * self.frame.height - insetY * 2
-//        var width = imageHeightInCell // image is in square
-//
-//        if let oldImage = self.recipesCollection[indexPath.row].image {
-//            let newSize = maximumSizeOfImageForCell(actualSize: oldImage.size,
-//                                                    heightConstant: imageHeightInCell)
-//            if newSize.width > (width / 2) {
-//                width = newSize.width
-//            }
-//        }
         
-//        let itemWidth = width
         let itemWidth = self.frame.height
         let itemHeight = self.frame.height - insetY * 2 - 1
         return CGSize(width: itemWidth, height: itemHeight)

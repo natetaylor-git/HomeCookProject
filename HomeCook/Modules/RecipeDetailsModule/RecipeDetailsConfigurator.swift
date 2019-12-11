@@ -11,8 +11,9 @@ import Foundation
 class RecipeDetailsConfigurator: RecipeDetailsConfiguratorProtocol {
     func configure(with viewController: RecipeDetailsViewController, recipeEntity: DetailedRecipeEntity) {
         let presenter = RecipeDetailsPresenter()
+        let localRecipesCollection = LocalRecipesCollection.shared
         let interactor = RecipeDetailsInteractor(recipeEntity: recipeEntity,
-                                                 localRecipesCollection: LocalRecipesCollection.shared)
+                                                 localRecipesCollection: localRecipesCollection)
         
         viewController.presenter = presenter
         presenter.interactor = interactor

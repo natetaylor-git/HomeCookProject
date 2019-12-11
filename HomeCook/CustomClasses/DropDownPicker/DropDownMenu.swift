@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Class that implements drop down menu ny tableview
 class DropDownMenu: UIView, UITableViewDataSource, UITableViewDelegate {
     var dropDownValues = [String]()
     var tableView = UITableView()

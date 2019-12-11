@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Class for button that is used in navigation bar (consists only of image)
 class ImageButton: UIButton {
     let customImageView = UIImageView()
     private var colors: [UIColor] = [.black]

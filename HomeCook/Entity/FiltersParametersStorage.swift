@@ -13,6 +13,7 @@ protocol FilterParametersStorageProtocol {
     var collection: [String: FilterParameters] { get set }
 }
 
+/// Storage of filteres shown at search screen
 class FilterParametersStorage: FilterParametersStorageProtocol {
     var collection: [String : FilterParameters]
     
@@ -37,6 +38,8 @@ extension FilterParametersStorage: NSCopying {
     }
 }
 
+/// Class that represents filter parameters including type, name, set of existing values and current
+/// filter value
 class FilterParameters {
     var type: ParameterType
     var name: String

@@ -12,6 +12,7 @@ protocol CurrentRecipeCellDelegate: class {
     func changePageControlVisibility()
 }
 
+/// Class for cell in collectionView presented on current recipes screen
 class CurrentRecipeCell: UICollectionViewCell {
     weak var delegate: CurrentRecipeCellDelegate?
     

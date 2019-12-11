@@ -11,9 +11,6 @@ import Foundation
 class SearchConfigurator: SearchConfiguratorProtocol {
     func configure(with viewController: SearchViewController) {
         let presenter = SearchPresenter()
-//        presenter.localRecipes = LocalRecipesCollection.shared
-//        presenter.localImages = LocalImagesCollection.shared
-        
         let networkService = NetworkService(session: SessionFactory().createDefaultSession())
         let interactor = SearchInteractor(networkService: networkService,
                                           filtersStorage: FilterParametersStorage.shared)

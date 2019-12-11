@@ -8,6 +8,8 @@
 
 import UIKit
 
+/// Recipe entity that contains all data about specific recipe including recipe details and recipe
+/// image
 class DetailedRecipeEntity {
     var recipe: RecipeModel
     var recipeImageData: Data

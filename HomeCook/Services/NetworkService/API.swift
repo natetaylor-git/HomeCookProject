@@ -11,13 +11,21 @@ import Foundation
 class API {
     private static let baseUrl = "http://cousine.gbezyuk.ru:8098/api/graphql"
     private static let imageBaseUrl = "http://cousine.gbezyuk.ru:8098/media/"
-    static let batchSize: Int = 5
+    static let batchSize: Int = 15
     
+    /// Method that creates url for image described by path
+    ///
+    /// - Parameter relativePath: image relative path
+    /// - Returns: created url for image
     static func getImageUrl(relativePath: String) -> URL? {
         let url = URL(string: imageBaseUrl + relativePath)
         return url
     }
     
+    /// Method that creates url for specific recipe
+    ///
+    /// - Parameter id: recipe id
+    /// - Returns: created url for recipe
     static func getRecipeInfo(id: Int) -> URL {
         guard var components = URLComponents(string: baseUrl) else {
             return URL(string: baseUrl)!
@@ -29,6 +37,15 @@ class API {
         return components.url!
     }
     
+    /// Method that creates url for recipes that satisfy given parameters
+    ///
+    /// - Parameters:
+    ///   - searchString: key phrase
+    ///   - offset: next batch start point
+    ///   - maxTime: max cooking time in minutes
+    ///   - cuisineId: cousin id
+    ///   - courseTypeId: course type id
+    /// - Returns: created url for recipes
     static func getRecipes(searchString: String, offset: Int = 0, maxTime: Int = 0, cuisineId: Int = 0, courseTypeId: Int = 0) -> URL {
         guard var components = URLComponents(string: baseUrl) else {
             return URL(string: baseUrl)!
@@ -41,6 +58,10 @@ class API {
         return components.url!
     }
     
+    /// Method that creates url for cuisine values
+    ///
+    /// - Parameter amount: maximum amount of values
+    /// - Returns: created url for cuisine values
     static func getCuisineFilterValues(amount: Int = 100) -> URL {
         guard var components = URLComponents(string: baseUrl) else {
             return URL(string: baseUrl)!
@@ -51,6 +72,10 @@ class API {
         return components.url!
     }
     
+    /// Method that creates url for course types
+    ///
+    /// - Parameter amount: maximum amount of values
+    /// - Returns: created url for course types
     static func getCourseFilterValues(amount: Int = 100) -> URL {
         guard var components = URLComponents(string: baseUrl) else {
             return URL(string: baseUrl)!

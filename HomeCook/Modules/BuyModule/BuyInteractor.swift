@@ -23,6 +23,7 @@ class BuyInteractor: BuyInteractorInputProtocol {
         self.boughtUDKey = self.userDefaultsService.boughtIngredientsKey
     }
  
+    /// Method that checks userDefaults settings and tells presenter if hint needed
     func checkIfHintIsNeeded() {
         let hintIsNeeded = self.userDefaultsService.checkStatusOfHintForBuyScreen()
         if hintIsNeeded {
@@ -30,16 +31,22 @@ class BuyInteractor: BuyInteractorInputProtocol {
         }
     }
     
+    /// Method that turns hint off by userDefaults service
     func turnHintOff(){
         self.userDefaultsService.setHintStatusToNotNeeded()
     }
     
+    /// Method that saves actual information about bought ingredients
+    ///
+    /// - Parameter ingredients: names of bought ingredients
     func saveBoughtIngredients(ingredients: Set<String>) {
         if self.userDefaultsService.saveSet(set: ingredients, key: self.boughtUDKey) == false {
             print("can't save bought labels")
         }
     }
     
+    /// Method that creates summary for all ingredients depending on existing local recipes
+    /// ingredients and last ingredients summary
     func getIngredientsSummary() {
         var boughtIngredients = getBoughtLabels()
         
@@ -83,53 +90,22 @@ class BuyInteractor: BuyInteractorInputProtocol {
             newSummary[key] = currentRecipesIngredientsSummary[key]
         }
         
-//        for ingredient in currentRecipesIngredientsSummary {
-//            if toAdd.contains(ingredient.key) {
-//                newSummary[ingredient.key] = ingredient.value
-//            }
-//        }
-        
         self.ingredientsCollection.collection.summary = newSummary
         self.presenter?.takeIngredients(summarized: newSummary, boughtLabels: boughtIngredients)
-        
-        
-//        let recipesIds = Set<Int>(self.localRecipesCollection.localRecipes.dict.keys)
-//        let recipesIdsOld = self.ingredientsCollection.collection.recipeIds
-//        let recipesIdsToAddFromCurrent = recipesIds.subtracting(recipesIdsOld)
-//
-//        for recipeId in recipesIdsToAddFromCurrent {
-//            if let newRecipe = self.localRecipesCollection.localRecipes.dict[recipeId] {
-//                for ingredient in newRecipe.recipe.ingredients {
-//                    let key = ingredient.name
-//                    if newSummary.keys.contains(key) == false {
-//                        let ingredientToAdd = IngredientBuyModel(ingredient: ingredient)
-//                        newSummary[key] = ingredientToAdd
-//                    }
-//                }
-//            }
-//        }
     }
     
+    
+    /// Method that returns current summary for all ingredients
+    ///
+    /// - Returns: current ingredients summary (last used)
     func getCurrentIngredientsSummary() -> [String: IngredientBuyModel] {
         let result = self.ingredientsCollection.getCurrentIngredientsSummary(localRecipesCollection: self.localRecipesCollection)
         return result
-        
-//        var summary = [String: IngredientModel]()
-//
-//        for recipe in self.localRecipesCollection.localRecipes.dict {
-//            for ingredient in recipe.value.recipe.ingredients {
-//                let name = ingredient.name
-//                let unit = ingredient.unit
-//                let amount = ingredient.amount
-//                let oldAmount = summary[name]?.amount ?? 0
-//                let newAmount = oldAmount + amount
-//                summary[name] = IngredientModel(name: name, amount: newAmount, unit: unit)
-//            }
-//        }
-//
-//        return summary
     }
     
+    /// Method that loads info about bought ingredients by userDefaults service
+    ///
+    /// - Returns: names of bought ingredients
     func getBoughtLabels() -> Set<String> {
         let labels: Set<String> = self.userDefaultsService.getSet(key: self.boughtUDKey) ?? Set()
         return labels

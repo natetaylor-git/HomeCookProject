@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Class for ingredient cell presented on buy screen
 class IngredientTableViewCell: UITableViewCell {
     var ingredient: IngredientView?
     

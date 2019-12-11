@@ -12,6 +12,7 @@ protocol DropDownViewProtocol {
     func didSelectValue(named text: String)
 }
 
+/// Class that holds dropMenu and reacts to taps
 class DropDownView: UIButton {
     var holderView: DropDownViewHolderProtocol?
     var dropMenu = DropDownMenu()

@@ -20,6 +20,8 @@ class CookHistoryInteractor: CookHistoryInteractorInputProtocol {
         self.userDefaultsService = userDefaultsService
     }
     
+    /// Method that downloads cooked ever recipes form core data persistent storage using
+    /// userDefaults service to get cooked recipes ids
     func getHistory() {
         let fetchedIds: Set<Int>? = self.userDefaultsService.getSet(key: self.userDefaultsService.historyKey)
         
@@ -43,6 +45,9 @@ class CookHistoryInteractor: CookHistoryInteractorInputProtocol {
         })
     }
     
+    /// Method that gets specific recipe info and passes it to presenter
+    ///
+    /// - Parameter id: id of recipe that is needed
     func getDetailedRecipe(id: Int) {
         guard let recipeDetails = recipesFromDataBase[id] else {
             return

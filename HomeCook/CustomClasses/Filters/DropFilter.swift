@@ -15,6 +15,7 @@ protocol DropDownViewHolderProtocol: UIView {
     func sendMenuHolderBack()
 }
 
+/// Drop down filter that consists of title label and drop down view
 class FilterViewOfDropType: UIView, DropDownViewHolderProtocol {
     let headerLabel = UILabel()
     let titleLabel = UILabel()
@@ -53,7 +54,6 @@ class FilterViewOfDropType: UIView, DropDownViewHolderProtocol {
         self.titleLabel.backgroundColor = .white
         self.titleLabel.font = UIFont.boldSystemFont(ofSize: 15)
         
-//        self.valueButton.setTitle("All", for: .normal)
         self.valueButton.setTitle(current, for: .normal)
         self.valueButton.setTitleColor(.white, for: .normal)
         self.valueButton.dropMenu.dropDownValues = values

@@ -12,6 +12,9 @@ class CookHistoryPresenter: CookHistoryInteractorOutputProtocol {
     var interactor: CookHistoryInteractorInputProtocol?
     weak var view: CookHistoryPresenterOutputProtocol?
     
+    /// Method that passes loaded recipe history models to view (sorted by id and course type)
+    ///
+    /// - Parameter models: loaded recipe models from history
     func takeHistory(_ models: [DetailedRecipeEntity]) {
         if models.count > 0 {
             var historyRecipeCellModels = Dictionary<String, [RecipeCellModel]>()
@@ -41,6 +44,9 @@ class CookHistoryPresenter: CookHistoryInteractorOutputProtocol {
         }
     }
     
+    /// Method that passes specific recipe info to view and says view to call completion
+    ///
+    /// - Parameter entity: detailed recipe info with all recipe details and image data
     func takeRecipeInfo(_ entity: DetailedRecipeEntity) {
         self.view?.callCompletion(with: entity)
     }

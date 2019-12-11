@@ -32,6 +32,11 @@ extension BuyPresenter: BuyInteractorOutputProtocol {
         self.view?.showHint()
     }
     
+    /// Method that passes ingredients summary to view and names of bought ingredients
+    ///
+    /// - Parameters:
+    ///   - summarized: ingredients summary
+    ///   - boughtLabels: names of bought ingredients
     func takeIngredients(summarized: [String: IngredientBuyModel], boughtLabels: Set<String>) {
         var activeIngredients = [IngredientBuyModel]()
         var boughtIngredients = [IngredientBuyModel]()
@@ -45,10 +50,5 @@ extension BuyPresenter: BuyInteractorOutputProtocol {
         }
         
         self.view?.setIngredients(active: activeIngredients, bought: boughtIngredients)
-//        if boughtLabels.count > 0 {
-//            for label in boughtLabels {
-//                let achieved
-//            }
-//        }
     }
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Recipe model that is used for downloading when search is active
 struct RecipeDownloadModel {
     var searchRequest: String?
     let id: Int
@@ -15,6 +16,7 @@ struct RecipeDownloadModel {
     let imagePath: String
 }
 
+/// Recipe model that contains all information about specific recipe
 struct RecipeModel {
     let id: Int
     let name: String
@@ -55,18 +57,21 @@ struct RecipeModel {
     }
 }
 
+/// Recipe model that is used as an element of tableview data source
 struct RecipeCellModel {
     let id: Int
     let name: String
     var image: UIImage?
 }
 
+/// Ingredient model that is used to store info about specific ingredient
 struct IngredientModel {
     let name: String
     var amount: Int
     let unit: String
 }
 
+/// Ingredient model that is used as an element of tableview data source (added with info about bought amount)
 struct IngredientBuyModel {
     let name: String
     var amount: Int
@@ -86,9 +91,4 @@ struct IngredientBuyModel {
         self.unit = unit
         self.amountBoughtStatus = amountBoughtStatus
     }
-}
-
-struct RecipeImage {
-    let id: Int
-    let image: UIImage
 }

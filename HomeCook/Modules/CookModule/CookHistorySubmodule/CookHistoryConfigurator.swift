@@ -14,7 +14,8 @@ class CookHistoryConfigurator: CookHistoryConfiguratorProtocol {
         let presenter = CookHistoryPresenter()
         let coreDataService = CoreDataService()
         let userDefaultsService = UserDefaultsService()
-        let interactor = CookHistoryInteractor(coreDataService: coreDataService, userDefaultsService: userDefaultsService)
+        let interactor = CookHistoryInteractor(coreDataService: coreDataService,
+                                               userDefaultsService: userDefaultsService)
         
         viewController.presenter = presenter
         presenter.interactor = interactor

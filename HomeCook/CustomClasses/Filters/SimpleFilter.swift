@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Filter that consists of two labels (title and one-line value)
 class FilterViewOfSimpleType: UIView {
     let titleLabel = UILabel()
     let valueLabel = UITextField()
