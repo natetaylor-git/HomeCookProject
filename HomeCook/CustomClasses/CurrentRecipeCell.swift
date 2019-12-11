@@ -23,9 +23,10 @@ class CurrentRecipeCell: UICollectionViewCell {
     
     var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .lightGreen
+        imageView.backgroundColor = .darkGreen
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 5.0
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
@@ -43,9 +44,8 @@ class CurrentRecipeCell: UICollectionViewCell {
         super.init(frame: frame)
         
         self.scrollView.delegate = self
-        self.scrollView.frame = CGRect(origin: CGPoint(x: 0, y: 0),
-                                       size: CGSize(width: self.bounds.width,
-                                                    height: self.bounds.height))
+        let scrollViewSize = CGSize(width: self.bounds.width, height: self.bounds.height)
+        self.scrollView.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: scrollViewSize)
     
         let scrollViewBounds = self.scrollView.bounds
         let origin = CGPoint(x: paddingX, y: 0)
@@ -53,6 +53,7 @@ class CurrentRecipeCell: UICollectionViewCell {
                           height: scrollViewBounds.height / 2)
         
         self.imageView.frame = CGRect(origin: origin, size: size)
+        
         self.scrollView.contentSize = CGSize(width: self.scrollView.frame.width,
                                              height: self.imageView.frame.height)
         self.scrollView.addSubview(self.imageView)

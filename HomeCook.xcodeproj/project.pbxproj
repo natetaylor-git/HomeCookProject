@@ -43,6 +43,7 @@
 		4348DFFD2396CC39009D69CA /* DropDownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348DFFC2396CC39009D69CA /* DropDownMenu.swift */; };
 		43BE58F8239E02D00066082B /* IngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BE58F7239E02D00066082B /* IngredientView.swift */; };
 		43BE58FA239EEC4E0066082B /* IngredientsCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BE58F9239EEC4E0066082B /* IngredientsCollection.swift */; };
+		43BE58FE23A0B9DB0066082B /* ImageScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BE58FD23A0B9DB0066082B /* ImageScale.swift */; };
 		43D1D86E239C71180059EB3D /* MainButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D1D86D239C71180059EB3D /* MainButtonView.swift */; };
 		43EF9DFE2393356500B0AAEE /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF9DFD2393356500B0AAEE /* NetworkService.swift */; };
 		43EF9E00239336C400B0AAEE /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF9DFF239336C400B0AAEE /* MainPresenter.swift */; };
@@ -115,6 +116,7 @@
 		4348DFFC2396CC39009D69CA /* DropDownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownMenu.swift; sourceTree = "<group>"; };
 		43BE58F7239E02D00066082B /* IngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientView.swift; sourceTree = "<group>"; };
 		43BE58F9239EEC4E0066082B /* IngredientsCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsCollection.swift; sourceTree = "<group>"; };
+		43BE58FD23A0B9DB0066082B /* ImageScale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScale.swift; sourceTree = "<group>"; };
 		43D1D86D239C71180059EB3D /* MainButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButtonView.swift; sourceTree = "<group>"; };
 		43EF9DFD2393356500B0AAEE /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		43EF9DFF239336C400B0AAEE /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				431A0CAD239AA3A60033B580 /* CurrentRecipeCell.swift */,
 				431F2DDE239D7C0C003C32A2 /* IngredientTableViewCell.swift */,
 				431F2DE0239D9D67003C32A2 /* BuyIngredientHeaderView.swift */,
+				43BE58FD23A0B9DB0066082B /* ImageScale.swift */,
 			);
 			path = CustomClasses;
 			sourceTree = "<group>";
@@ -464,6 +467,7 @@
 			files = (
 				4348DFF22395D60A009D69CA /* ImageButton.swift in Sources */,
 				43EF9E1B239412C900B0AAEE /* RecipeDetailsInteractor.swift in Sources */,
+				43BE58FE23A0B9DB0066082B /* ImageScale.swift in Sources */,
 				43D1D86E239C71180059EB3D /* MainButtonView.swift in Sources */,
 				4348DFFD2396CC39009D69CA /* DropDownMenu.swift in Sources */,
 				431F2DDF239D7C0C003C32A2 /* IngredientTableViewCell.swift in Sources */,

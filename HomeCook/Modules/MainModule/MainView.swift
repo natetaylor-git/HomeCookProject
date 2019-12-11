@@ -23,8 +23,8 @@ class MainViewController: UIViewController {
                                     name: "Cook",
                                     image: UIImage(named: "CookIcon"))
     
-    let bottomPicture = UIImageView(frame: .zero)
-    var pictureHeight: CGFloat = 100
+//    let bottomPicture = UIImageView(frame: .zero)
+//    var pictureHeight: CGFloat = 100
     
     var clickedOnSearchButton: (() -> Void)?
     var clickedOnBuyButton: (() -> Void)?
@@ -57,10 +57,10 @@ class MainViewController: UIViewController {
     func setupUI() {
         self.navigationItem.title = "Main"
         self.view.backgroundColor = .darkGreen
-        self.bottomPicture.image = UIImage(named: "MainPicture")
+//        self.bottomPicture.image = UIImage(named: "MainPicture")
         
         layoutButtons()
-        layoutBackgrounImage()
+        layoutBackgroundImage()
     }
 
     func layoutButtons() {
@@ -89,17 +89,17 @@ class MainViewController: UIViewController {
             
             self.view.addSubview(button)
         }
-        self.pictureHeight = (self.view.frame.height - self.cookButton.frame.maxY) / 2
+//        self.pictureHeight = (self.view.frame.height - self.cookButton.frame.maxY) / 2
     }
     
-    func layoutBottomPicture() {
-        let origin = CGPoint(x: 0, y: self.view.frame.height - self.pictureHeight)
-        let size = CGSize(width: self.view.bounds.width, height: self.pictureHeight)
-        self.bottomPicture.frame = CGRect(origin: origin, size: size)
-        self.view.addSubview(bottomPicture)
-    }
+//    func layoutBottomPicture() {
+//        let origin = CGPoint(x: 0, y: self.view.frame.height - self.pictureHeight)
+//        let size = CGSize(width: self.view.bounds.width, height: self.pictureHeight)
+//        self.bottomPicture.frame = CGRect(origin: origin, size: size)
+//        self.view.addSubview(bottomPicture)
+//    }
     
-    func layoutBackgrounImage() {
+    func layoutBackgroundImage() {
         guard let image = UIImage(named: "MainBackground") else {
             return
         }

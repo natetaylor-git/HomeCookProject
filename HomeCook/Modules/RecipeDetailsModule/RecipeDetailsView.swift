@@ -19,7 +19,7 @@ class RecipeDetailsViewController: UIViewController {
     
     let imageView: UIImageView = {
         let imageView = UIImageView(frame: .zero)
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -71,6 +71,21 @@ class RecipeDetailsViewController: UIViewController {
                                        size: CGSize(width: self.view.frame.width,
                                                     height: self.view.frame.maxY))
     }
+    
+//    func findFitAspectInRect(_ rect: CGRect, actualSize: CGSize) -> CGRect {
+//        let scale: CGFloat
+//        if actualSize.width >= actualSize.height {
+//            scale = rect.width / actualSize.width
+//        } else {
+//            scale = rect.height / actualSize.height
+//        }
+//
+//        let size = CGSize(width: actualSize.width * scale, height: actualSize.height * scale)
+//        let x = (rect.width - size.width) / 2.0
+//        let y = (rect.height - size.height) / 2.0
+//
+//        return CGRect(x: x, y: y, width: size.width, height: size.height)
+//    }
 }
 
 extension RecipeDetailsViewController: UIScrollViewDelegate {
@@ -79,15 +94,20 @@ extension RecipeDetailsViewController: UIScrollViewDelegate {
 
 extension RecipeDetailsViewController: RecipeDetailsPresenterOutputProtocol {
     func setupImageView(with image: UIImage) {
+        self.imageView.image = image
         let scrollViewBounds = self.scrollView.bounds
         let origin = CGPoint(x: paddingX, y: scrollViewBounds.origin.y)
         let size = CGSize(width: scrollViewBounds.width - 2 * paddingX,
                           height: scrollViewBounds.height / 2)
         self.imageView.frame = CGRect(origin: origin, size: size)
+        
+        let newFrame = self.imageView.findFitAspectInRect(self.imageView.frame)
+        let newOrigin = CGPoint(x: paddingX + newFrame.minX, y: scrollViewBounds.origin.y)
+        self.imageView.frame = CGRect(origin: newOrigin, size: newFrame.size)
+        
         self.imageView.layer.masksToBounds = true
         self.imageView.layer.cornerRadius = 5.0
         self.imageView.backgroundColor = .blue
-        self.imageView.image = image
         
         self.scrollView.contentSize = CGSize(width: self.scrollView.frame.width,
                                              height: self.scrollView.contentSize.height + self.imageView.frame.height)
@@ -95,10 +115,13 @@ extension RecipeDetailsViewController: RecipeDetailsPresenterOutputProtocol {
     }
     
     func setupDetailsViews(with infoDetails: [(name: String, value: String)]) {
-        let imageViewFrame = self.imageView.frame
-        let labelWidth = imageViewFrame.width
+//        let imageViewFrame = self.imageView.frame
+//        let labelWidth = imageViewFrame.width
+//
+//        var lastLabelMaxY = imageViewFrame.maxY
+        let labelWidth = self.scrollView.bounds.width - 2 * paddingX
         
-        var lastLabelMaxY = imageViewFrame.maxY
+        var lastLabelMaxY = self.imageView.frame.maxY
         for detail in infoDetails {
             let origin = CGPoint(x: self.paddingX, y: lastLabelMaxY + paddingY)
             let size = CGSize(width: labelWidth, height: labelHeight)
@@ -122,7 +145,7 @@ extension RecipeDetailsViewController: RecipeDetailsPresenterOutputProtocol {
         var lastIngredientMaxY: CGFloat = baseHeight
         for ingredient in info {
             let origin = CGPoint(x: 0, y: lastIngredientMaxY)
-            let size = CGSize(width: self.imageView.frame.width, height: 10)
+            let size = CGSize(width: self.scrollView.frame.width - 2 * paddingX, height: 10)
             let ingredientView = IngredientView(frame: .zero)
             let stringAmount = String(ingredient.amount)
             ingredientView.setup(frame: CGRect(origin: origin, size: size),
@@ -133,7 +156,7 @@ extension RecipeDetailsViewController: RecipeDetailsPresenterOutputProtocol {
             
             let lineWidth: CGFloat = 1
             let start = CGPoint(x: self.paddingX, y: ingredientView.bounds.minY + lineWidth)
-            let end = CGPoint(x: self.view.frame.width - self.paddingX, y: start.y)
+            let end = CGPoint(x: self.scrollView.frame.width - self.paddingX, y: start.y)
             drawDashedLine(view: ingredientView, color: .darkGreen, width: 1, start: start, end: end)
             
             lastIngredientMaxY = ingredientView.frame.maxY
