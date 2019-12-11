@@ -42,7 +42,7 @@ class RecipesCollection {
     
     public subscript(index: Int) -> RecipeModel {
         get {
-            var item = RecipeModel(RecipeDownloadModel(searchRequest: nil, id: -1, name: "", imagePath: "", course: "", cousine: "", readyTimeMin: 0, instructions: "", ingredients: []))
+            var item = RecipeModel()
             self.queue.sync {
                 item = self.collection[index]
             }

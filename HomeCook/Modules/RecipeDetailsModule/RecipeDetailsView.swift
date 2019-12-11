@@ -130,6 +130,12 @@ extension RecipeDetailsViewController: RecipeDetailsPresenterOutputProtocol {
                                  amount: stringAmount,
                                  unit: ingredient.unit)
             ingredientView.changeLayout()
+            
+            let lineWidth: CGFloat = 1
+            let start = CGPoint(x: self.paddingX, y: ingredientView.bounds.minY + lineWidth)
+            let end = CGPoint(x: self.view.frame.width - self.paddingX, y: start.y)
+            drawDashedLine(view: ingredientView, color: .darkGreen, width: 1, start: start, end: end)
+            
             lastIngredientMaxY = ingredientView.frame.maxY
             self.scrollView.addSubview(ingredientView)
         }
@@ -161,6 +167,18 @@ extension RecipeDetailsViewController: RecipeDetailsPresenterOutputProtocol {
         
         self.scrollView.contentSize = CGSize(width: self.scrollView.frame.width,
                                              height: lastIngredientMaxY)
+    }
+    
+    func drawDashedLine(view: UIView, color: UIColor, width: CGFloat, start: CGPoint, end: CGPoint) {
+        let lineShapeLayer = CAShapeLayer()
+        lineShapeLayer.strokeColor = UIColor.lightGray.cgColor
+        lineShapeLayer.lineWidth = 1
+        lineShapeLayer.lineDashPattern = [3, 3]
+        
+        let path = CGMutablePath()
+        path.addLines(between: [start, end])
+        lineShapeLayer.path = path
+        view.layer.addSublayer(lineShapeLayer)
     }
     
     func activateUIElementsForEntityExistance() {

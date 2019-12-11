@@ -216,7 +216,7 @@ class SearchInteractor: SearchInteractorInputProtocol {
                 let id = Int(stringId) ?? 0
                 let imageRelativePath = object["image"] as? String ?? ""
                 let name = object["name"] as? String ?? ""
-                return RecipeDownloadModel(searchRequest: searchRequest, id: id, name: name, imagePath: imageRelativePath, course: "", cousine: "", readyTimeMin: 0, instructions: "", ingredients: [])
+                return RecipeDownloadModel(searchRequest: searchRequest, id: id, name: name, imagePath: imageRelativePath)
             }
             
             self.newSearch = !sameSearch
