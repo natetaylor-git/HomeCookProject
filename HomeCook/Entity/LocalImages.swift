@@ -8,18 +8,18 @@
 
 import UIKit
 
-class LocalImagesCollection {
-    static var shared: LocalImagesCollection = {
-        let localImages = LocalImagesCollection()
-        return localImages
-    }()
-    
-    var imagesDict: [Int: UIImage]
-    
-    private init() {
-        self.imagesDict = [Int: UIImage]()
-    }
-}
+//class LocalImagesCollection {
+//    static var shared: LocalImagesCollection = {
+//        let localImages = LocalImagesCollection()
+//        return localImages
+//    }()
+//    
+//    var imagesDict: [Int: UIImage]
+//    
+//    private init() {
+//        self.imagesDict = [Int: UIImage]()
+//    }
+//}
 
 class ImagesCollection {
     var imagesDict: [Int: Data]

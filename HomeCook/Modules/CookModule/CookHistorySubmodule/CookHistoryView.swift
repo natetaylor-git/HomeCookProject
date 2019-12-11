@@ -64,7 +64,6 @@ class CookHistoryViewController: UIViewController {
         self.indicator.transform = CGAffineTransform(scaleX: self.indicatorScale,
                                                      y: self.indicatorScale)
     }
-    
 }
 
 extension CookHistoryViewController: CookHistoryPresenterOutputProtocol {
@@ -128,19 +127,10 @@ extension CookHistoryViewController: UITableViewDataSource, UITableViewDelegate 
                                                  height: .greatestFiniteMagnitude))
         textLabel.frame = CGRect(origin: .zero, size: CGSize(width: desiredWidth,
                                                              height: size.height))
-//        textLabel.layer.borderColor = UIColor.black.cgColor
-//        textLabel.layer.borderWidth = 1.0
-//        textLabel.backgroundColor = .darkGreen
-//        textLabel.textColor = .white
         textLabel.backgroundColor = .white
         textLabel.textColor = .black
         drawBottomLine(for: textLabel)
         return textLabel
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        self.presenter?.clickedOnCell(at: indexPath)
-//        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 

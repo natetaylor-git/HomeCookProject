@@ -27,26 +27,18 @@ class CookCurrentViewController: UIViewController {
         let pageControl = UIPageControl()
         pageControl.currentPage = 0
         pageControl.hidesForSinglePage = true
-        pageControl.backgroundColor = .black
-        pageControl.pageIndicatorTintColor = .white
-        pageControl.currentPageIndicatorTintColor = .lightGreen
+        pageControl.backgroundColor = .groupTableViewBackground
+        pageControl.pageIndicatorTintColor = .black
+        pageControl.currentPageIndicatorTintColor = .darkGreen
         pageControl.isUserInteractionEnabled = false
         return pageControl
     }()
     
-//    let recipeNumberLabel: UILabel = {
-//        let label = UILabel()
-//        label.font = UIFont.boldSystemFont(ofSize: 16)
-//        label.textColor = .blue
-//        return label
-//    }()
-    
     var pages = [(id: Int, name: String, image: UIImage, instructions: String)]()
     let insetX: CGFloat = 0
     let insetY: CGFloat = 0
-    let pageControlHeight: CGFloat = 10
+    let pageControlHeight: CGFloat = 15
     let pageControlWidthMargin: CGFloat = 2
-    let recipeNumberLabelHeight: CGFloat = 30
     var lastPageNumber: Int = 0
     
     var doneButton: UIBarButtonItem?

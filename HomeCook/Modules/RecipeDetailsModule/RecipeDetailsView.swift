@@ -150,6 +150,7 @@ extension RecipeDetailsViewController: RecipeDetailsPresenterOutputProtocol {
             let leftSize = CGSize(width: leftWidth, height: newValueLabel.frame.height)
             leftLabel.frame = CGRect(origin: .zero, size: leftSize)
             leftLabel.text = "Name:"
+            leftLabel.textColor = .darkGray
             
             let rightLabel = UILabel()
             let rightOrigin = CGPoint(x: leftLabel.frame.maxX, y: 0)
@@ -158,6 +159,7 @@ extension RecipeDetailsViewController: RecipeDetailsPresenterOutputProtocol {
             rightLabel.frame = CGRect(origin: rightOrigin, size: rightSize)
             rightLabel.text = "Amount:"
             rightLabel.textAlignment = .left
+            rightLabel.textColor = .darkGray
             
             newValueLabel.addSubview(leftLabel)
             newValueLabel.addSubview(rightLabel)
