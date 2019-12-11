@@ -27,14 +27,21 @@ class SearchPresenter: SearchInteractorOutputProtocol {
     }
     
     func setImage(for recipeId: Int, with data: Data?) {
-        guard let data = data, let image = UIImage(data: data) else {
-            return
+        var imageToSet: UIImage
+        if let data = data, let image = UIImage(data: data) {
+            imageToSet = image
+        } else {
+            if let emptyImage = UIImage(named: "Empty") {
+                imageToSet = emptyImage
+            } else {
+                return
+            }
         }
         
         let indexPath = IndexPath(row: recipeId, section: 0)
         
         DispatchQueue.main.async {
-            self.view?.updateResult(at: indexPath, with: image)
+            self.view?.updateResult(at: indexPath, with: imageToSet)
         }
     }
     

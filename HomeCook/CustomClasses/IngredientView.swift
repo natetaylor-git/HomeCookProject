@@ -19,8 +19,9 @@ class IngredientView: UIView {
     let amountAndUnitFont = UIFont.systemFont(ofSize: 14)
     let paddingX: CGFloat = 5
     let paddingY: CGFloat = 5
-    let paddingBetweenX: CGFloat = 2
+    let paddingBetweenX: CGFloat = 0
     let paddingBetweenY: CGFloat = 0
+    static let ratio: CGFloat = 4/7
     
     override init(frame: CGRect) {
         let amountWidth = self.maxAmount.size(withAttributes: [NSAttributedString.Key.font: self.amountAndUnitFont])
@@ -54,9 +55,8 @@ class IngredientView: UIView {
     }
     
     func changeLayout() {
-        let ratio: CGFloat = 4/7
         let contentWidth = self.bounds.width - paddingX
-        let nameWidth = contentWidth * ratio
+        let nameWidth = contentWidth * IngredientView.ratio
         let featureWidth = contentWidth - nameWidth - paddingBetweenX
         
         let amountOrigin = CGPoint(x: self.bounds.width - featureWidth + paddingX, y: paddingY)

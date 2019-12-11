@@ -11,7 +11,7 @@ import UIKit
 class RecipeDetailView: UIView {
     let headerLabel = UILabel()
     let nameLabel = UILabel()
-    let valueLabel = UILabel()
+    var valueLabel = UILabel()
     let headerHeight: CGFloat = 15
     let betweenPadding: CGFloat = 10
     
@@ -52,7 +52,9 @@ class RecipeDetailView: UIView {
     
     func setupValueLabel(value: String) {
         if self.nameLabel.text == "Ingredients" {
-            self.valueLabel.frame = .zero
+            let origin = CGPoint(x: 0, y: nameLabel.frame.maxY + betweenPadding)
+            let size = CGSize(width: self.frame.width, height: self.nameLabel.frame.height)
+            self.valueLabel.frame = CGRect(origin: origin, size: size)
             return
         }
         

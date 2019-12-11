@@ -31,6 +31,8 @@ class RecipeDetailsViewController: UIViewController {
     var infoDetailsViews = [RecipeDetailView]()
     
     let paddingX: CGFloat = 5
+    let paddingY: CGFloat = 10
+    let labelHeight: CGFloat = 100
     var buyButtonActive = false
     
     override func viewDidLoad() {
@@ -93,10 +95,8 @@ extension RecipeDetailsViewController: RecipeDetailsPresenterOutputProtocol {
     }
     
     func setupDetailsViews(with infoDetails: [(name: String, value: String)]) {
-        let paddingY: CGFloat = 10
         let imageViewFrame = self.imageView.frame
         let labelWidth = imageViewFrame.width
-        let labelHeight: CGFloat = 100
         
         var lastLabelMaxY = imageViewFrame.maxY
         for detail in infoDetails {
@@ -121,7 +121,7 @@ extension RecipeDetailsViewController: RecipeDetailsPresenterOutputProtocol {
         let baseHeight = self.infoDetailsViews.last?.frame.maxY ?? 0
         var lastIngredientMaxY: CGFloat = baseHeight
         for ingredient in info {
-            let origin = CGPoint(x: self.paddingX, y: lastIngredientMaxY)
+            let origin = CGPoint(x: 0, y: lastIngredientMaxY)
             let size = CGSize(width: self.imageView.frame.width, height: 10)
             let ingredientView = IngredientView(frame: .zero)
             let stringAmount = String(ingredient.amount)
@@ -132,6 +132,31 @@ extension RecipeDetailsViewController: RecipeDetailsPresenterOutputProtocol {
             ingredientView.changeLayout()
             lastIngredientMaxY = ingredientView.frame.maxY
             self.scrollView.addSubview(ingredientView)
+        }
+        
+        if let header = self.infoDetailsViews.last {
+            let ratio = IngredientView.ratio
+            let frame = header.valueLabel.frame
+            let newValueLabel = UILabel(frame: frame)
+            
+            let leftLabel = UILabel()
+            let leftWidth = ratio * newValueLabel.frame.width
+            let leftSize = CGSize(width: leftWidth, height: newValueLabel.frame.height)
+            leftLabel.frame = CGRect(origin: .zero, size: leftSize)
+            leftLabel.text = "Name:"
+            
+            let rightLabel = UILabel()
+            let rightOrigin = CGPoint(x: leftLabel.frame.maxX, y: 0)
+            let rightSize = CGSize(width: newValueLabel.frame.width - leftWidth,
+                                   height: leftSize.height)
+            rightLabel.frame = CGRect(origin: rightOrigin, size: rightSize)
+            rightLabel.text = "Amount:"
+            rightLabel.textAlignment = .left
+            
+            newValueLabel.addSubview(leftLabel)
+            newValueLabel.addSubview(rightLabel)
+            header.valueLabel.removeFromSuperview()
+            header.addSubview(newValueLabel)
         }
         
         self.scrollView.contentSize = CGSize(width: self.scrollView.frame.width,

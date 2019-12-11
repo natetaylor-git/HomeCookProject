@@ -26,7 +26,7 @@ class RecipeDetailsPresenter: RecipeDetailsInteractorOutputProtocol {
                            (name: "Cuisine", value: recipeInfo.cousine),
                            (name: "Time in minutes", value: stringMinutes),
                            (name: "Instructions", value: recipeInfo.instructions),
-                           (name: "Ingredients", value: "Name Details")]
+                           (name: "Ingredients", value: "List:")]
         
         self.view?.setupDetailsViews(with: infoForView)
         self.view?.setupIngredientsView(with: recipeInfo.ingredients)
