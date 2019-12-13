@@ -22,10 +22,9 @@ class MainInteractor: MainInteractorInputProtocol {
         self.userDefaultsService = userDefaultsService
         self.localRecipesCollection = localRecipesCollection
         
-        self.coreDataService.deleteAllRecipes(completion: {lol in })
-        self.userDefaultsService.resetAllCustomKeys()
-        self.userDefaultsService.setHintStatusToNeeded()
-        
+//        self.coreDataService.deleteAllRecipes(completion: {lol in })
+//        self.userDefaultsService.resetAllCustomKeys()
+//        self.userDefaultsService.setHintStatusToNeeded()
     }
 
     /// Method that loads last chosen recipes by ids saved at UserDefaults
@@ -45,8 +44,5 @@ class MainInteractor: MainInteractorInputProtocol {
             let summary = ingredientsCollection.getCurrentIngredientsSummary(localRecipesCollection: self.localRecipesCollection)
             ingredientsCollection.summary = summary
         })
-        
-//        UserDefaults.standard.removeObject(forKey: userDefaultsService.boughtIngredientsKey)
-//        self.userDefaultsService.setHintStatusToNeeded()
     }
 }
