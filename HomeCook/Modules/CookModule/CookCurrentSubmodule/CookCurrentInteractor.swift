@@ -43,26 +43,40 @@ class CookCurrentInteractor: CookCurrentInteractorInputProtocol {
         }
     }
     
-    /// Method that deletes cooked recipes from current recipes (local storage)
+    /// Method that deletes cooked recipes from current recipes (local storage) and buylist if it is not empty
     ///
     /// - Parameter id: recipe id
     func deleteRecipeFromLocalStorage(id: Int) {
-        let cookedRecipe = self.localRecipesCollection.localRecipes.dict.removeValue(forKey: id)
+        guard let cookedRecipe = self.localRecipesCollection.localRecipes.dict.removeValue(forKey: id) else {
+            print("try to delete recipe that doesnt exist in local storage")
+            return
+        }
+
+        let boughtKey = self.userDefaultsService.boughtIngredientsKey
+        var labels: Set<String> = self.userDefaultsService.getSet(key: boughtKey) ?? Set()
+        if labels.count > 0 {
+            for ingredient in cookedRecipe.recipe.ingredients {
+                labels.remove(ingredient.name)
+            }
+
+            if self.userDefaultsService.saveSet(set: labels, key: boughtKey) == false {
+                print("can't save bought labels")
+            }
+        }
         self.localRecipesCollection.localRecipes.updateUserDefaults()
-        if let recipeForHistory = cookedRecipe {
-            self.coreDataService.saveRecipes([id: recipeForHistory])
-            self.historyRecipesIds.insert(id)
-            
-            let userDefaultsHistoryKey = self.userDefaultsService.historyKey
-            let existedHistory: Set<Int>? = self.userDefaultsService.getSet(key: userDefaultsHistoryKey)
-            
-            if let existedHistory = existedHistory {
-                self.historyRecipesIds = self.historyRecipesIds.union(existedHistory)
-            }
-            
-            if self.userDefaultsService.saveSet(set: self.historyRecipesIds, key: userDefaultsHistoryKey) == false {
-                print("can't write history recipes id")
-            }
+        
+        self.coreDataService.saveRecipes([id: cookedRecipe])
+        self.historyRecipesIds.insert(id)
+        
+        let userDefaultsHistoryKey = self.userDefaultsService.historyKey
+        let existedHistory: Set<Int>? = self.userDefaultsService.getSet(key: userDefaultsHistoryKey)
+        
+        if let existedHistory = existedHistory {
+            self.historyRecipesIds = self.historyRecipesIds.union(existedHistory)
+        }
+        
+        if self.userDefaultsService.saveSet(set: self.historyRecipesIds, key: userDefaultsHistoryKey) == false {
+            print("can't write history recipes id")
         }
         
         checkIfLocalRecipesUpdated()
