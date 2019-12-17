@@ -56,6 +56,9 @@ class IngredientView: UIView {
     }
     
     func changeLayout() {
+        if self.frame.size.height < 1 {
+            return
+        }
         let contentWidth = self.bounds.width - paddingX
         let nameWidth = contentWidth * IngredientView.ratio
         let featureWidth = contentWidth - nameWidth - paddingBetweenX
